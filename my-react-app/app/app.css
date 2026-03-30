@@ -1,15 +1,60 @@
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+:root {
+  --primaryBackgroundColor: #0b1326;
+  --primaryColor: #c0c1ff;
+  --primaryFontFamily: "Inter";
+  --outlinedColor: #171f33;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
+  background-color: var(--primaryBackgroundColor);
+}
+html .circle,
+body .circle {
+  width: 50svw;
+  height: 50svw;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  border-radius: 50%;
+  background: radial-gradient(rgba(255, 255, 255, 0.13), var(--primaryBackgroundColor), var(--primaryBackgroundColor) 100%);
+}
+html .leftCircle,
+body .leftCircle {
+  left: -20%;
+}
+html .rightCircle,
+body .rightCircle {
+  right: -20%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+html .contentWrapper,
+body .contentWrapper {
+  position: relative;
+  z-index: 2;
+}
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
     color-scheme: dark;
   }
 }
+
+button {
+  cursor: pointer;
+}
+
+input,
+p,
+h1 {
+  font-family: var(--primaryFontFamily);
+}/*# sourceMappingURL=app.css.map */

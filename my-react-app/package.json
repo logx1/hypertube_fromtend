@@ -1,5 +1,5 @@
 {
-  "name": "my-react-app",
+  "name": "hypertube",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,7 +14,8 @@
     "isbot": "^5.1.36",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-router": "7.13.2"
+    "react-router": "7.13.2",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@react-router/dev": "7.13.2",

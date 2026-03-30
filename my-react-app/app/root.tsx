@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import type { Route } from "../.react-router/types/types/app/+types/root";
+import type { Route } from "./+types/root";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -33,7 +33,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className={`circle leftCircle`}></div>
+        <div className="circle rightCircle"></div>
+        <div className={`contentWrapper`}>{children}</div>
         <ScrollRestoration />
         <Scripts />
       </body>
