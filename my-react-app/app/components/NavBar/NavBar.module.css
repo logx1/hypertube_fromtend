@@ -3,7 +3,7 @@
   position: sticky;
   top: 0;
   padding: 20px;
-  background-color: var(--outlinedColor);
+  background-color: var(--primaryBackgroundColor);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -11,14 +11,80 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   z-index: 4;
+  border-bottom: 1px solid var(--primaryColor);
 }
 
 .navBar .leftSide {
   width: 33%;
+  letter-spacing: 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navBar .leftSide p {
   font-size: 25px;
   font-weight: 800;
-  letter-spacing: 1px;
+  color: #6366f1;
+}
+
+.navBar .leftSide .navigationList {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+}
+
+.navBar .leftSide .navigationList li a {
+  color: #545f73;
+  text-decoration: none;
+  position: relative;
+  -webkit-transition: color 100ms linear;
+  transition: color 100ms linear;
+}
+
+.navBar .leftSide .navigationList li a:hover {
   color: var(--primaryColor);
+}
+
+.navBar .leftSide .navigationList li a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  height: 2px;
+  bottom: -5px;
+  background-color: #6366f1;
+}
+
+.navBar .leftSide .navigationList li a:hover::before {
+  color: var(--primaryColor);
+  -webkit-animation: expandWidth 100ms linear forwards;
+          animation: expandWidth 100ms linear forwards;
+}
+
+.navBar .leftSide .navigationList li .selectedTab {
+  color: var(--primaryColor);
+}
+
+.navBar .leftSide .navigationList li .selectedTab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  bottom: -5px;
+  background-color: #6366f1;
 }
 
 .navBar .center {
@@ -26,7 +92,39 @@
 }
 
 .navBar .rightSide {
-  height: 10px;
   width: 33%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.navBar .rightSide .navBarImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+@-webkit-keyframes expandWidth {
+  from {
+    right: 100%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes expandWidth {
+  from {
+    right: 100%;
+  }
+  to {
+    right: 0;
+  }
 }
 /*# sourceMappingURL=NavBar.module.css.map */

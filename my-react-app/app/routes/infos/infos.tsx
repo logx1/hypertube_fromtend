@@ -146,6 +146,8 @@ export default function Infos() {
           type="password"
           width="100%"
           placeHolder="Search for what you want"
+          value=""
+          onChange={(e) => {}}
           leftIcon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -195,7 +197,9 @@ export default function Infos() {
             leftIcon: any;
             leftIconClick?: null | (() => void);
             rightIcon?: any;
-            rightIconCLick?: null | (() => void);}`,
+            rightIconCLick?: null | (() => void);
+            value: string;
+            onChange: (e: any) => void;}`,
       interfaceDescription: [
         {
           name: "width (required)",
@@ -224,6 +228,12 @@ export default function Infos() {
           name: "rightIconCLick (not required)",
           description:
             "The function you want to execute if the user clicked on the right icon",
+        },
+        { name: "value (required)", description: "The value of the input" },
+        {
+          name: "onChange (required)",
+          description:
+            "The function you want to execute when user type something",
         },
       ],
     },
