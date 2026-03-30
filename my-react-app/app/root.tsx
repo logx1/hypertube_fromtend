@@ -9,6 +9,8 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import NavBar from "./components/NavBar/NavBar";
+import LeftNavBar from "./components/LeftNavBar/LeftNavBar";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,9 +35,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div className={`circle leftCircle`}></div>
-        <div className="circle rightCircle"></div>
-        <div className={`contentWrapper`}>{children}</div>
+        <NavBar />
+        <div className="appContainer">
+          <LeftNavBar />
+          <div className={`contentContainer`}>
+            {/* <div className="circle leftCircle"></div>
+            <div className="circle rightCircle"></div> */}
+            <div className="contentWrapper">{children}</div>
+          </div>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>

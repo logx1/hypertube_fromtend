@@ -1,1 +1,32 @@
-/* No CSS *//*# sourceMappingURL=NavBar.module.css.map */
+.navBar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 20px;
+  background-color: var(--outlinedColor);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  z-index: 4;
+}
+
+.navBar .leftSide {
+  width: 33%;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--primaryColor);
+}
+
+.navBar .center {
+  width: 33%;
+}
+
+.navBar .rightSide {
+  height: 10px;
+  width: 33%;
+}
+/*# sourceMappingURL=NavBar.module.css.map */

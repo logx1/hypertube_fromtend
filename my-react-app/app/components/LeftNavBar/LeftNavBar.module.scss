@@ -1,0 +1,10 @@
+.leftNavBar {
+  background-color: var(--outlinedColor);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100svh - 70px);
+  top: 70px;
+  position: sticky;
+  z-index: 2;
+}

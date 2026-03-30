@@ -1,11 +1,13 @@
+import styles from "./NavBar.module.css";
+
 const NavBar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <h1>Hi</h1>
-        </li>
-      </ul>
+    <nav className={styles.navBar}>
+      <div className={styles.leftSide}>
+        <p>HyperTube</p>
+      </div>
+      <div className={styles.center}></div>
+      <div className={styles.rightSide}></div>
     </nav>
   );
 };

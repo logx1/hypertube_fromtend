@@ -102,7 +102,7 @@ const CompDisplayer = ({
 
 export default function Infos() {
   const [selectedElement, setSelectedElement] = useState<ComponentInfos | null>(
-    null,
+    null
   );
 
   const closeElement = () => {

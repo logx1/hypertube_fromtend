@@ -18,8 +18,9 @@ body {
   background-color: var(--primaryBackgroundColor);
 
   .circle {
-    width: calc(100svw / 2);
-    height: calc(100svw / 2);
+    width: calc((200svh - 250px) / 2);
+
+    height: calc((200svh - 250px) / 2);
     // border: 1px solid red;
     // background-color: white;
     position: fixed;
@@ -33,18 +34,33 @@ body {
       var(--primaryBackgroundColor) 100%
     );
   }
+
+  .appContainer {
+    // border: 1px solid blue;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    // z-index:;
+  }
+
   .leftCircle {
-    left: -20%;
+    left: -10%;
   }
   .rightCircle {
     right: -20%;
     top: 50%;
     transform: translateY(-50%);
   }
-  .contentWrapper {
+  .contentContainer {
     position: relative;
-    z-index: 2;
+    // border: 1px solid red;
+    // overflow: hidden;
+    // z-index: ;
     // display: none;
+    .contentWrapper {
+      position: relative;
+      padding: 30px;
+      z-index: 3;
+    }
   }
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;

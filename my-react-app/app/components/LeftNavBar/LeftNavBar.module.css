@@ -1,0 +1,19 @@
+.leftNavBar {
+  background-color: var(--outlinedColor);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: calc(100svh - 70px);
+  top: 70px;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 2;
+}
+/*# sourceMappingURL=LeftNavBar.module.css.map */

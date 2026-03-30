@@ -1,0 +1,29 @@
+.navBar {
+  //   border: 1px solid red;
+  position: sticky;
+  top: 0;
+  padding: 20px;
+  background-color: var(--outlinedColor);
+  display: flex;
+  justify-content: space-between;
+  // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 4;
+  .leftSide {
+    // background-color: white;
+    width: 33%;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--primaryColor);
+    // height: 10px;
+  }
+  .center {
+    // background-color: orange;
+    width: 33%;
+  }
+  .rightSide {
+    // background-color: green;
+    height: 10px;
+    width: 33%;
+  }
+}

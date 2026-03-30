@@ -20,8 +20,8 @@ body {
 
 html .circle,
 body .circle {
-  width: calc(100svw / 2);
-  height: calc(100svw / 2);
+  width: calc((200svh - 250px) / 2);
+  height: calc((200svh - 250px) / 2);
   position: fixed;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -31,9 +31,17 @@ body .circle {
   background: radial-gradient(rgba(255, 255, 255, 0.13), var(--primaryBackgroundColor), var(--primaryBackgroundColor) 100%);
 }
 
+html .appContainer,
+body .appContainer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 250px 1fr;
+      grid-template-columns: 250px 1fr;
+}
+
 html .leftCircle,
 body .leftCircle {
-  left: -20%;
+  left: -10%;
 }
 
 html .rightCircle,
@@ -44,10 +52,16 @@ body .rightCircle {
           transform: translateY(-50%);
 }
 
-html .contentWrapper,
-body .contentWrapper {
+html .contentContainer,
+body .contentContainer {
   position: relative;
-  z-index: 2;
+}
+
+html .contentContainer .contentWrapper,
+body .contentContainer .contentWrapper {
+  position: relative;
+  padding: 30px;
+  z-index: 3;
 }
 
 @media (prefers-color-scheme: dark) {
