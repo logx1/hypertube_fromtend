@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "NavBar.module.sass"
+    ],
+    "names": [],
+    "file": "NavBar.module.css"
+}

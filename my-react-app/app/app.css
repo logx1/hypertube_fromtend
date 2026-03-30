@@ -2,7 +2,8 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 :root {
@@ -16,32 +17,39 @@ html,
 body {
   background-color: var(--primaryBackgroundColor);
 }
+
 html .circle,
 body .circle {
-  width: 50svw;
-  height: 50svw;
+  width: calc(100svw / 2);
+  height: calc(100svw / 2);
   position: fixed;
   top: 50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
   z-index: 1;
   border-radius: 50%;
   background: radial-gradient(rgba(255, 255, 255, 0.13), var(--primaryBackgroundColor), var(--primaryBackgroundColor) 100%);
 }
+
 html .leftCircle,
 body .leftCircle {
   left: -20%;
 }
+
 html .rightCircle,
 body .rightCircle {
   right: -20%;
   top: 50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
+
 html .contentWrapper,
 body .contentWrapper {
   position: relative;
   z-index: 2;
 }
+
 @media (prefers-color-scheme: dark) {
   html,
   body {
@@ -57,4 +65,5 @@ input,
 p,
 h1 {
   font-family: var(--primaryFontFamily);
-}/*# sourceMappingURL=app.css.map */
+}
+/*# sourceMappingURL=app.css.map */

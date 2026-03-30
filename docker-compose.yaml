@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./my-react-app:/app
-      - /app/node_modules
+      # - /app/node_modules
     ports:
       - "3000:3000"
     command: sh -c "npm install && npm run dev"

@@ -5,15 +5,19 @@
   font-family: var(--primaryFontFamily);
   font-weight: 600;
   border-radius: 5px;
+  -webkit-transition: 100ms;
   transition: 100ms;
   background: #e0e0ff;
-  background: linear-gradient(170deg, rgb(224, 224, 255) 0%, rgb(192, 193, 255) 50%, rgb(134, 137, 255) 100%);
+  background: linear-gradient(170deg, #e0e0ff 0%, #c0c1ff 50%, #8689ff 100%);
 }
 
 .primaryButton:hover {
-  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .primaryButton:active {
-  transform: scale(0.95);
-}/*# sourceMappingURL=PrimaryButton.module.css.map */
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+/*# sourceMappingURL=PrimaryButton.module.css.map */
