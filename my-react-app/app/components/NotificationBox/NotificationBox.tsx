@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./NotificationBox.module.css";
 import { useContext } from "react";
 import NotificationContext from "~/context/Notification/NotificationContext";
@@ -9,7 +8,7 @@ export interface Notifications {
   notificationType: "success" | "error";
 }
 
-function SuccessFeedBack({
+export function SuccessFeedBack({
   notificationMsg,
   notificationId,
 }: {
@@ -71,7 +70,11 @@ function SuccessFeedBack({
   );
 }
 
-function ErrorFeedBack({ notificationMsg }: { notificationMsg: string }) {
+export function ErrorFeedBack({
+  notificationMsg,
+}: {
+  notificationMsg: string;
+}) {
   return (
     <div
       className={

@@ -5,6 +5,7 @@ import PrimaryButton from "~/components/Button/PrimaryButton";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import PrimaryInput from "../../components/Input/PrimaryInput";
+import { SuccessFeedBack } from "~/components/NotificationBox/NotificationBox";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -236,6 +237,16 @@ export default function Infos() {
             "The function you want to execute when user type something",
         },
       ],
+    },
+    {
+      name: "Feedback notification",
+      path: "/app/components/NotificationBox/NotificationBox.tsx",
+      component: (
+        <SuccessFeedBack notificationMsg="hello world" notificationId="1" />
+      ),
+      declaration: `<SuccessFeedBack notificationMsg="hello world" notificationId="1" />`,
+      interface: ``,
+      interfaceDescription: [],
     },
   ];
 
