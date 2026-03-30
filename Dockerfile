@@ -1,16 +1,10 @@
 FROM node:20
 
+WORKDIR /app
 
-WORKDIR /app/my-react-app
-
-
-COPY ./my-react-app/package*.json ./
-
+COPY ./my-react-app/ /app
 
 RUN npm install
-
-
-# COPY . .
 
 EXPOSE 3000
 
