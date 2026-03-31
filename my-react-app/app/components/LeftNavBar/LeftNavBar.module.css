@@ -1,5 +1,11 @@
 .leftNavBar {
   background-color: var(--primaryBackgroundColor);
+  height: calc(100svh - 90px);
+  top: 90px;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 2;
+  border-right: 1px solid var(--primaryColor);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -7,14 +13,81 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  height: calc(100svh - 90px);
-  top: 90px;
-  position: -webkit-sticky;
-  position: sticky;
-  z-index: 2;
-  border-right: 1px solid var(--primaryColor);
+}
+
+.leftNavBar ul {
+  padding-top: 20px;
+}
+
+.leftNavBar ul li {
+  padding: 0px 10px;
+}
+
+.leftNavBar ul li a {
+  text-decoration: none;
+  text-transform: capitalize;
+  padding: 10px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  border-radius: 5px;
+  -webkit-transition: 80ms linear;
+  transition: 80ms linear;
+}
+
+.leftNavBar ul li a:hover {
+  background-color: #6365f12c;
+  color: var(--primaryColor);
+}
+
+@media screen and (max-width: 1487px) {
+  .leftNavBar {
+    width: 65px;
+    overflow-x: hidden;
+    -webkit-transition: 100ms ease-out;
+    transition: 100ms ease-out;
+    position: fixed;
+    z-index: 4;
+  }
+  .leftNavBar ul {
+    width: 200px;
+  }
+  .leftNavBar ul li {
+    padding-left: 0;
+  }
+  .leftNavBar ul li a {
+    padding-left: 20px;
+  }
+  .leftNavBar:hover {
+    width: 250px;
+  }
+  .leftNavBar:hover ul {
+    width: 250px;
+  }
+  .leftNavBar:hover ul li {
+    padding: 0px 10px;
+  }
+  .leftNavBar:hover ul li a {
+    padding-left: 10px;
+  }
+  .expandLeftNavBar {
+    position: -webkit-sticky;
+    position: sticky;
+    width: 250px;
+  }
+  .expandLeftNavBar ul {
+    width: 250px;
+  }
+  .expandLeftNavBar ul li {
+    padding: 0px 10px;
+  }
+  .expandLeftNavBar ul li a {
+    padding-left: 10px;
+  }
 }
 /*# sourceMappingURL=LeftNavBar.module.css.map */

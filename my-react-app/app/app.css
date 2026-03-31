@@ -81,8 +81,27 @@ p,
 a,
 h1,
 h2,
-h3 {
+h3,
+label {
   font-family: var(--primaryFontFamily);
   color: white;
+}
+
+@media screen and (max-width: 1487px) {
+  body .appContainer {
+    border: 1px solid red;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+  body .appContainer .contentContainer {
+    margin-left: 65px;
+  }
+  body .appContainer .contentContainerFull {
+    margin-left: unset;
+  }
+  body .expandAppContainer {
+    -ms-grid-columns: 250px 1fr;
+        grid-template-columns: 250px 1fr;
+  }
 }
 /*# sourceMappingURL=app.css.map */

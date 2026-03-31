@@ -9,6 +9,7 @@
           flex-direction: column;
   row-gap: 30px;
   width: 900px;
+  margin: auto;
 }
 
 .editProfileContainer .pageHeader {

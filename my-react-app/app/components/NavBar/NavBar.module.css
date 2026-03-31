@@ -2,7 +2,7 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  padding: 20px;
+  padding: 20px 30px;
   background-color: var(--primaryBackgroundColor);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -25,6 +25,22 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.navBar .leftSide button {
+  background: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: none;
+  color: var(--primaryColor);
+  display: none;
 }
 
 .navBar .leftSide p {
@@ -125,6 +141,47 @@
   }
   to {
     right: 0;
+  }
+}
+
+@media screen and (max-width: 1487px) {
+  .navBar {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr 100px;
+        grid-template-columns: 1fr 1fr 100px;
+  }
+  .navBar .leftSide {
+    width: 100%;
+  }
+  .navBar .leftSide button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .navBar .center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    width: 100%;
+  }
+  .navBar .rightSide {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1487px) {
+  .navBar {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 1110px) {
+  .navBar .center div {
+    display: none;
   }
 }
 /*# sourceMappingURL=NavBar.module.css.map */

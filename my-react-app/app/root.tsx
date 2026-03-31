@@ -30,18 +30,10 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [notifications, setNotifications] = useState<Notifications[]>([
-    // {
-    //   notificationId: "string",
-    //   notificationMessage: "string",
-    //   notificationType: "success",
-    // },
-    // {
-    //   notificationId: "string",
-    //   notificationMessage: "string",
-    //   notificationType: "success",
-    // },
-  ]);
+  const [notifications, setNotifications] = useState<Notifications[]>([]);
+  const [sideNavBarStyle, setSideNavBarStyle] = useState<"full" | "collaps">(
+    "collaps"
+  );
 
   return (
     <html lang="en">
@@ -59,10 +51,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         >
           <NotificationBox />
-          <NavBar />
-          <div className="appContainer">
-            <LeftNavBar />
-            <div className={`contentContainer`}>
+          <NavBar
+            navBarStyle={sideNavBarStyle}
+            setSideNavBarStyle={setSideNavBarStyle}
+          />
+          <div
+            className={`appContainer ${sideNavBarStyle === "full" ? "expandAppContainer" : ""}`}
+          >
+            <LeftNavBar navBarStyle={sideNavBarStyle} />
+            <div
+              className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
+            >
               {/* <div className="circle leftCircle"></div>
             <div className="circle rightCircle"></div> */}
               <div className="contentWrapper">{children}</div>

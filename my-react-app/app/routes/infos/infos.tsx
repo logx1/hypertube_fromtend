@@ -148,6 +148,7 @@ export default function Infos() {
           width="100%"
           placeHolder="Search for what you want"
           value=""
+          name="fuck"
           onChange={(e) => {}}
           leftIcon={
             <svg
