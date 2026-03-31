@@ -10,6 +10,7 @@ export interface PrimaryInputProps {
   rightIconCLick?: null | (() => void);
   value: string;
   onChange: (e: any) => void;
+  name: string;
 }
 
 export default function PrimaryInput({
@@ -22,6 +23,7 @@ export default function PrimaryInput({
   rightIconCLick = null,
   onChange = (e) => {},
   value = "",
+  name = "",
 }: PrimaryInputProps) {
   return (
     <div className={styles.primaryInputContainer} style={{ width }}>
@@ -43,6 +45,7 @@ export default function PrimaryInput({
         placeholder={placeHolder}
         value={value}
         onChange={onChange}
+        name={name}
       />
       {rightIconCLick === null && (
         <span className={`${styles.icon} ${styles.rightIcon}`}>

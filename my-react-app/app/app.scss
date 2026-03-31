@@ -11,6 +11,8 @@
   --primaryColor: #6366f1;
   --primaryFontFamily: "Inter";
   --outlinedColor: #171f33;
+
+  --secondaryTextColor: #a0acc2;
 }
 
 html,
@@ -74,6 +76,9 @@ button {
 input,
 p,
 a,
-h1 {
+h1,
+h2,
+h3 {
   font-family: var(--primaryFontFamily);
+  color: white;
 }
