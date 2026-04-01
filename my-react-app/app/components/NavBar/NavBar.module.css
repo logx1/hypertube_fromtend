@@ -107,6 +107,10 @@
   width: 33%;
 }
 
+.navBar .center input {
+  border-radius: 15px;
+}
+
 .navBar .rightSide {
   width: 33%;
   display: -webkit-box;

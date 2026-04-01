@@ -89,7 +89,6 @@ label {
 
 @media screen and (max-width: 1487px) {
   body .appContainer {
-    border: 1px solid red;
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
   }
