@@ -1,49 +1,22 @@
 .sliderContainer {
-  border: 1px solid white;
-  //   width: calc(100% - 60px);
-
-  height: 500px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 255, 0.812);
+  aspect-ratio: 3/1;
   overflow-x: scroll;
 
-  .sliderItemsContainer {
-    width: calc(100% * 3);
-    border: 1px solid green;
+  .sliderHolder {
+    background-color: rgba(255, 0, 0, 0.457);
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    box-sizing: content-box;
-    .sliderItemHolder {
-      border: 1px solid purple;
-      background-color: orange;
-      box-sizing: content-box;
-      //   padding-top: 200px;
-      //   padding-left: 500px;
-      display: flex;
-      background-image: url("http://localhost:3000/public/marvel.jpeg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      //   padding: 30px;
-      position: relative;
+    // padding: 20px;
+    .sliderItem {
+      border: 1px solid white;
+      background-color: red;
+      padding: 80px;
+      // width: calc(100% - 160px);
+      // overflow: hidden;
       h1 {
-        display: inline;
-      }
-      .itemShadow {
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.61);
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-      }
-      .contentBox {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        p {
-          font-size: 40px;
-          display: inline;
-          //   font-weight: 800;
-        }
+        // margin: 40px;
       }
     }
   }

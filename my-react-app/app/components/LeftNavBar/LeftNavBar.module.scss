@@ -78,3 +78,10 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .leftNavBar {
+    width: 250px;
+    transform: translateX(-100%);
+  }
+}

@@ -156,3 +156,21 @@
     }
   }
 }
+
+@media screen and (max-width: 605px) {
+  .navBar {
+    .leftSide {
+      .navigationList {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 351px) {
+  .navBar {
+    .rightSide {
+      display: none;
+    }
+  }
+}

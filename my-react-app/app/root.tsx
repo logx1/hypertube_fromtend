@@ -59,12 +59,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             className={`appContainer ${sideNavBarStyle === "full" ? "expandAppContainer" : ""}`}
           >
             <LeftNavBar navBarStyle={sideNavBarStyle} />
-
+            <div className="toHide"></div>
             <div
               className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
             >
-              {/* <div className="circle leftCircle"></div>
-            <div className="circle rightCircle"></div> */}
               <div className="contentWrapper">{children}</div>
             </div>
           </div>
