@@ -11,6 +11,7 @@ import NotificationContext, {
   addNotification,
 } from "~/context/Notification/NotificationContext";
 import { useRef, useEffect } from "react";
+import Slider from "~/components/Slider/Slider";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -25,8 +26,6 @@ export default function Home() {
   );
   const scrollBox = useRef<any>(null);
   const notificationContext = useContext(NotificationContext);
-
-  // const [x, setX] = useState(new Array(100).fill("1"));
 
   const handle = () => {
     console.log("fuck");
@@ -55,51 +54,7 @@ export default function Home() {
 
   return (
     <div className={`${styles.homeContainer}`}>
-      <div className={styles.trendingVideos}>
-        <button
-          className={`${styles.trendingVideosNavigator} ${styles.nextBtn}`}
-          onClick={scrollNext}
-        >
-          next
-        </button>
-        <button
-          className={`${styles.trendingVideosNavigator} ${styles.prevBtn}`}
-          onClick={scrollPrev}
-        >
-          prev
-        </button>
-        <div className={styles.trendingVideosTracker}>
-          {trendingVideos.map((ele, idx) => {
-            return (
-              <button
-                className={styles.itemTracker}
-                key={uuidv4()}
-                onClick={() => {
-                  console.log(idx * 10);
-                  scrollTo(idx * 10);
-                }}
-              ></button>
-            );
-          })}
-        </div>
-        <div ref={scrollBox} className={styles.trendingVideosContainer}>
-          <div
-            className={styles.videosWrapper}
-            style={{
-              width: trendingVideos.length * 100 + "%",
-              gridTemplateColumns: `repeat(${trendingVideos.length}, 1fr)`,
-            }}
-          >
-            {trendingVideos.map((ele, idx) => {
-              return (
-                <div className={styles.videoContainer} key={uuidv4()}>
-                  <p className={styles.videoTitle}>Beyond The horizon</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <Slider />
       <h1>hi</h1>
       {/* <button onClick={handle}>Click click</button> */}
       {/* {x.map((ele) => {

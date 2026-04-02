@@ -59,6 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             className={`appContainer ${sideNavBarStyle === "full" ? "expandAppContainer" : ""}`}
           >
             <LeftNavBar navBarStyle={sideNavBarStyle} />
+
             <div
               className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
             >

@@ -1,6 +1,6 @@
 .homeContainer {
   width: 100%;
-  border: 1px solid red;
+  border: 1px solid orange;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9,93 +9,5 @@
       -ms-flex-direction: column;
           flex-direction: column;
   row-gap: 20px;
-}
-
-.homeContainer .trendingVideos {
-  position: relative;
-}
-
-.homeContainer .trendingVideos .trendingVideosNavigator {
-  background: none;
-  border: none;
-  background-color: var(--primaryColor);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  display: none;
-}
-
-.homeContainer .trendingVideos .nextBtn {
-  right: 10px;
-}
-
-.homeContainer .trendingVideos .prevBtn {
-  left: 10px;
-}
-
-.homeContainer .trendingVideos .trendingVideosTracker {
-  width: 80%;
-  height: 30px;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-column-gap: 10px;
-          column-gap: 10px;
-}
-
-.homeContainer .trendingVideos .trendingVideosTracker .itemTracker {
-  padding: 2px 20px;
-  border-radius: 10px;
-  border: none;
-  background: none;
-  background-color: var(--primaryColor);
-}
-
-.homeContainer .trendingVideos .trendingVideosContainer {
-  border: 1px solid white;
-  aspect-ratio: 3 /1;
-  overflow-x: scroll;
-  -ms-scroll-snap-type: x mandatory;
-      scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-}
-
-.homeContainer .trendingVideos .trendingVideosContainer .videosWrapper {
-  border: 1px solid orange;
-  height: 100%;
-  background-color: rgba(255, 166, 0, 0.36);
-  display: -ms-grid;
-  display: grid;
-}
-
-.homeContainer .trendingVideos .trendingVideosContainer .videosWrapper .videoContainer {
-  background-color: rgba(255, 0, 0, 0.185);
-  border: 1px solid white;
-  scroll-snap-align: start;
-}
-
-.homeContainer .trendingVideos .trendingVideosContainer .videosWrapper .videoContainer .videoTitle {
-  font-size: 30px;
-  border: 1px solid blue;
-  width: 50%;
-}
-
-.homeContainer .trendingVideos .trendingVideosContainer::-webkit-scrollbar {
-  display: none;
 }
 /*# sourceMappingURL=home.module.css.map */
