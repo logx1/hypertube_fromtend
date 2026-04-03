@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+// StreamPulse Design System Colors
+$bg-main: #0c1018;
+$bg-card: #202636;
+$bg-card-border: rgba(255, 255, 255, 0.05);
+$bg-input: #151a24;
+$bg-tab-container: #151a24;
+$bg-tab-active: #333d52;
+
+$text-white: #ffffff;
+$text-gray: #828a99;
+$text-placeholder: #586175;
+
+$accent-purple: #9b8cf6;
+$accent-purple-hover: #8675eb;
+$divider-color: rgba(255, 255, 255, 0.08);
+
+.loginContainer {
+  min-height: 100vh;
+  background-color: $bg-main;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: $text-white;
+}
+
+.header {
+  width: 100%;
+  padding: 32px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.logoGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  .logoIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .logoText {
+    font-size: 20px;
+    font-weight: 700;
+    color: $text-white;
+    letter-spacing: -0.3px;
+  }
+}
+
+.backLink {
+  color: $text-gray;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $text-white;
+  }
+}
+
+.mainContent {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 20px;
+  z-index: 10;
+}
+
+.glowBackground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 65%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.loginBox {
+  width: 100%;
+  max-width: 440px;
+  background-color: $bg-card;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid $bg-card-border;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.tabSwitcher {
+  display: flex;
+  background-color: $bg-tab-container;
+  padding: 4px;
+  border-radius: 8px;
+  margin-bottom: 32px;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: $text-gray;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+
+  &:hover:not(.activeTab) {
+    color: lighten($text-gray, 15%);
+  }
+
+  &.activeTab {
+    background-color: $bg-tab-active;
+    color: $text-white;
+  }
+}
+
+.textContainer {
+  margin-bottom: 24px;
+}
+
+.mainTitle {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  color: $text-gray;
+  font-size: 13px;
+  margin: 0;
+}
+
+.intraButton { 
+  width: 100%; 
+  background-color: $bg-input;
+  border: 1px solid transparent; 
+  border-radius: 8px; 
+  padding: 12px; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  gap: 12px;
+  color: $text-white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer; 
+  transition: background-color 0.2s; 
+  margin-bottom: 24px; 
+  font-family: inherit; 
+
+  &:hover { 
+    background-color: lighten($bg-input, 3%);
+  } 
+} 
