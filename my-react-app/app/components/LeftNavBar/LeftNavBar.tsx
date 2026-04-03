@@ -72,7 +72,7 @@ export default function LeftNavBar({
             </svg>
           }
           text="Profile"
-          link="/"
+          link="/profile"
         />
       </ul>
     </nav>

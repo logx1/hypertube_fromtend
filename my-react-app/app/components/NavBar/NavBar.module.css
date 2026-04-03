@@ -107,6 +107,10 @@
   width: 33%;
 }
 
+.navBar .center input {
+  border-radius: 15px;
+}
+
 .navBar .rightSide {
   width: 33%;
   display: -webkit-box;
@@ -181,6 +185,18 @@
 
 @media screen and (max-width: 1110px) {
   .navBar .center div {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 605px) {
+  .navBar .leftSide .navigationList {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 351px) {
+  .navBar .rightSide {
     display: none;
   }
 }

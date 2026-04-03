@@ -11,7 +11,7 @@ const NavBar = ({
   setSideNavBarStyle: (s: "full" | "collaps") => void;
 }) => {
   const matches = useMatches();
-  console.log(matches);
+  // console.log(matches);
   const [searchInput, setSearchInput] = useState<string>("");
 
   const handleSearchInput = (e: any) => {
@@ -21,7 +21,7 @@ const NavBar = ({
   const isInsideEditProfile = matches.some(
     (match) => match.id === "routes/editProfile/editProfile"
   );
-  console.log(isInsideEditProfile);
+  // console.log(isInsideEditProfile);
 
   const changeSideNavBarStyle = () => {
     if (navBarStyle === "full") setSideNavBarStyle("collaps");

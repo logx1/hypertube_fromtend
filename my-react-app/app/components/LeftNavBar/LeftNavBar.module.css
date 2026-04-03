@@ -90,4 +90,12 @@
     padding-left: 10px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .leftNavBar {
+    width: 250px;
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
 /*# sourceMappingURL=LeftNavBar.module.css.map */
