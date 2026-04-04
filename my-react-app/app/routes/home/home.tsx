@@ -76,6 +76,18 @@ export default function Home() {
     // console.log(`Relative position: X=${rotateY}, Y=${rotateX}`);
   };
 
+  useEffect(() => {
+    fetch("http://localhost:8000/search/popular", { method: "GET" }).then(
+      (res: any) => {
+        if (res.status === 200) {
+          res.json().then((jres: any) => {
+            console.log(jres);
+          });
+        }
+      }
+    );
+  }, []);
+
   return (
     <div className={`${styles.homeContainer}`}>
       <Slider />
