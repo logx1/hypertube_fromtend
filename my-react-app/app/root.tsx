@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -34,6 +35,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [sideNavBarStyle, setSideNavBarStyle] = useState<"full" | "collaps">(
     "collaps"
   );
+  const location = useLocation();
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
 
   return (
     <html lang="en">
@@ -51,21 +54,28 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         >
           <NotificationBox />
-          <NavBar
-            navBarStyle={sideNavBarStyle}
-            setSideNavBarStyle={setSideNavBarStyle}
-          />
-          <div
-            className={`appContainer ${sideNavBarStyle === "full" ? "expandAppContainer" : ""}`}
-          >
-            <LeftNavBar navBarStyle={sideNavBarStyle} />
-            <div className="toHide"></div>
+          
+          {!isAuthPage && (
+            <NavBar
+              navBarStyle={sideNavBarStyle}
+              setSideNavBarStyle={setSideNavBarStyle}
+            />
+          )}
+          
+          {!isAuthPage ? (
             <div
-              className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
+              className={`appContainer ${sideNavBarStyle === "full" ? "expandAppContainer" : ""}`}
             >
-              <div className="contentWrapper">{children}</div>
+              <LeftNavBar navBarStyle={sideNavBarStyle} />
+              <div
+                className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
+              >
+                <div className="contentWrapper">{children}</div>
+              </div>
             </div>
-          </div>
+          ) : (
+            children
+          )}
         </NotificationContext.Provider>
         <ScrollRestoration />
         <Scripts />
