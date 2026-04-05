@@ -94,7 +94,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
       <p>{overview}</p>
-      <h2>Actors</h2>
+      <h2 className={styles.actorsTitle}>Actors</h2>
       <div className={styles.actorsContainer}>
         {actors.map((ele: any) => {
           return (

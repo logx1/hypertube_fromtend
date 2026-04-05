@@ -27,6 +27,7 @@
     justify-content: space-between;
     h1 {
       font-size: 40px;
+      font-weight: 800;
       .releaseDate {
         font-size: 15px;
         color: var(--primaryColor);
@@ -45,6 +46,10 @@
         border-radius: 5px;
       }
     }
+  }
+  .actorsTitle {
+    font-size: 35px;
+    font-weight: 600;
   }
   .actorsContainer {
     // border: 1px solid blue;
