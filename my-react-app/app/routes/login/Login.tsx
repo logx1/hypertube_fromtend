@@ -83,11 +83,69 @@ export default function Login() {
               <polygon points="32,412.6 362.1,412.6 362.1,578 526.8,578 526.8,279.1 197.3,279.1 526.8,-51.1 362.1,-51.1 32,279.1" />
               <polygon points="597.9,114.2 762.7,-51.1 597.9,-51.1" />
               <polygon points="762.7,114.2 597.9,279.1 597.9,443.9 762.7,443.9 762.7,279.1 928,114.2 928,-51.1 762.7,-51.1" />
-              <polygon points="928,279.1 762.7,443.9 928,443.9" /> 
-            </svg>  
-          </button>  
-      </div>  
-    </main>  
-    </div> 
+              <polygon points="928,279.1 762.7,443.9 928,443.9" />
+            </svg>
+          </button>
+
+          <div className={styles.divider}>
+            <div className={styles.line}></div>
+            <span>OR EMAIL</span>
+            <div className={styles.line}></div>
+          </div>
+
+          <form className={styles.formContainer} onSubmit={(e) => { e.preventDefault(); authMode === 'signin' ? handleLogin() : handleSignup(); }}>
+
+            <div className={styles.inputGroup}>
+              <label className={styles.inputLabel}>EMAIL ADDRESS</label>
+              <div className={styles.inputWrapper}>
+                <span className={styles.leftIcon}>{mailIcon}</span>
+                <input
+                  type="email"
+                  placeholder="name@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={styles.nativeInput}
+                />
+              </div>
+            </div>
+
+            <div className={styles.inputGroup}>
+              <div className={styles.labelRow}>
+                <label className={styles.inputLabel}>PASSWORD</label>
+                {authMode === 'signin' && (
+                  <a href="#" className={styles.forgotLink}>Forgot?</a>
+                )}
+              </div>
+              <div className={styles.inputWrapper}>
+                <span className={styles.leftIcon}>{lockIcon}</span>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={styles.nativeInput}
+                />
+                <span className={styles.rightIcon}>{eyeIcon}</span>
+              </div>
+            </div>
+
+            <GradientButton
+              type="submit"
+              className="w-full mt-2"
+            >
+              {authMode === 'signin' ? 'Sign In' : 'Create Account'}
+            </GradientButton>
+          </form>
+
+          <p className={styles.terms}>
+            By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          </p>
+        </div>
+      </main>
+
+      <footer className={styles.footer}>
+        © 2026 HyperTube Inc. All rights reserved. Cinematic Experience Engineered.
+      </footer>
+    </div>
   );
 }

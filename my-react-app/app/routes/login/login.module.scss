@@ -175,3 +175,74 @@ $divider-color: rgba(255, 255, 255, 0.08);
     background-color: lighten($bg-input, 3%);
   }
 }
+
+  &:focus-within {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .leftIcon {
+    position: absolute;
+    left: 14px;
+    color: $text-placeholder;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .rightIcon {
+    position: absolute;
+    right: 14px;
+    color: $text-placeholder;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $text-gray;
+    }
+  }
+
+.nativeInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: $text-white;
+  font-size: 14px;
+  padding: 14px 40px 14px 42px;
+  font-family: inherit;
+  outline: none;
+
+  &::placeholder {
+    color: $text-placeholder;
+  }
+}
+
+.terms {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 11px;
+  color: $text-gray;
+  line-height: 1.6;
+
+  a {
+    color: $text-white;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.2);
+    text-underline-offset: 3px;
+    margin-left: 3px;
+
+    &:hover {
+      text-decoration-color: $text-white;
+    }
+  }
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 24px;
+  font-size: 11px;
+  color: rgba(130, 138, 153, 0.6);
+  z-index: 10;
+}
