@@ -151,3 +151,147 @@
   margin-bottom: 24px;
   font-family: inherit;
 }
+
+.intraButton:hover {
+  background-color: #1a202c;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.divider .line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.divider span {
+  padding: 0 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #586175;
+  letter-spacing: 0.5px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputLabel {
+  color: #828a99;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.forgotLink {
+  color: #828a99;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.forgotLink:hover {
+  color: #ffffff;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #151a24;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.inputWrapper:focus-within {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.inputWrapper .leftIcon {
+  position: absolute;
+  left: 14px;
+  color: #586175;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.inputWrapper .rightIcon {
+  position: absolute;
+  right: 14px;
+  color: #586175;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.inputWrapper .rightIcon:hover {
+  color: #828a99;
+}
+
+.nativeInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 14px 40px 14px 42px;
+  font-family: inherit;
+  outline: none;
+}
+
+.nativeInput::placeholder {
+  color: #586175;
+}
+
+
+.terms {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 11px;
+  color: #828a99;
+  line-height: 1.6;
+}
+
+.terms a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.2);
+  text-underline-offset: 3px;
+  margin-left: 3px;
+}
+
+.terms a:hover {
+  text-decoration-color: #ffffff;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 24px;
+  font-size: 11px;
+  color: rgba(130, 138, 153, 0.6);
+  z-index: 10;
+}
