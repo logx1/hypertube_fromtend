@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./login.module.css";
 import GradientButton from "~/components/Button/GradientButton";
+import Logo from "~/components/Button/Logo";
 
 export function meta() {
   return [
@@ -38,16 +39,7 @@ export default function Login() {
         className="absolute bottom-1/4 -right-20 w-96 h-96 bg-tertiary/10 rounded-full blur-[120px] pointer-events-none"
       />
 
-      <header className={styles.header}>
-        <div className={styles.logoGroup}>
-          <svg className={styles.logoIcon} viewBox="0 0 24 24" fill="#a8a5ff">
-            <circle cx="12" cy="12" r="10" fill="white"></circle>
-            <polygon points="10 8 16 12 10 16 10 8" fill="#a8a5ff"></polygon>
-          </svg>
-          <span className={styles.logoText}>HyperTube</span>
-        </div>
-        <a href="/" className={styles.backLink}>Home</a>
-      </header>
+      <Logo />
 
       <main className="relative z-10 flex-grow flex items-center justify-center">
         <div className={styles.loginBox}>

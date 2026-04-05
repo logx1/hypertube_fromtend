@@ -176,32 +176,32 @@ $divider-color: rgba(255, 255, 255, 0.08);
   }
 }
 
-  &:focus-within {
-    border-color: rgba(255, 255, 255, 0.1);
-  }
+&:focus-within {
+  border-color: rgba(255, 255, 255, 0.1);
+}
 
-  .leftIcon {
-    position: absolute;
-    left: 14px;
-    color: $text-placeholder;
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-  }
+.leftIcon {
+  position: absolute;
+  left: 14px;
+  color: $text-placeholder;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
 
-  .rightIcon {
-    position: absolute;
-    right: 14px;
-    color: $text-placeholder;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: color 0.2s;
+.rightIcon {
+  position: absolute;
+  right: 14px;
+  color: $text-placeholder;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.2s;
 
-    &:hover {
-      color: $text-gray;
-    }
+  &:hover {
+    color: $text-gray;
   }
+}
 
 .nativeInput {
   width: 100%;
