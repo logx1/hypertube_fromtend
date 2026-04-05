@@ -132,37 +132,42 @@ export default function Home() {
 
   return (
     <div className={`${styles.homeContainer}`}>
-      <Slider />
-      <section className={styles.pageSection}>
-        <div className={styles.sectionTitle}>
-          <h2>Also popular</h2>
-          <div className={`${styles.sectionButtons} `}></div>
-        </div>
-        <div className={styles.alsoPopularContainer}>
-          {popularMovies.length === 0 && (
-            <div className={styles.moviesLoading}></div>
-          )}
-          {/* <div className={styles.movieContainer}> */}
-          {popularMovies.map((ele) => {
-            return (
-              <div
-                className={styles.movieHolder}
-                // onMouseMove={mouseEnter}
-                key={uuidv4()}
-              >
-                <img src={ele.cover_image} alt="" />
-                <div className={styles.descriptionContainer}>
-                  <p className={styles.movieName}>{ele.name}</p>
+      {popularMovies.length === 0 && (
+        <div className={styles.moviesLoading}></div>
+      )}
+      {popularMovies.length > 0 && (
+        <>
+          <Slider items={popularMovies} />
+          <section className={styles.pageSection}>
+            <div className={styles.sectionTitle}>
+              <h2>Also popular</h2>
+              <div className={`${styles.sectionButtons} `}></div>
+            </div>
+            <div className={styles.alsoPopularContainer}>
+              {/* <div className={styles.movieContainer}> */}
+              {popularMovies.map((ele) => {
+                return (
+                  <div
+                    className={styles.movieHolder}
+                    // onMouseMove={mouseEnter}
+                    key={uuidv4()}
+                  >
+                    <img src={ele.cover_image} alt="" />
+                    <div className={styles.descriptionContainer}>
+                      <p className={styles.movieName}>{ele.name}</p>
 
-                  <p>{ele.production_year}</p>
-                </div>
-              </div>
-            );
-          })}
+                      <p>{ele.production_year}</p>
+                    </div>
+                  </div>
+                );
+              })}
 
-          {/* </div> */}
-        </div>
-      </section>
+              {/* </div> */}
+            </div>
+          </section>
+        </>
+      )}
+
       {/* <button onClick={handle}>Click click</button> */}
       {/* {x.map((ele) => {
         return <h1 key={uuidv4()}>hi</h1>;

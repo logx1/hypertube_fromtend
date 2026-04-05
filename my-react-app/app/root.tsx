@@ -16,6 +16,7 @@ import NotificationBox from "./components/NotificationBox/NotificationBox";
 import NotificationContext from "./context/Notification/NotificationContext";
 import { useState } from "react";
 import { type Notifications } from "./components/NotificationBox/NotificationBox";
+import SearchBox from "./components/SearchBox/SearchBox";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -39,6 +40,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/signup";
 
+  const [showSearchBox, setShowSearchBox] = useState<boolean>(false);
+
+  const openSearchBox = () => {
+    setShowSearchBox(true);
+  };
+
   return (
     <html lang="en">
       <head>
@@ -54,12 +61,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
             notificationsSetter: setNotifications,
           }}
         >
+          {showSearchBox && <SearchBox />}
           <NotificationBox />
 
           {!isAuthPage && (
             <NavBar
               navBarStyle={sideNavBarStyle}
               setSideNavBarStyle={setSideNavBarStyle}
+              openSearchBox={openSearchBox}
             />
           )}
 

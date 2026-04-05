@@ -4,9 +4,17 @@ import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import PrimaryButton from "../Button/PrimaryButton";
 
-const items = new Array(10).fill(null);
+// const items = new Array(10).fill(null);
 
-export default function Slider() {
+interface SliderProps {
+  name?: string;
+  production_year?: string;
+  cover_image?: string;
+  rating?: number;
+  linkToOpen?: string;
+}
+
+export default function Slider({ items }: { items: SliderProps[] }) {
   // const [items, setItems] = useState<any>(new Array(10).fill(null));
   const scrollBox = useRef<any>(null);
   // console.log(items.length);
@@ -56,12 +64,12 @@ export default function Slider() {
                 key={idx}
                 className={styles.sliderItem}
                 style={{
-                  backgroundImage: `url(http://localhost:3000/p.jpeg)`,
+                  backgroundImage: `url(${ele.cover_image})`,
                 }}
               >
                 <div className={styles.sliderItemShadow}></div>
                 <div className={styles.sliderItemContent}>
-                  <p className={styles.sliderItemTitle}>Pursuit of happynes</p>
+                  <p className={styles.sliderItemTitle}>{ele.name}</p>
                   <p className={styles.sliderItemDescription}>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Nesciunt itaque eligendi facilis ut dolores dolor id eveniet

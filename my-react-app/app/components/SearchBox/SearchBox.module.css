@@ -1,0 +1,72 @@
+.searchBoxContainer {
+  background-color: black;
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background-color: #6365f14b;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.searchBoxContainer .searchBoxHolder {
+  width: 90%;
+  height: 400px;
+  max-width: 1500px;
+  background-color: var(--primaryBackgroundColor);
+  border-radius: 10px;
+  padding: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  row-gap: 30px;
+}
+
+.searchBoxContainer .searchBoxHolder .inputContainer {
+  width: 90%;
+  max-width: 600px;
+}
+
+.searchBoxContainer .searchBoxHolder .inputContainer input {
+  font-size: 14px;
+}
+
+.searchBoxContainer .searchBoxHolder .searchResultContainer {
+  border: 1px solid white;
+  width: 100%;
+}
+
+@-webkit-keyframes scaleUp {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+/*# sourceMappingURL=SearchBox.module.css.map */

@@ -10,9 +10,11 @@ import { v4 as uuidv4 } from "uuid";
 const NavBar = ({
   navBarStyle,
   setSideNavBarStyle,
+  openSearchBox,
 }: {
   navBarStyle: "full" | "collaps";
   setSideNavBarStyle: (s: "full" | "collaps") => void;
+  openSearchBox: () => void;
 }) => {
   const matches = useMatches();
   const [searchInput, setSearchInput] = useState<string>("");
@@ -137,7 +139,27 @@ const NavBar = ({
       </div>
       {!isInsideEditProfile && (
         <div className={styles.center}>
-          <PrimaryInput
+          <button className={styles.searchForMoviesBtn} onClick={openSearchBox}>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M19 11.5a7.5 7.5 0 1 1-15 0a7.5 7.5 0 0 1 15 0m-2.107 5.42l3.08 3.08"
+                ></path>
+              </svg>
+            </span>
+            <span className={styles.buttonTxt}>Search</span>
+          </button>
+          {/* <PrimaryInput
             value={searchInput}
             onChange={handleSearchInput}
             type="text"
@@ -158,28 +180,7 @@ const NavBar = ({
                 ></path>
               </svg>
             }
-          />
-          {searchResult.length > 0 && (
-            <div className={styles.searchResultContainer}>
-              <ul className="searchResultList">
-                {searchResult.map((ele: any) => {
-                  return (
-                    <li key={uuidv4()} className="searchResultList">
-                      <Link
-                        to={`movieInfos/${ele.movie_id}/${ele.name}`}
-                        className="searchResultList"
-                      >
-                        <span className="searchResultList">{ele.name}</span>
-                        <span className="searchResultList">
-                          {ele.production_year}
-                        </span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
+          /> */}
         </div>
       )}
 
