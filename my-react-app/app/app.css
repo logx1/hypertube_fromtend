@@ -1,4 +1,19 @@
+@import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@theme {
+  /* Deep Slate Base */
+  --color-surface: #0b1326;
+  
+  /* Indigo Glow (Primary) */
+  --color-primary: #c0c1ff;
+  --color-primary-container: #8083ff;
+  --color-on-primary-container: #0d0096;
+  
+  /* Warm Orange Glow (Tertiary) */
+  --color-tertiary: #ffb783;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -102,4 +117,3 @@ label {
     display: block;
   }
 }
-/*# sourceMappingURL=app.css.map */

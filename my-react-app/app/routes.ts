@@ -7,4 +7,5 @@ export default [
   route("editProfile", "./routes/editProfile/editProfile.tsx"),
   route("login", "./routes/login/Login.tsx"),
   route("movieInfos/:movieId/:movieName", "./routes/movieInfos/movieInfos.tsx"),
+  route("signup", "./routes/signup/Signup.tsx"),
 ] satisfies RouteConfig;
