@@ -36,7 +36,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
     "collaps"
   );
   const location = useLocation();
-  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/signup";
 
   return (
     <html lang="en">
@@ -54,19 +55,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         >
           <NotificationBox />
-          
+
           {!isAuthPage && (
             <NavBar
               navBarStyle={sideNavBarStyle}
               setSideNavBarStyle={setSideNavBarStyle}
             />
           )}
-          
+
           {!isAuthPage ? (
             <div
               className={`appContainer ${sideNavBarStyle === "full" ? "expandAppContainer" : ""}`}
             >
               <LeftNavBar navBarStyle={sideNavBarStyle} />
+              <div className="toHide"></div>
               <div
                 className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
               >

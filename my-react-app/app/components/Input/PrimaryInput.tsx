@@ -11,6 +11,7 @@ export interface PrimaryInputProps {
   value: string;
   onChange: (e: any) => void;
   name: string;
+  onBlur?: () => void;
 }
 
 export default function PrimaryInput({
@@ -24,6 +25,7 @@ export default function PrimaryInput({
   onChange = (e) => {},
   value = "",
   name = "",
+  onBlur = () => {},
 }: PrimaryInputProps) {
   return (
     <div className={styles.primaryInputContainer} style={{ width }}>
@@ -46,6 +48,7 @@ export default function PrimaryInput({
         value={value}
         onChange={onChange}
         name={name}
+        onBlur={onBlur}
       />
       {rightIconCLick === null && (
         <span className={`${styles.icon} ${styles.rightIcon}`}>

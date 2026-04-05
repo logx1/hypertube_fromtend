@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 // StreamPulse Design System Colors
 $bg-main: #0c1018;
@@ -23,7 +23,7 @@ $divider-color: rgba(255, 255, 255, 0.08);
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   color: $text-white;
 }
 
@@ -84,7 +84,11 @@ $divider-color: rgba(255, 255, 255, 0.08);
   transform: translate(-50%, -50%);
   width: 700px;
   height: 600px;
-  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 65%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0) 65%
+  );
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
@@ -171,7 +175,6 @@ $divider-color: rgba(255, 255, 255, 0.08);
     background-color: lighten($bg-input, 3%);
   }
 }
-
 
   &:focus-within {
     border-color: rgba(255, 255, 255, 0.1);

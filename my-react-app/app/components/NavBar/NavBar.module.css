@@ -105,10 +105,54 @@
 
 .navBar .center {
   width: 33%;
+  position: relative;
 }
 
 .navBar .center input {
   border-radius: 15px;
+}
+
+.navBar .center .searchResultContainer {
+  position: absolute;
+  top: 101%;
+  border: 1px solid var(--primaryColor);
+  border-radius: 10px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 10px;
+  background-color: var(--primaryBackgroundColor);
+}
+
+.navBar .center .searchResultContainer ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.navBar .center .searchResultContainer ul li a {
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px;
+}
+
+.navBar .center .searchResultContainer ul li a:hover {
+  background-color: #6365f12c;
 }
 
 .navBar .rightSide {

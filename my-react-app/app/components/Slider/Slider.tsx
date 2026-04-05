@@ -9,7 +9,7 @@ const items = new Array(10).fill(null);
 export default function Slider() {
   // const [items, setItems] = useState<any>(new Array(10).fill(null));
   const scrollBox = useRef<any>(null);
-  console.log(items.length);
+  // console.log(items.length);
 
   const goNext = () => {
     console.log("okay go next");

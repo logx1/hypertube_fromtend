@@ -20,13 +20,20 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+interface PopularMoviesResponse {
+  name?: string;
+  production_year?: string;
+  cover_image?: string;
+  rating?: number;
+}
+
 export default function Home() {
   const [trendingVideos, setTrendingVideos] = useState(
     new Array(10).fill(null)
   );
-  const testRef = useRef<any>(null);
-
-  const scrollBox = useRef<any>(null);
+  const [popularMovies, setPopularMovies] = useState<PopularMoviesResponse[]>(
+    []
+  );
   const notificationContext = useContext(NotificationContext);
 
   const handle = () => {
@@ -43,38 +50,89 @@ export default function Home() {
     );
   };
 
-  const scrollNext = () => {
-    scrollBox.current.scrollBy({ left: 50 });
-  };
-  const scrollPrev = () => {
-    scrollBox.current.scrollBy({ left: -50 });
+  const pushNotification = (type: "error" | "success", msg: string) => {
+    addNotification(
+      notificationContext,
+      {
+        notificationId: uuidv4(),
+        notificationMessage: msg,
+        notificationType: type,
+      },
+      3000
+    );
   };
 
-  const scrollTo = (to: number) => {
-    scrollBox.current.scrollBy({ left: to });
-  };
+  useEffect(() => {
+    // console.log(import.meta.env.VITE_BACKEND_URL);
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/search/popular`)
+      .then((res) => {
+        if (res.status !== 200) {
+          pushNotification(
+            "error",
+            "Something went wrong. couldn't fetch popular movies"
+          );
+          return;
+        }
+        res
+          .json()
+          .then((jres) => {
+            console.log(jres);
+            setPopularMovies(jres.results);
+          })
+          .catch((err) => {
+            pushNotification("error", "Couldn't parse the server response");
+          });
+      })
+      .catch((err) => {
+        alert("Couldn't react the server");
+        pushNotification("error", "Couldn't reach the server");
+      });
+  }, []);
 
-  function map(
-    val: number,
-    minA: number,
-    maxA: number,
-    minB: number,
-    maxB: number
-  ) {
-    return minB + ((val - minA) * (maxB - minB)) / (maxA - minA);
-  }
+  // const scrollNext = () => {
+  //   scrollBox.current.scrollBy({ left: 50 });
+  // };
+  // const scrollPrev = () => {
+  //   scrollBox.current.scrollBy({ left: -50 });
+  // };
 
-  const mouseEnter = (e: any) => {
-    // const rect = e.currentTarget.getBoundingClientRect();
-    // const x = e.clientX - rect.left;
-    // const y = e.clientY - rect.top;
-    // let rotateY = map(x, 0, 180, -25, 25);
-    // let rotateX = map(y, 0, 250, 25, -25);
-    // // console.log(`Relative position: X=${x}, Y=${y}`);
-    // console.log(testRef.current);
-    // testRef.current.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-    // console.log(`Relative position: X=${rotateY}, Y=${rotateX}`);
-  };
+  // const scrollTo = (to: number) => {
+  //   scrollBox.current.scrollBy({ left: to });
+  // };
+
+  // function map(
+  //   val: number,
+  //   minA: number,
+  //   maxA: number,
+  //   minB: number,
+  //   maxB: number
+  // ) {
+  //   return minB + ((val - minA) * (maxB - minB)) / (maxA - minA);
+  // }
+
+  // const mouseEnter = (e: any) => {
+  //   // const rect = e.currentTarget.getBoundingClientRect();
+  //   // const x = e.clientX - rect.left;
+  //   // const y = e.clientY - rect.top;
+  //   // let rotateY = map(x, 0, 180, -25, 25);
+  //   // let rotateX = map(y, 0, 250, 25, -25);
+  //   // // console.log(`Relative position: X=${x}, Y=${y}`);
+  //   // console.log(testRef.current);
+  //   // testRef.current.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+  //   // console.log(`Relative position: X=${rotateY}, Y=${rotateX}`);
+  // };
+
+  // useEffect(() => {
+  //   fetch("http://localhost:8000/search/popular", { method: "GET" }).then(
+  //     (res: any) => {
+  //       if (res.status === 200) {
+  //         res.json().then((jres: any) => {
+  //           console.log(jres);
+  //         });
+  //       }
+  //     }
+  //   );
+  // }, []);
 
   return (
     <div className={`${styles.homeContainer}`}>
@@ -85,19 +143,22 @@ export default function Home() {
           <div className={`${styles.sectionButtons} `}></div>
         </div>
         <div className={styles.alsoPopularContainer}>
+          {popularMovies.length === 0 && (
+            <div className={styles.moviesLoading}></div>
+          )}
           {/* <div className={styles.movieContainer}> */}
-          {trendingVideos.map((ele) => {
+          {popularMovies.map((ele) => {
             return (
               <div
                 className={styles.movieHolder}
-                onMouseMove={mouseEnter}
+                // onMouseMove={mouseEnter}
                 key={uuidv4()}
               >
-                <img src="http://localhost:3000/public/first.jpg" alt="" />
+                <img src={ele.cover_image} alt="" />
                 <div className={styles.descriptionContainer}>
-                  <p className={styles.movieName}>Project Hail Mary</p>
-                  <p>fdakls adklsfjakls fadsklfjkads jkl</p>
-                  <p>sfkldsjfklas</p>
+                  <p className={styles.movieName}>{ele.name}</p>
+
+                  <p>{ele.production_year}</p>
                 </div>
               </div>
             );
