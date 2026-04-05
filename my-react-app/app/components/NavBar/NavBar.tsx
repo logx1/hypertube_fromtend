@@ -1,6 +1,6 @@
 import styles from "./NavBar.module.css";
 import PrimaryInput, { type PrimaryInputProps } from "../Input/PrimaryInput";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import NotificationContext, {
   addNotification,
 } from "~/context/Notification/NotificationContext";
@@ -17,6 +17,7 @@ const NavBar = ({
   const matches = useMatches();
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchResult, setSearchResult] = useState<any>([]);
+  const searchResultRef = useRef<any>([]);
   const notificationContext = useContext(NotificationContext);
 
   const pushNotification = (type: "error" | "success", msg: string) => {
@@ -44,7 +45,7 @@ const NavBar = ({
         res
           .json()
           .then((jres) => {
-            // console.log(searchInput, jres);
+            console.log(searchInput, jres);
             setSearchResult(jres.results);
           })
           .catch((err) => {
@@ -67,8 +68,26 @@ const NavBar = ({
   };
 
   const removeSearchedItems = () => {
-    setSearchResult([]);
+    // setSearchResult([]);
+    // setSearchInput("");
   };
+
+  useEffect(() => {
+    searchResultRef.current = searchResult;
+  }, [searchResult]);
+
+  useEffect(() => {
+    const handleClick = (e: any) => {
+      // console.log(e.target.className);
+      if (searchResultRef.current.length > 0) {
+        setSearchResult([]);
+      }
+    };
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   return (
     <nav className={styles.navBar}>
@@ -142,13 +161,18 @@ const NavBar = ({
           />
           {searchResult.length > 0 && (
             <div className={styles.searchResultContainer}>
-              <ul>
+              <ul className="searchResultList">
                 {searchResult.map((ele: any) => {
                   return (
-                    <li key={uuidv4()}>
-                      <Link to="/hi">
-                        <span>{ele.name}</span>
-                        <span>{ele.production_year}</span>
+                    <li key={uuidv4()} className="searchResultList">
+                      <Link
+                        to={`movieInfos/${ele.movie_id}/${ele.name}`}
+                        className="searchResultList"
+                      >
+                        <span className="searchResultList">{ele.name}</span>
+                        <span className="searchResultList">
+                          {ele.production_year}
+                        </span>
                       </Link>
                     </li>
                   );

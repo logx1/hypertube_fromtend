@@ -1,0 +1,105 @@
+.moviesInfoContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 20px;
+}
+
+.moviesInfoContainer .movieCover {
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.moviesInfoContainer .movieCover img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.moviesInfoContainer .titleContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.moviesInfoContainer .titleContainer h1 {
+  font-size: 40px;
+}
+
+.moviesInfoContainer .titleContainer h1 .releaseDate {
+  font-size: 15px;
+  color: var(--primaryColor);
+  margin-left: 20px;
+}
+
+.moviesInfoContainer .titleContainer .genresContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+}
+
+.moviesInfoContainer .titleContainer .genresContainer span {
+  background-color: var(--primaryColor);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.moviesInfoContainer .actorsContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-column-gap: 50px;
+          column-gap: 50px;
+  row-gap: 50px;
+}
+
+.moviesInfoContainer .actorsContainer .actorContainer {
+  width: 300px;
+  border: 1px solid var(--primaryColor);
+  border-radius: 10px;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.moviesInfoContainer .actorsContainer .actorContainer img {
+  width: 100%;
+  aspect-ratio: 2/2;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+/*# sourceMappingURL=movieInfos.module.css.map */

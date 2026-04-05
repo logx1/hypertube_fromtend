@@ -6,4 +6,5 @@ export default [
   route("profile", "./routes/profile/Profile.tsx", { id: "editProfile" }),
   route("editProfile", "./routes/editProfile/editProfile.tsx"),
   route("login", "./routes/login/Login.tsx"),
+  route("movieInfos/:movieId/:movieName", "./routes/movieInfos/movieInfos.tsx"),
 ] satisfies RouteConfig;

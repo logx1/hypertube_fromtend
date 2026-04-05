@@ -1,17 +1,13 @@
 import type { Route } from "./+types/home";
-import PrimaryButton, {
-  type PrimaryButtonProps,
-} from "~/components/Button/PrimaryButton";
-import PrimaryInput from "~/components/Input/PrimaryInput";
 import styles from "./home.module.css";
-import NavBar from "~/components/NavBar/NavBar";
 import { v4 as uuidv4 } from "uuid";
 import { useContext, useState } from "react";
 import NotificationContext, {
   addNotification,
 } from "~/context/Notification/NotificationContext";
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import Slider from "~/components/Slider/Slider";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [

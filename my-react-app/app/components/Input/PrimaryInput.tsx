@@ -49,6 +49,7 @@ export default function PrimaryInput({
         onChange={onChange}
         name={name}
         onBlur={onBlur}
+        autoComplete="off"
       />
       {rightIconCLick === null && (
         <span className={`${styles.icon} ${styles.rightIcon}`}>

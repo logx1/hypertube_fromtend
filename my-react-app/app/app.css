@@ -74,6 +74,7 @@ a,
 h1,
 h2,
 h3,
+span,
 label {
   font-family: var(--primaryFontFamily);
   color: white;
