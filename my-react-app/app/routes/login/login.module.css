@@ -1,14 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
 .loginContainer {
   min-height: 100vh;
   background-color: #0c1018;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
   font-family: "Inter", system-ui, sans-serif;
@@ -18,34 +14,22 @@
 .header {
   width: 100%;
   padding: 32px 48px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   z-index: 10;
 }
 
 .logoGroup {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   gap: 12px;
   cursor: pointer;
 }
-
 .logoGroup .logoIcon {
   width: 28px;
   height: 28px;
 }
-
 .logoGroup .logoText {
   font-size: 20px;
   font-weight: 700;
@@ -58,27 +42,17 @@
   font-weight: 500;
   text-decoration: none;
   font-size: 14px;
-  -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
-
 .backLink:hover {
   color: #ffffff;
 }
 
 .mainContent {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  flex-grow: 1;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   position: relative;
   padding: 20px;
   z-index: 10;
@@ -88,8 +62,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 700px;
   height: 600px;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 65%);
@@ -105,14 +78,11 @@
   padding: 40px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  -webkit-box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
 .tabSwitcher {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   background-color: #151a24;
   padding: 4px;
@@ -121,9 +91,7 @@
 }
 
 .tabButton {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
   padding: 10px 0;
   font-size: 13px;
   font-weight: 600;
@@ -132,15 +100,12 @@
   background: transparent;
   color: #828a99;
   cursor: pointer;
-  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
   font-family: inherit;
 }
-
 .tabButton:hover:not(.activeTab) {
-  color: #acb1bb;
+  color: #a8aebb;
 }
-
 .tabButton.activeTab {
   background-color: #333d52;
   color: #ffffff;
@@ -169,26 +134,18 @@
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 12px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  -webkit-transition: background-color 0.2s;
   transition: background-color 0.2s;
   margin-bottom: 24px;
   font-family: inherit;
 }
-
 .intraButton:hover {
   background-color: #1a202c;
 }
@@ -198,13 +155,11 @@
   align-items: center;
   margin-bottom: 24px;
 }
-
 .divider .line {
   flex-grow: 1;
   height: 1px;
   background-color: rgba(255, 255, 255, 0.08);
 }
-
 .divider span {
   padding: 0 16px;
   font-size: 11px;
@@ -245,7 +200,6 @@
   text-decoration: none;
   transition: opacity 0.2s;
 }
-
 .forgotLink:hover {
   color: #ffffff;
 }
@@ -260,11 +214,9 @@
   border: 1px solid transparent;
   transition: border-color 0.2s;
 }
-
 .inputWrapper:focus-within {
   border-color: rgba(255, 255, 255, 0.1);
 }
-
 .inputWrapper .leftIcon {
   position: absolute;
   left: 14px;
@@ -273,7 +225,6 @@
   align-items: center;
   pointer-events: none;
 }
-
 .inputWrapper .rightIcon {
   position: absolute;
   right: 14px;
@@ -283,7 +234,6 @@
   cursor: pointer;
   transition: color 0.2s;
 }
-
 .inputWrapper .rightIcon:hover {
   color: #828a99;
 }
@@ -298,11 +248,9 @@
   font-family: inherit;
   outline: none;
 }
-
 .nativeInput::placeholder {
   color: #586175;
 }
-
 
 .terms {
   margin-top: 24px;
@@ -311,7 +259,6 @@
   color: #828a99;
   line-height: 1.6;
 }
-
 .terms a {
   color: #ffffff;
   text-decoration: underline;
@@ -319,7 +266,6 @@
   text-underline-offset: 3px;
   margin-left: 3px;
 }
-
 .terms a:hover {
   text-decoration-color: #ffffff;
 }

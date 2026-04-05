@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
-// StreamPulse Design System Colors
+// HyperTube Design System Colors
 $bg-main: #0c1018;
 $bg-card: #202636;
 $bg-card-border: rgba(255, 255, 255, 0.05);
@@ -176,30 +176,98 @@ $divider-color: rgba(255, 255, 255, 0.08);
   }
 }
 
-&:focus-within {
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.leftIcon {
-  position: absolute;
-  left: 14px;
-  color: $text-placeholder;
+.divider {
   display: flex;
   align-items: center;
-  pointer-events: none;
+  margin-bottom: 24px;
+
+  .line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: $divider-color;
+  }
+
+  span {
+    padding: 0 16px;
+    font-size: 11px;
+    font-weight: 600;
+    color: $text-placeholder;
+    letter-spacing: 0.5px;
+  }
 }
 
-.rightIcon {
-  position: absolute;
-  right: 14px;
-  color: $text-placeholder;
+.formContainer {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  cursor: pointer;
-  transition: color 0.2s;
+}
+
+.inputLabel {
+  color: $text-gray;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.forgotLink {
+  color: $text-gray;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
 
   &:hover {
-    color: $text-gray;
+    color: $text-white;
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: $bg-input;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .leftIcon {
+    position: absolute;
+    left: 14px;
+    color: $text-placeholder;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .rightIcon {
+    position: absolute;
+    right: 14px;
+    color: $text-placeholder;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $text-gray;
+    }
   }
 }
 
