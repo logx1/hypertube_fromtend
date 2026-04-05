@@ -1,11 +1,60 @@
 import styles from "./SearchBox.module.css";
 import PrimaryInput from "../Input/PrimaryInput";
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, useContext } from "react";
+import { Link } from "react-router";
+import NotificationContext, {
+  addNotification,
+} from "~/context/Notification/NotificationContext";
+import { v4 as uuid } from "uuid";
 
-export default function SearchBox() {
+export default function SearchBox({
+  searchBoxVisibility,
+}: {
+  searchBoxVisibility: (visibility: boolean) => void;
+}) {
   const [userInput, setUserInput] = useState<string>("");
+  const [searchResult, setSearchResult] = useState<any>([]);
+  const notificationContext = useContext(NotificationContext);
+  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);
+
+  const pushNotification = (type: "error" | "success", msg: string) => {
+    addNotification(
+      notificationContext,
+      {
+        notificationId: uuid(),
+        notificationMessage: msg,
+        notificationType: type,
+      },
+      3000
+    );
+  };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.currentTarget.value);
+    setSearchResult([]);
+    setIsSearchLoading(true);
+    fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/search/?q="${e.currentTarget.value}"`
+    )
+      .then((res) => {
+        if (res.status != 200) {
+          pushNotification("error", "Something went wrong");
+          return;
+        }
+        res
+          .json()
+          .then((jres) => {
+            console.log(jres);
+            setSearchResult(jres.results);
+            setIsSearchLoading(false);
+          })
+          .catch((err) => {
+            pushNotification("error", "Couldn't parse the json response");
+          });
+      })
+      .catch((err) => {
+        pushNotification("error", "Couldn't reach the server");
+      });
   };
   return (
     <div className={styles.searchBoxContainer}>
@@ -38,7 +87,30 @@ export default function SearchBox() {
             leftIconClick={null}
           />
         </div>
-        <div className={styles.searchResultContainer}></div>
+        <div className={styles.searchResultContainer}>
+          {isSearchLoading === true && (
+            <div className={styles.loadingContainer}>
+              <div className={styles.loading}></div>
+            </div>
+          )}
+
+          {searchResult.map((ele: any) => {
+            return (
+              <Link
+                to={`/movieInfos/${ele.movie_id}/${ele.name}`}
+                className={styles.searchBoxItemContainer}
+                key={uuid()}
+                onClick={() => {
+                  searchBoxVisibility(false);
+                }}
+              >
+                <img className={styles.searchBoxImg} src={ele.cover_image} />
+                <p className={styles.movieName}>{ele.name}</p>
+                <p className={styles.productionYear}>2022</p>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

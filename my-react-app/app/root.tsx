@@ -42,8 +42,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const [showSearchBox, setShowSearchBox] = useState<boolean>(false);
 
-  const openSearchBox = () => {
-    setShowSearchBox(true);
+  const searchBoxVisibility = (visibility: boolean) => {
+    setShowSearchBox(visibility);
   };
 
   return (
@@ -61,14 +61,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
             notificationsSetter: setNotifications,
           }}
         >
-          {showSearchBox && <SearchBox />}
+          {showSearchBox && (
+            <SearchBox searchBoxVisibility={searchBoxVisibility} />
+          )}
           <NotificationBox />
 
           {!isAuthPage && (
             <NavBar
               navBarStyle={sideNavBarStyle}
               setSideNavBarStyle={setSideNavBarStyle}
-              openSearchBox={openSearchBox}
+              openSearchBox={searchBoxVisibility}
             />
           )}
 

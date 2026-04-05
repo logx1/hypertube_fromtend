@@ -14,7 +14,7 @@ const NavBar = ({
 }: {
   navBarStyle: "full" | "collaps";
   setSideNavBarStyle: (s: "full" | "collaps") => void;
-  openSearchBox: () => void;
+  openSearchBox: (visibility: boolean) => void;
 }) => {
   const matches = useMatches();
   const [searchInput, setSearchInput] = useState<string>("");
@@ -139,7 +139,12 @@ const NavBar = ({
       </div>
       {!isInsideEditProfile && (
         <div className={styles.center}>
-          <button className={styles.searchForMoviesBtn} onClick={openSearchBox}>
+          <button
+            className={styles.searchForMoviesBtn}
+            onClick={() => {
+              openSearchBox(true);
+            }}
+          >
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

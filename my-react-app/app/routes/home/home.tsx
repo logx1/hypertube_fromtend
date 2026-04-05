@@ -145,9 +145,10 @@ export default function Home() {
             </div>
             <div className={styles.alsoPopularContainer}>
               {/* <div className={styles.movieContainer}> */}
-              {popularMovies.map((ele) => {
+              {popularMovies.map((ele: any) => {
                 return (
-                  <div
+                  <Link
+                    to={`/movieInfos/${ele.movie_id}/${ele.name}`}
                     className={styles.movieHolder}
                     // onMouseMove={mouseEnter}
                     key={uuidv4()}
@@ -158,7 +159,7 @@ export default function Home() {
 
                       <p>{ele.production_year}</p>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
 

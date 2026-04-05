@@ -26,8 +26,15 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
   let { movieId, movieName } = useParams();
   const [movieInfos, setMovieInfos] = useState<any>({});
   const notificationContext = useContext(NotificationContext);
-  const { name, genres, overview, actors, release_date, cover_image } =
-    loaderData;
+  const {
+    name,
+    genres,
+    overview,
+    actors,
+    release_date,
+    cover_image,
+    backdrop_image,
+  } = loaderData;
 
   // useEffect(() => {
   //   fetch(
@@ -81,7 +88,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
   return (
     <div className={styles.moviesInfoContainer}>
       <div className={styles.movieCover}>
-        <img src={cover_image} alt="" />
+        <img src={backdrop_image} alt="" />
       </div>
       <div className={styles.titleContainer}>
         <h1>

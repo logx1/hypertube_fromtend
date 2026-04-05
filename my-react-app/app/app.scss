@@ -83,6 +83,9 @@ body {
 
 button {
   cursor: pointer;
+  background: none;
+  border: none;
+  outline-color: var(--primaryColor);
 }
 
 input,
