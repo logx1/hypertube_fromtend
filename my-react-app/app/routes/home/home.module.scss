@@ -29,26 +29,20 @@
     }
   }
   .alsoPopularContainer {
-    // border: 1px solid white;
     perspective: 1000px;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     justify-items: center;
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: center;
     column-gap: 20px;
     row-gap: 20px;
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
-
+    position: relative;
+    // border: 1px solid red;
     .movieHolder {
       // transform-style: preserve-3d;
       // transform: rotateY(0deg) rotateX(0deg);
       // width: 100%;
       box-shadow: rgba(86, 86, 86, 0.35) 0px 5px 15px;
-      height: 500px;
+      // height: 500px;
 
       // background-color: red;
       border: 1px solid var(--primaryColor);
@@ -64,7 +58,8 @@
       img {
         width: 100%;
         border-radius: 5px;
-        height: 70%;
+        // height: 70%;
+        height: 400px;
         // object-fit: cover;
         // object-fit: contain;
       }
@@ -83,6 +78,17 @@
     }
     .movieHolder:hover {
       // transform: rotateX(-10deg) rotateY(10deg);
+    }
+    .moviesLoading {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--primaryColor);
+      position: absolute;
+      left: 50%;
+      border-radius: 50%;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      animation: loading 700ms infinite linear;
     }
   }
 }
@@ -134,5 +140,11 @@
         max-width: 300px;
       }
     }
+  }
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(360deg);
   }
 }
