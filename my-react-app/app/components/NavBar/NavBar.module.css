@@ -260,7 +260,7 @@
 }
 
 @media screen and (max-width: 1110px) {
-  .navBar .center div {
+  .navBar .center .searchForMoviesBtn {
     display: none;
   }
 }

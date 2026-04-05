@@ -1,7 +1,7 @@
 .leftNavBar {
   background-color: var(--primaryBackgroundColor);
-  height: calc(100svh - 90px);
-  top: 90px;
+  height: calc(100svh - 85px);
+  top: 85px;
   position: -webkit-sticky;
   position: sticky;
   z-index: 2;
@@ -76,8 +76,7 @@
     padding-left: 10px;
   }
   .expandLeftNavBar {
-    position: -webkit-sticky;
-    position: sticky;
+    position: fixed;
     width: 250px;
   }
   .expandLeftNavBar ul {
@@ -96,6 +95,12 @@
     width: 250px;
     -webkit-transform: translateX(-100%);
             transform: translateX(-100%);
+  }
+  .expandLeftNavBar {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    top: 70px;
+    height: calc(100% - 70px);
   }
 }
 /*# sourceMappingURL=LeftNavBar.module.css.map */

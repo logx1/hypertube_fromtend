@@ -164,28 +164,6 @@ const NavBar = ({
             </span>
             <span className={styles.buttonTxt}>Search</span>
           </button>
-          {/* <PrimaryInput
-            value={searchInput}
-            onChange={handleSearchInput}
-            type="text"
-            placeHolder="Search for videos"
-            width="100%"
-            name="searchInput"
-            onBlur={removeSearchedItems}
-            leftIcon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill="currentColor"
-                  d="M11.02 11.727a5.5 5.5 0 1 1 .707-.707l3.127 3.126a.5.5 0 0 1-.708.708zM12 7.5a4.5 4.5 0 1 0-9 0a4.5 4.5 0 0 0 9 0"
-                ></path>
-              </svg>
-            }
-          /> */}
         </div>
       )}
 

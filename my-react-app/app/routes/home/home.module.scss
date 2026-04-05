@@ -39,6 +39,8 @@
     row-gap: 20px;
     position: relative;
     // border: 1px solid red;
+    container-type: inline-size;
+    // container-name: side-panel;
     .movieHolder {
       // transform-style: preserve-3d;
       // transform: rotateY(0deg) rotateX(0deg);
@@ -79,6 +81,7 @@
         }
       }
     }
+
     .movieHolder:hover {
       // transform: rotateX(-10deg) rotateY(10deg);
     }

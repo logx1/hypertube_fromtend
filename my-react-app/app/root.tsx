@@ -75,11 +75,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
           )}
 
           {!isAuthPage ? (
-            <div
-              className={`appContainer ${sideNavBarStyle === "full" ? "expandAppContainer" : ""}`}
-            >
+            <div className={`appContainer`}>
               <LeftNavBar navBarStyle={sideNavBarStyle} />
-              <div className="toHide"></div>
+              <div
+                className={`toHide ${sideNavBarStyle === "full" ? "hideToHide" : ""}`}
+              ></div>
               <div
                 className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
               >

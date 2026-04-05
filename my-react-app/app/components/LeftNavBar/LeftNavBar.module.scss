@@ -1,7 +1,7 @@
 .leftNavBar {
   background-color: var(--primaryBackgroundColor);
-  height: calc(100svh - 90px);
-  top: 90px;
+  height: calc(100svh - 85px);
+  top: 85px;
   position: sticky;
   z-index: 2;
   border-right: 1px solid var(--primaryColor);
@@ -65,7 +65,7 @@
   }
   .expandLeftNavBar {
     // display: none;
-    position: sticky;
+    position: fixed;
     width: 250px;
     ul {
       width: 250px;
@@ -83,5 +83,10 @@
   .leftNavBar {
     width: 250px;
     transform: translateX(-100%);
+  }
+  .expandLeftNavBar {
+    transform: translateX(0);
+    top: 70px;
+    height: calc(100% - 70px);
   }
 }

@@ -91,12 +91,15 @@ label {
   body .appContainer .toHide {
     display: block;
   }
+  body .appContainer .hideToHide {
+    display: none;
+  }
   body .appContainer .contentContainerFull {
     margin-left: unset;
   }
   body .expandAppContainer {
-    -ms-grid-columns: 250px 1fr;
-        grid-template-columns: 250px 1fr;
+    -ms-grid-columns: 250px calc(100% - 310px);
+        grid-template-columns: 250px calc(100% - 310px);
   }
 }
 

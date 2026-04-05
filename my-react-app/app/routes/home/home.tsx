@@ -148,8 +148,8 @@ export default function Home() {
               {popularMovies.map((ele: any) => {
                 return (
                   <Link
-                    to={`/movieInfos/${ele.movie_id}/${ele.name}`}
                     className={styles.movieHolder}
+                    to={`/movieInfos/${ele.movie_id}/${ele.name}`}
                     // onMouseMove={mouseEnter}
                     key={uuidv4()}
                   >
