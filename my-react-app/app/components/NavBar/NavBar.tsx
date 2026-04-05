@@ -1,7 +1,11 @@
 import styles from "./NavBar.module.css";
 import PrimaryInput, { type PrimaryInputProps } from "../Input/PrimaryInput";
-import { useState } from "react";
-import { useMatches } from "react-router";
+import { useState, useContext } from "react";
+import NotificationContext, {
+  addNotification,
+} from "~/context/Notification/NotificationContext";
+import { useMatches, Link } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 
 const NavBar = ({
   navBarStyle,
@@ -11,21 +15,59 @@ const NavBar = ({
   setSideNavBarStyle: (s: "full" | "collaps") => void;
 }) => {
   const matches = useMatches();
-  // console.log(matches);
   const [searchInput, setSearchInput] = useState<string>("");
+  const [searchResult, setSearchResult] = useState<any>([]);
+  const notificationContext = useContext(NotificationContext);
+
+  const pushNotification = (type: "error" | "success", msg: string) => {
+    addNotification(
+      notificationContext,
+      {
+        notificationId: uuidv4(),
+        notificationType: type,
+        notificationMessage: msg,
+      },
+      3000
+    );
+  };
 
   const handleSearchInput = (e: any) => {
     setSearchInput(e.currentTarget.value);
+    fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/search/?q="${e.currentTarget.value}"`
+    )
+      .then((res) => {
+        if (res.status !== 200) {
+          pushNotification("error", "Something went wrong");
+          return;
+        }
+        res
+          .json()
+          .then((jres) => {
+            // console.log(searchInput, jres);
+            setSearchResult(jres.results);
+          })
+          .catch((err) => {
+            pushNotification("error", "Couldn't parse json response");
+            return;
+          });
+      })
+      .catch((err) => {
+        pushNotification("error", "Couldn't reach the backend");
+      });
   };
 
   const isInsideEditProfile = matches.some(
     (match) => match.id === "routes/editProfile/editProfile"
   );
-  // console.log(isInsideEditProfile);
 
   const changeSideNavBarStyle = () => {
     if (navBarStyle === "full") setSideNavBarStyle("collaps");
     else setSideNavBarStyle("full");
+  };
+
+  const removeSearchedItems = () => {
+    setSearchResult([]);
   };
 
   return (
@@ -83,6 +125,7 @@ const NavBar = ({
             placeHolder="Search for videos"
             width="100%"
             name="searchInput"
+            onBlur={removeSearchedItems}
             leftIcon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,6 +140,22 @@ const NavBar = ({
               </svg>
             }
           />
+          {searchResult.length > 0 && (
+            <div className={styles.searchResultContainer}>
+              <ul>
+                {searchResult.map((ele: any) => {
+                  return (
+                    <li key={uuidv4()}>
+                      <Link to="/hi">
+                        <span>{ele.name}</span>
+                        <span>{ele.production_year}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 
