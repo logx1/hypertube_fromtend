@@ -352,6 +352,95 @@
   color: #586175;
 }
 
+.nameRow {
+  display: flex;
+  gap: 12px;
+}
+.nameRow > * {
+  flex: 1;
+}
+
+.strengthBar {
+  margin-top: 8px;
+}
+
+.strengthTrack {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #1a1f2e;
+  overflow: hidden;
+}
+
+.strengthFill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strengthText {
+  font-size: 11px;
+  margin-top: 4px;
+  display: block;
+}
+
+.errorText {
+  font-size: 11px;
+  color: #ef4444;
+  margin-top: 4px;
+  display: block;
+}
+
+@keyframes formSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formAnimate {
+  animation: formSlideIn 0.3s ease forwards;
+}
+
+@media (max-width: 600px) {
+  .loginBox {
+    padding: 28px 20px;
+    border-radius: 8px;
+    margin: 0 12px;
+  }
+  .header {
+    padding: 20px 20px;
+  }
+  .mainTitle {
+    font-size: 18px;
+  }
+  .nameRow {
+    flex-direction: column;
+    gap: 0;
+  }
+  .nativeInput {
+    padding: 12px 36px 12px 38px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .loginBox {
+    padding: 24px 16px;
+    margin: 0 8px;
+  }
+  .tabButton {
+    font-size: 12px;
+    padding: 8px 0;
+  }
+  .intraButton {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
 .terms {
   margin-top: 24px;
   text-align: center;
