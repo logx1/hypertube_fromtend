@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 // HyperTube Design System Colors
-$bg-main: #0c1018;
+$bg-main: #0b1326;
 $bg-card: #202636;
 $bg-card-border: rgba(255, 255, 255, 0.05);
 $bg-input: #151a24;
@@ -88,6 +88,32 @@ $divider-color: rgba(255, 255, 255, 0.08);
       rgba(255, 255, 255, 0.04) 0%,
       rgba(255, 255, 255, 0) 65%);
   border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.indigoGlow {
+  position: absolute;
+  top: 25%;
+  left: -80px;
+  width: 384px;
+  height: 384px;
+  background-color: rgba(192, 193, 255, 0.1);
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.warmGlow {
+  position: absolute;
+  bottom: 25%;
+  right: -80px;
+  width: 384px;
+  height: 384px;
+  background-color: rgba(255, 183, 131, 0.1);
+  border-radius: 50%;
+  filter: blur(120px);
   pointer-events: none;
   z-index: 0;
 }
