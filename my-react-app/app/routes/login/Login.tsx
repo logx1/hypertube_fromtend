@@ -82,13 +82,13 @@ export default function Login() {
   );
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col relative overflow-hidden">
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-tertiary/10 rounded-full blur-[120px] pointer-events-none" />
+    <div className={styles.loginContainer}>
+      <div className={styles.indigoGlow} />
+      <div className={styles.warmGlow} />
 
       <Logo />
 
-      <main className="relative z-10 flex-grow flex items-center justify-center py-8 px-4">
+      <main className={styles.mainContent}>
         <div className={styles.loginBox}>
 
           <div className={styles.tabSwitcher}>
