@@ -189,33 +189,108 @@
   margin: 0;
 }
 
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@keyframes rarityShimmer {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+
 .intraButton {
   width: 100%;
+  position: relative;
   background-color: #151a24;
   border: 1px solid transparent;
   border-radius: 8px;
-  padding: 12px;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  padding: 14px 12px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  font-family: inherit;
+  overflow: hidden;
+}
+
+.intraButton:hover {
+  border-color: rgba(155, 140, 246, 0.4);
+  box-shadow:
+    0 0 20px rgba(155, 140, 246, 0.15),
+    0 0 40px rgba(155, 140, 246, 0.05),
+    inset 0 0 20px rgba(155, 140, 246, 0.03);
+}
+
+.intraButton:hover .intraShimmer {
+  opacity: 1;
+  animation: rarityShimmer 1.2s ease-in-out forwards;
+}
+
+.intraShimmer {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 60%;
+  height: 200%;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(192, 193, 255, 0.08) 20%,
+    rgba(155, 140, 246, 0.15) 35%,
+    rgba(255, 183, 131, 0.12) 50%,
+    rgba(155, 140, 246, 0.15) 65%,
+    rgba(192, 193, 255, 0.08) 80%,
+    transparent 100%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.intraContent {
+  position: relative;
+  z-index: 2;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
+}
+
+.socialRow {
+  display: flex;
+  gap: 12px;
+}
+
+.socialButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  background-color: #151a24;
+  border: 1px solid transparent;
+  border-radius: 8px;
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s;
-  margin-bottom: 24px;
   font-family: inherit;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
-.intraButton:hover {
+.socialButton:hover {
+  border-color: rgba(255, 255, 255, 0.1);
   background-color: #1b212e;
 }
 
