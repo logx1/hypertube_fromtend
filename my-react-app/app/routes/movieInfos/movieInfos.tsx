@@ -88,7 +88,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
   return (
     <div className={styles.moviesInfoContainer}>
       <div className={styles.movieCover}>
-        <img src={backdrop_image} alt="" />
+        <img src={backdrop_image || cover_image} alt="" />
       </div>
       <div className={styles.titleContainer}>
         <h1>
