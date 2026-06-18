@@ -1,8 +1,9 @@
 const getCookie = (cookieStr: string, cookieName: string): string | undefined =>{
     const cookies = cookieStr.split(";");
-    // console.log(cookies)
-    const requestedCookie = cookies.find(ele=>ele.split("=")[0] === cookieName)
-
+    
+    
+    const requestedCookie = cookies.find(ele=>ele.split("=")[0].trim() === cookieName)
+    
 
 
     if (!requestedCookie)

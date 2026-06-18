@@ -65,6 +65,7 @@ export default function Home() {
     // console.log(import.meta.env.VITE_BACKEND_URL);
     const authToken: string | undefined = getCookie(document.cookie, "token");
     if (!authToken) {
+      
       navigate("/login");
       return;
     }
