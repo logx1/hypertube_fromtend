@@ -7,11 +7,26 @@ import NotificationContext, {
   addNotification,
 } from "~/context/Notification/NotificationContext";
 import { v4 as uuid } from "uuid";
+import { getCookie } from "~/tools/getCookie";
+import { redirect } from "react-router";
+
+
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
-  // console.log(params.movieId);
+
+  const authToken: string | undefined = getCookie(document.cookie, "token");
+    if (!authToken)
+      {
+        return redirect("/login");
+      }
+  
   const res = await fetch(
-    `${import.meta.env.VITE_BACKEND_URL}/search/movie_detail?id=${params.movieId}`
+    `${import.meta.env.VITE_BACKEND_URL}/search/movie_detail?id=${params.movieId}`,{
+      method:"GET",
+      headers:{
+        "Authorization": `Bearer ${authToken}`
+      }
+    }
   );
   const product = await res.json();
   console.log(product);
@@ -22,88 +37,36 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
 //   return <div>Loading...</div>;
 // }
 
+export function HydrateFallback() {
+  return <div>Loading...</div>;
+}
+
 export default function movieInfos({ loaderData }: Route.ComponentProps) {
   let { movieId, movieName } = useParams();
   const [movieInfos, setMovieInfos] = useState<any>({});
   const notificationContext = useContext(NotificationContext);
-  const {
-    name,
-    genres,
-    overview,
-    actors,
-    release_date,
-    cover_image,
-    backdrop_image,
-  } = loaderData;
-
-  // useEffect(() => {
-  //   fetch(
-  //     `${import.meta.env.VITE_BACKEND_URL}/search/movie_detail?id=${movieId}`,
-  //     { method: "GET" }
-  //   )
-  //     .then((res) => {
-  //       if (res.status !== 200) {
-  //         addNotification(
-  //           notificationContext,
-  //           {
-  //             notificationId: uuid(),
-  //             notificationMessage: "Something went wrong",
-  //             notificationType: "error",
-  //           },
-  //           3000
-  //         );
-  //         return;
-  //       }
-  //       res
-  //         .json()
-  //         .then((res) => {
-  //           console.log(res);
-  //           setMovieInfos(res);
-  //         })
-  //         .catch((err) => {
-  //           addNotification(
-  //             notificationContext,
-  //             {
-  //               notificationId: uuid(),
-  //               notificationMessage: "Couldn't parse the response",
-  //               notificationType: "error",
-  //             },
-  //             3000
-  //           );
-  //         });
-  //     })
-  //     .catch((err) => {
-  //       addNotification(
-  //         notificationContext,
-  //         {
-  //           notificationId: uuid(),
-  //           notificationMessage: "Couldn't reach server",
-  //           notificationType: "error",
-  //         },
-  //         300
-  //       );
-  //     });
-  // }, [movieId]);
+  const data = loaderData;
 
   return (
     <div className={styles.moviesInfoContainer}>
       <div className={styles.movieCover}>
-        <img src={backdrop_image || cover_image} alt="" />
+        <img src={data.backdrop_image || data.cover_image} alt="" />
       </div>
       <div className={styles.titleContainer}>
         <h1>
-          {name} <span className={styles.releaseDate}>{release_date}</span>
+          {data.name}
         </h1>
         <div className={styles.genresContainer}>
-          {genres.map((ele: any) => {
-            return <span key={uuid()}>Science Fiction</span>;
+          {data.genres.map((ele: any) => {
+            return <span key={uuid()}>{ele}</span>;
           })}
+          <span className={styles.releaseDate}>{data.release_date}</span>
         </div>
       </div>
-      <p>{overview}</p>
+      <p>{data.overview}</p>
       <h2 className={styles.actorsTitle}>Actors</h2>
       <div className={styles.actorsContainer}>
-        {actors.map((ele: any) => {
+        {data.actors.map((ele: any) => {
           return (
             <div className={styles.actorContainer} key={uuid()}>
               <img src={ele.profile_image} alt="" />

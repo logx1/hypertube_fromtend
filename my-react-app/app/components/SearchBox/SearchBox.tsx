@@ -6,6 +6,8 @@ import NotificationContext, {
   addNotification,
 } from "~/context/Notification/NotificationContext";
 import { v4 as uuid } from "uuid";
+import { getCookie } from "~/tools/getCookie";
+import { useNavigate } from "react-router";
 
 export default function SearchBox({
   searchBoxVisibility,
@@ -15,7 +17,7 @@ export default function SearchBox({
   const [userInput, setUserInput] = useState<string>("");
   const [searchResult, setSearchResult] = useState<any>([]);
   const notificationContext = useContext(NotificationContext);
-  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);
+  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);  let navigate = useNavigate();
 
   const pushNotification = (type: "error" | "success", msg: string) => {
     addNotification(
@@ -30,11 +32,27 @@ export default function SearchBox({
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const authToken = getCookie(document.cookie, "token")
+
+    console.log(authToken)
+    
     setUserInput(e.currentTarget.value);
+    if (!authToken) {
+      
+      navigate("/login")
+      searchBoxVisibility(false)
+      return
+    }
     setSearchResult([]);
     setIsSearchLoading(true);
     fetch(
       `${import.meta.env.VITE_BACKEND_URL}/search/?q="${e.currentTarget.value}"`
+      ,
+    {
+      headers:{
+        "Authorization": `Bearer ${authToken}`
+      }
+    }
     )
       .then((res) => {
         if (res.status != 200) {
@@ -57,7 +75,13 @@ export default function SearchBox({
       });
   };
   return (
-    <div className={styles.searchBoxContainer}>
+    <div className={styles.searchBoxContainer} onClick={(e)=>{
+      const target = e.target as HTMLDivElement
+      if (target.className === styles.searchBoxContainer) {
+        searchBoxVisibility(false)
+      }
+      
+    }}>
       <div className={styles.searchBoxHolder}>
         <div className={styles.inputContainer}>
           <PrimaryInput

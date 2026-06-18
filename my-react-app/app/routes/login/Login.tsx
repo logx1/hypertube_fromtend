@@ -40,7 +40,7 @@ export default function Login() {
     setIsLoading(true);
     setApiError("");
     try {
-      const res = await fetch(`${API_BASE}/api/signin`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/api/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -65,7 +65,7 @@ export default function Login() {
     setIsLoading(true);
     setApiError("");
     try {
-      const res = await fetch(`${API_BASE}/api/signup`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/api/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -103,6 +103,7 @@ export default function Login() {
       setSignupSuccess(true);
       setTimeout(() => navigate("/login"), 2500);
     } catch (err: any) {
+      
       setApiError(err.message || "Signup failed. Please try again.");
     } finally {
       setIsLoading(false);

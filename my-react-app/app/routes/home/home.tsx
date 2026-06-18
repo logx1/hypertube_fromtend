@@ -8,6 +8,8 @@ import NotificationContext, {
 import { useEffect } from "react";
 import Slider from "~/components/Slider/Slider";
 import { Link } from "react-router";
+import { getCookie } from "~/tools/getCookie";
+import { useNavigate } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -31,6 +33,7 @@ export default function Home() {
     []
   );
   const notificationContext = useContext(NotificationContext);
+  let navigate = useNavigate();
 
   const handle = () => {
     console.log("fuck");
@@ -60,8 +63,20 @@ export default function Home() {
 
   useEffect(() => {
     // console.log(import.meta.env.VITE_BACKEND_URL);
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/search/popular`)
-      .then((res) => {
+    const authToken: string | undefined = getCookie(document.cookie, "token");
+    if (!authToken) {
+      navigate("/login");
+      return;
+    }
+  
+    
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/search/popular`, {
+      method: "GET",
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    })
+      .then(async(res) => {
         if (res.status !== 200) {
           pushNotification(
             "error",

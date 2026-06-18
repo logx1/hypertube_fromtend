@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -61,6 +62,34 @@ body .contentContainer .contentWrapper {
   body {
     color-scheme: dark;
   }
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  /* For vertical scrollbars */
+  height: 12px;
+  /* For horizontal scrollbars */
+}
+
+/* 2. The track (background) of the scrollbar */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+  /* Optional: rounds the track */
+}
+
+/* 3. The thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: var(--primaryColor);
+  border-radius: 6px;
+  /* Optional: rounds the thumb */
+  border: 3px solid #f1f1f1;
+  /* Creates a padding effect inside the track */
+}
+
+/* 4. The thumb when you hover over it */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primaryColor);
 }
 
 button {
