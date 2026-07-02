@@ -1,5 +1,6 @@
 import styles from "./LeftNavBar.module.css";
 import { Link } from "react-router";
+import {useNavigate} from "react-router"
 
 interface NavItem {
   icon: any;
@@ -27,6 +28,7 @@ export default function LeftNavBar({
 }: {
   navBarStyle: "full" | "collaps";
 }) {
+  const navigate = useNavigate();
   return (
     <nav
       className={`${styles.leftNavBar} ${navBarStyle === "full" ? styles.expandLeftNavBar : ""}`}
@@ -74,6 +76,28 @@ export default function LeftNavBar({
           text="Profile"
           link="/profile"
         />
+        <li>
+          <button onClick={()=>{
+            const today = new Date();
+            const tomorrow = new Date(today.getTime() - (24 * 60 * 60 * 1000));
+            const expirationString = tomorrow.toUTCString();
+            document.cookie = `token=; path=/;expires=${expirationString }`;
+            window.location.href = "/"
+          }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z"
+              ></path>
+            </svg>{" "}
+            Log out
+          </button>
+        </li>
       </ul>
     </nav>
   );

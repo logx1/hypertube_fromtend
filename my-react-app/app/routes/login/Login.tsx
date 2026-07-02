@@ -52,7 +52,10 @@ export default function Login() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Invalid credentials");
-      document.cookie = `token=${data.token}; path=/`;
+      const today = new Date();
+      const tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+      const expirationString = tomorrow.toUTCString();
+      document.cookie = `token=${data.token}; path=/;expires=${expirationString }`;
       navigate("/");
     } catch (err: any) {
       setApiError(err.message || "Login failed. Please try again.");

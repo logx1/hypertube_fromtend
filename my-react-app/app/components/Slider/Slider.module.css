@@ -43,8 +43,12 @@
 
 .sliderContainer .sliderNavigationItems .sliderNavigationItem {
   padding: 3px 20px;
-  background-color: var(--primaryColor);
+  background-color: #ddd;
   border-radius: 10px;
+}
+
+.sliderContainer .sliderNavigationItems .activeItem {
+  background-color: var(--primaryColor);
 }
 
 .sliderContainer .sliderWrapper {
@@ -96,9 +100,9 @@
 
 .sliderContainer .sliderWrapper .sliderHolder .sliderItem .sliderItemContent .sliderItemTitle {
   font-size: 80px;
+  font-size: 5vw;
   font-weight: 800;
   letter-spacing: 1px;
-  width: 50%;
   text-wrap: wrap;
 }
 
@@ -107,6 +111,7 @@
   text-wrap: wrap;
   font-size: 25px;
   color: #bcc7de;
+  font-size: 1.3vw;
 }
 
 .sliderContainer .sliderWrapper .sliderHolder .sliderItem .sliderItemContent .sliderButtonContainer {
@@ -124,6 +129,32 @@
 
 .sliderContainer .sliderWrapper::-webkit-scrollbar {
   display: none;
+}
+
+@media screen and (max-width: 1175px) {
+  .sliderContainer .sliderWrapper {
+    height: 500px;
+  }
+  .sliderContainer .sliderNavigationItems .sliderNavigationItem {
+    padding: 0px;
+    width: 10px;
+    height: 10px;
+  }
+  .sliderContainer .sliderWrapper .sliderHolder .sliderItem .sliderItemContent .sliderItemDescription {
+    font-size: 18px;
+  }
+  .sliderContainer .sliderWrapper .sliderHolder .sliderItem .sliderItemContent .sliderButtonContainer {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .sliderContainer .sliderWrapper .sliderHolder .sliderItem .sliderItemContent .sliderItemTitle {
+    font-size: 50px;
+  }
+  .sliderContainer .sliderWrapper .sliderHolder .sliderItem .sliderItemContent .sliderItemDescription {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 880px) {

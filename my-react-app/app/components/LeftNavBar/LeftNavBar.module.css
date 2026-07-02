@@ -23,7 +23,8 @@
   padding: 0px 10px;
 }
 
-.leftNavBar ul li a {
+.leftNavBar ul li a,
+.leftNavBar ul li button {
   text-decoration: none;
   text-transform: capitalize;
   padding: 10px 20px;
@@ -38,11 +39,19 @@
   border-radius: 5px;
   -webkit-transition: 80ms linear;
   transition: 80ms linear;
+  color: white;
 }
 
-.leftNavBar ul li a:hover {
+.leftNavBar ul li a:hover,
+.leftNavBar ul li button:hover {
   background-color: #6365f12c;
   color: var(--primaryColor);
+}
+
+.leftNavBar ul li button {
+  font-family: var(--primaryFontFamily);
+  width: 100%;
+  font-size: 15px;
 }
 
 @media screen and (max-width: 1487px) {

@@ -17,16 +17,26 @@ interface SliderProps {
 export default function Slider({ items }: { items: SliderProps[] }) {
   // const [items, setItems] = useState<any>(new Array(10).fill(null));
   const scrollBox = useRef<any>(null);
+  const [currentIdx, setCurrentIdx] = useState<number>(0);
+  console.log(items);
   // console.log(items.length);
 
   const goNext = () => {
     console.log("okay go next");
     // console.log(scrollBox.current);
     scrollBox.current.scrollBy({ left: 100 });
+    if (currentIdx < items.length - 1)
+      setCurrentIdx((currentIdx) => currentIdx + 1);
   };
 
   const goPrev = () => {
     scrollBox.current.scrollBy({ left: -100 });
+    if (currentIdx > 0) setCurrentIdx((currentIdx) => currentIdx - 1);
+  };
+
+  const gotoIndx = (idx: number) => {
+    scrollBox.current.scrollBy({ left: 100 * idx + 1 });
+    setCurrentIdx(idx);
   };
 
   return (
@@ -44,9 +54,15 @@ export default function Slider({ items }: { items: SliderProps[] }) {
         Prev
       </button>
       <div className={styles.sliderNavigationItems}>
-        {items.map((ele) => {
+        {items.map((ele, idx) => {
           return (
-            <div className={styles.sliderNavigationItem} key={uuidv4()}></div>
+            <button
+              className={`${styles.sliderNavigationItem} ${currentIdx >= idx ? styles.activeItem : ""}`}
+              key={uuidv4()}
+              onClick={() => {
+                // gotoIndx(idx);
+              }}
+            ></button>
           );
         })}
       </div>
@@ -77,7 +93,11 @@ export default function Slider({ items }: { items: SliderProps[] }) {
                     dolore ratione nam tempora placeat.
                   </p>
                   <div className={styles.sliderButtonContainer}>
-                    <PrimaryButton text="Watch now" />
+                    <PrimaryButton
+                      text="Watch now"
+                      width="300px"
+                      padding="15px 0px"
+                    />
                   </div>
                 </div>
               </div>

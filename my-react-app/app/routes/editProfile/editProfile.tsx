@@ -6,25 +6,55 @@ import NotificationContext, {
   addNotification,
 } from "~/context/Notification/NotificationContext";
 import { v4 as uuidv4 } from "uuid";
+import { getCookie } from "~/tools/getCookie";
+import type { Route } from "./+types/editProfile";
+import { redirect } from "react-router";
 
 interface editProfileInfos {
   fullName: string;
-  displayName: string;
+  firstName: string;
+  lastName: string;
+  username: string;
   emailAddress: string;
   currentPassword: string;
   newPassword: string;
 }
 
-export default function EditProfile() {
+export async function clientLoader({ params }: Route.ClientLoaderArgs) {
+  const authToken: string | undefined = getCookie(document.cookie, "token");
+  if (!authToken) {
+    return redirect("/login");
+  }
+
+  const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/api/user`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  });
+  if (res.status !== 200) {
+    return null
+  }
+  const info = await res.json();
+  return info;
+}
+
+export default function EditProfile({ loaderData }: Route.ComponentProps) {
+  const userInfo = loaderData;
+
   const [formInfos, setFormInfos] = useState<editProfileInfos>({
     fullName: "",
-    displayName: "",
-    emailAddress: "",
+    firstName: userInfo?.json.first_name || "",
+    lastName: userInfo?.json.last_name || "",
+    username: "",
+    emailAddress: userInfo?.json.email || "",
     currentPassword: "",
     newPassword: "",
   });
 
   const notificationContext = useContext(NotificationContext);
+
+  // console.log(userInfo);
 
   const handleInputChange = (e: any) => {
     setFormInfos({ ...formInfos, [e.target.name]: e.target.value });
@@ -32,19 +62,56 @@ export default function EditProfile() {
 
   const saveChanges = () => {
     console.log(formInfos);
-    addNotification(
-      notificationContext,
-      {
-        notificationId: uuidv4(),
-        notificationMessage: "Okay",
-        notificationType: "success",
+    const cookie = getCookie(document.cookie, "token");
+    if (!cookie) {
+      console.log("No auth cookie");
+      return;
+    }
+
+    // console.log(userInfo);
+
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/update`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${cookie}`,
+        "Content-Type": "application/json"
       },
-      4000
-    );
+      body: JSON.stringify({
+        auth: {
+          username: formInfos.username,
+          first_name: formInfos.firstName,
+          last_name: formInfos.lastName,
+          email: formInfos.emailAddress,
+          imageUrl: 'kk',
+        }
+      }),
+    })
+      .then(async (res) => {
+        console.log(res);
+        console.log(await res.json())
+      })
+      .catch((err) => {});
+    // addNotification(
+    //   notificationContext,
+    //   {
+    //     notificationId: uuidv4(),
+    //     notificationMessage: "Okay",
+    //     notificationType: "success",
+    //   },
+    //   4000
+    // );
   };
 
   return (
     <div className={styles.editProfileContainer}>
+      <button style={{color: "White"}}
+      onClick={()=>{
+        // console.log(userInfo)
+        const date = new Date();
+      const tomorrow = new Date(date)
+      tomorrow.setDate(date.getDate() + 1)
+      console.log(tomorrow)
+      }}>check</button>
       <div className={styles.pageHeader}>
         <h1>Account settings</h1>
         <p>Manage your profile information and security preference</p>
@@ -77,14 +144,14 @@ export default function EditProfile() {
           <form className={styles.infosContainer} action={saveChanges}>
             <div className={styles.inputsWrapper}>
               <div className={styles.inputHolder}>
-                <label htmlFor="">Full name</label>
+                <label htmlFor="">First name</label>
                 <PrimaryInput
                   type="text"
-                  placeHolder="Full name"
-                  value={formInfos.fullName}
+                  placeHolder="First name"
+                  value={formInfos.firstName}
                   onChange={handleInputChange}
                   width="100%"
-                  name="fullName"
+                  name="firstName"
                   leftIcon={
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -103,23 +170,36 @@ export default function EditProfile() {
                 />
               </div>
               <div className={styles.inputHolder}>
-                <label htmlFor="">Display name</label>
+                <label htmlFor="">Last name</label>
                 <PrimaryInput
                   type="text"
-                  placeHolder="Display name"
-                  value={formInfos.displayName}
-                  name="displayName"
+                  placeHolder="Last name"
+                  value={formInfos.lastName}
+                  name="lastName"
                   leftIcon={<span></span>}
                   onChange={handleInputChange}
                   width="100%"
                 />
               </div>
             </div>
-            <div className={styles.inputWrapper}>
+            <div className={styles.inputsWrapper}>
+           
+              <div className={styles.inputHolder}>
+                <label htmlFor="">username</label>
+                <PrimaryInput
+                  type="text"
+                  placeHolder="username"
+                  value={formInfos.username}
+                  name="username"
+                  onChange={handleInputChange}
+                  width="100%"
+                  leftIcon={<span></span>}
+                />
+              </div>
               <div className={styles.inputHolder}>
                 <label htmlFor="">Email</label>
                 <PrimaryInput
-                  type="email"
+                  type="text"
                   placeHolder="example@email.com"
                   value={formInfos.emailAddress}
                   name="emailAddress"
@@ -170,7 +250,11 @@ export default function EditProfile() {
               </div>
             </div>
             <div className={styles.submitContainer}>
-              <PrimaryButton text="Submit changes" padding="10px 20px" />
+              <PrimaryButton
+                text="Submit changes"
+                padding="10px 20px"
+                width="30%"
+              />
             </div>
           </form>
         </div>

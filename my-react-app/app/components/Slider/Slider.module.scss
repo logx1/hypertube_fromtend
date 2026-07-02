@@ -28,14 +28,19 @@
     z-index: 2;
     .sliderNavigationItem {
       padding: 3px 20px;
-      background-color: var(--primaryColor);
+      background-color: #ddd;
       border-radius: 10px;
+    }
+
+    .activeItem {
+      background-color: var(--primaryColor);
     }
   }
   .sliderWrapper {
     width: 100%;
     // border: 1px solid rgba(0, 0, 255, 0.812);
     aspect-ratio: 3/1;
+    // max-height:00px;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     // overflow-y: hidden;
@@ -71,9 +76,10 @@
           row-gap: 20px;
           .sliderItemTitle {
             font-size: 80px;
+            font-size: 5vw;
             font-weight: 800;
             letter-spacing: 1px;
-            width: 50%;
+            // width: 50%;
             text-wrap: wrap;
           }
           .sliderItemDescription {
@@ -81,6 +87,7 @@
             text-wrap: wrap;
             font-size: 25px;
             color: #bcc7de;
+            font-size: 1.3vw;
           }
           .sliderButtonContainer {
             // border: 1px solid red;
@@ -95,6 +102,60 @@
   }
   .sliderWrapper::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1580px) {
+}
+
+@media screen and (max-width: 1175px) {
+  .sliderContainer {
+    .sliderWrapper {
+      height: 500px;
+    }
+    .sliderNavigationItems {
+      // display: none;
+      .sliderNavigationItem {
+        padding: 0px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+    .sliderWrapper {
+      .sliderHolder {
+        .sliderItem {
+          .sliderItemContent {
+            .sliderItemDescription {
+              font-size: 18px;
+            }
+            .sliderButtonContainer {
+              // display: none;
+              // padding: unset;
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .sliderContainer {
+    .sliderWrapper {
+      .sliderHolder {
+        .sliderItem {
+          .sliderItemContent {
+            .sliderItemTitle {
+              font-size: 50px;
+            }
+            .sliderItemDescription {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
