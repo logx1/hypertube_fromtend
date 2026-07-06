@@ -15,8 +15,26 @@
     rgba(192, 193, 255, 1) 50%,
     rgba(134, 137, 255, 1) 100%
   );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .loadingBox {
+    // border: 1px solid red;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2.5px solid var(--primaryColor);
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    animation: loading 400ms infinite linear;
+  }
 
   //   animation: 1s buttonLoading infinite;
+}
+
+.primaryButton:disabled {
+  // display: none;
 }
 
 .primaryButton:hover {
@@ -27,6 +45,18 @@
   transform: scale(0.95);
 }
 
+.primaryButton:active:disabled {
+  .loadingBox {
+    animation: loading 100ms infinite linear;
+  }
+}
+
 // .primaryButton:hover {
 //   transform: scale(1.05);
 // }
+
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -5,6 +5,7 @@ export interface PrimaryButtonProps {
   padding?: string;
   onClick?: () => void;
   width?: string;
+  isLoading?: Boolean;
 }
 
 const PrimaryButton = ({
@@ -12,14 +13,17 @@ const PrimaryButton = ({
   padding = "15px 100px",
   onClick,
   width = "100%",
+  isLoading = false,
 }: PrimaryButtonProps) => {
   return (
     <button
       className={`${styles.primaryButton}`}
       style={{ padding: padding, width: width }}
       onClick={onClick}
+      disabled={isLoading ? true : false}
     >
-      {text}
+      {isLoading && <div className={styles.loadingBox}></div>}
+      {!isLoading && text}
     </button>
   );
 };
