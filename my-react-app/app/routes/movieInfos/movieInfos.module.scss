@@ -79,4 +79,118 @@
       }
     }
   }
+
+  .torrentResultBox {
+    // border: 1px solid red;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: center;
+    // align-items: center;
+    // column-gap: 10px;
+    // row-gap: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    .resultTableHeader {
+      display: grid;
+      grid-template-columns: 200px repeat(5, calc(calc(100% - 100px) / 4));
+      column-gap: 10px;
+      width: 100%;
+      background-color: #171f33;
+      padding: 10px 15px;
+      border-radius: 5px;
+      span {
+        // border: 1px solid white;
+      }
+    }
+
+    .resultTableContent {
+      display: grid;
+      grid-template-columns: 200px repeat(5, calc(calc(100% - 100px) / 4));
+      width: 100%;
+      background-color: #171f33;
+      column-gap: 10px;
+      padding: 10px 15px;
+      div {
+        border: 1px solid blue;
+      }
+      span {
+        border: 1px solid blue;
+        display: block;
+        width: 100%;
+        overflow: hidden;
+      }
+    }
+    // .resultHolder {
+    //   border: 1px solid blue;
+    //   width: 300px;
+    //   height: 200px;
+    // }
+  }
+
+  .torrentResultCards {
+    // border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+    row-gap: 20px;
+    position: relative;
+    // min-height: 500px;
+
+    .movieHolder {
+      // transform-style: preserve-3d;
+      // transform: rotateY(0deg) rotateX(0deg);
+      // width: 100%;
+      cursor: pointer;
+      box-shadow: rgba(86, 86, 86, 0.35) 0px 5px 15px;
+      // height: 500px;
+
+      // background-color: red;
+      border: 1px solid var(--primaryColor);
+      width: 300px;
+      border-radius: 10px;
+      padding: 10px;
+      transition: 200ms linear;
+      // animation: rotate 2s linear infinite;
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      text-decoration: none;
+
+      img {
+        width: 100%;
+        border-radius: 5px;
+        // height: 70%;
+        height: 400px;
+        // object-fit: cover;
+        // object-fit: contain;
+      }
+      .descriptionContainer {
+        display: flex;
+        // justify-content: center;
+        // align-items: center;
+        flex-direction: column;
+        // row-gap: 10px;
+        row-gap: 10px;
+        .movieName {
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .noTorrentResult {
+      border: 1px solid rgba(255, 162, 0, 0.363);
+      width: 90%;
+      max-width: 500px;
+    }
+    .cardHolder {
+      width: 400px;
+      // height: 300px;
+      border: 1px solid var(--primaryColor);
+      border-radius: 10px;
+    }
+  }
 }

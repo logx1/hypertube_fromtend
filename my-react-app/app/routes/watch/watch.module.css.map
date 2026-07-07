@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAC;EACT,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,OAAO,EAAE,IAAI;CAYd;;AAfD,AAIE,UAJQ,CAIR,SAAS,CAAC;EACR,MAAM,EAAE,aAAa;EACrB,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;CAMxB;;AAdH,AASI,UATM,CAIR,SAAS,CAKP,KAAK,CAAC;EACJ,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;EACb,MAAM,EAAE,cAAc;CACvB",
+    "sources": [
+        "watch.module.scss"
+    ],
+    "names": [],
+    "file": "watch.module.css"
+}

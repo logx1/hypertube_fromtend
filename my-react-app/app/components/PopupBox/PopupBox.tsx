@@ -6,6 +6,9 @@ export interface PopupBoxConfig {
   description: string;
   icon: any;
   color: string;
+  position?: "fixed" | "absolute" | "relative";
+  backgroundColor?: string;
+  showAction?: boolean;
   closeBox: () => void;
 }
 
@@ -15,6 +18,9 @@ const PopupBox = ({
   icon,
   color,
   closeBox,
+  position = "fixed",
+  backgroundColor = "background-color: rgba(0, 0, 0, 0.5)",
+  showAction = true,
 }: PopupBoxConfig) => {
   return (
     <div
@@ -27,6 +33,7 @@ const PopupBox = ({
           closeBox();
         }
       }}
+      style={{ position: position, backgroundColor: backgroundColor }}
     >
       <div className={styles.popupHolder}>
         <div className={styles.titleContainer}>
@@ -41,16 +48,18 @@ const PopupBox = ({
         <div className={styles.descriptionContainer}>
           <p>{description}</p>
         </div>
-        <div className={styles.actionsContainer}>
-          <PrimaryButton
-            text="okay"
-            onClick={() => {
-              closeBox();
-            }}
-            width="40%"
-            padding="10px 0px"
-          />
-        </div>
+        {showAction && (
+          <div className={styles.actionsContainer}>
+            <PrimaryButton
+              text="okay"
+              onClick={() => {
+                closeBox();
+              }}
+              width="40%"
+              padding="10px 0px"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
