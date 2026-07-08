@@ -10,7 +10,6 @@
 }
 
 .watchPage .videoBox {
-  border: 1px solid red;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -20,11 +19,61 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  height: calc(100svh - 145px);
 }
 
 .watchPage .videoBox video {
-  width: 800px;
-  height: 400px;
-  border: 1px solid blue;
+  width: 100%;
+}
+
+.watchPage .notAvailableBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: calc(100svh - 145px);
+}
+
+.watchPage .loading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: calc(100svh - 145px);
+}
+
+.watchPage .loading .loadingBox {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--primaryColor);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: load 500ms infinite linear;
+          animation: load 500ms infinite linear;
+}
+
+@-webkit-keyframes load {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 /*# sourceMappingURL=watch.module.css.map */

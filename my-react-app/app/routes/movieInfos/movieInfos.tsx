@@ -80,7 +80,11 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
       .catch((err) => {});
   }, [window.location.href]);
 
-  const selectToWatch = (identifier: string, torrentUrl: string) => {
+  const selectToWatch = (
+    identifier: string,
+    torrentUrl: string,
+    title: string
+  ) => {
     console.log(identifier, torrentUrl);
     const accessToken = getCookie(document.cookie, "token");
     if (!accessToken) {
@@ -100,7 +104,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
     })
       .then(async (res) => {
         console.log(await res.text());
-        navigate(`/watch/${identifier}`);
+        navigate(`/watch/${identifier}/${title}`);
       })
       .catch((err) => {
         console.log("Couldn reach to server");
@@ -143,7 +147,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
               key={uuid()}
               className={styles.movieHolder}
               onClick={() => {
-                selectToWatch(ele.identifier, ele.torrent_url);
+                selectToWatch(ele.identifier, ele.torrent_url, ele.title);
               }}
             >
               <img src={ele.verification_image} alt={ele.title} />

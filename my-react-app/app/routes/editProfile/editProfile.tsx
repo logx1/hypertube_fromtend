@@ -93,7 +93,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
     // console.log(userInfo);
 
     fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/update`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${cookie}`,
         "Content-Type": "application/json",
@@ -137,10 +137,37 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
           });
         }
 
+        if (res.status === 200) {
+          setResponseBox((currentState) => {
+            const newState = { ...currentState };
+            newState.showBox = true;
+            const newConfigBox = { ...newState.boxConfig };
+            newConfigBox.title = "Success";
+            newConfigBox.description = "Infos updated successfully";
+            newConfigBox.icon = (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={30}
+                height={30}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83z"
+                ></path>
+              </svg>
+            );
+            newConfigBox.color = "rgba(0, 128, 0, 0.307)";
+            newState.boxConfig = newConfigBox;
+            return newState;
+          });
+        }
+
         console.log(res);
         console.log(await res.json());
       })
       .catch((err) => {
+        console.log("Fucking catch");
         setIsLoading(false);
         setResponseBox((currentState) => {
           const newState = { ...currentState };
@@ -162,7 +189,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             </svg>
           );
           newConfigBox.color = "rgba(128, 0, 0, 0.303)";
-
+          newState.boxConfig = newConfigBox;
           return newState;
         });
       });
@@ -271,7 +298,10 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
                 />
               </div>
             </div>
-            <div className={styles.inputsWrapper}>
+            <div
+              className={styles.inputsWrapper}
+              style={{ gridTemplateColumns: "1fr" }}
+            >
               <div className={styles.inputHolder}>
                 <label htmlFor="">username</label>
                 <PrimaryInput
@@ -284,7 +314,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
                   leftIcon={<span></span>}
                 />
               </div>
-              <div className={styles.inputHolder}>
+              {/* <div className={styles.inputHolder}>
                 <label htmlFor="">Email</label>
                 <PrimaryInput
                   type="text"
@@ -295,7 +325,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
                   width="100%"
                   leftIcon={<span></span>}
                 />
-              </div>
+              </div> */}
             </div>
             {/* <div className={styles.inputsWrapper}>
               <div className={styles.inputHolder}>
