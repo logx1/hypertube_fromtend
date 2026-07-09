@@ -20,7 +20,11 @@
       "successTitle": "Success",
       "successDescription": "Infos updated successfully",
       "errorTitle": "Failed",
-      "errorDesc": "Something went wrong"
+      "errorDesc": "Something went wrong",
+      "editEmail": "Change email address",
+      "email": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm Password"
     },
     "movieInfos": {
       "actors": "Actors",
@@ -65,7 +69,11 @@
       "successTitle": "Succès",
       "successDescription": "Informations mises à jour avec succès",
       "errorTitle": "Échoué",
-      "errorDesc": "Quelque chose s'est mal passé"
+      "errorDesc": "Quelque chose s'est mal passé",
+      "editEmail": "Changer l'adresse e-mail",
+      "email": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm Password"
     },
     "movieInfos": {
       "actors": "Acteurs",

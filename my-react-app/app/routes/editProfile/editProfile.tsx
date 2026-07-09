@@ -1,4 +1,10 @@
-import { useState, useContext, useCallback, useRef } from "react";
+import {
+  useState,
+  useContext,
+  useCallback,
+  useRef,
+  type ChangeEvent,
+} from "react";
 import styles from "./editProfile.module.css";
 import PrimaryInput from "~/components/Input/PrimaryInput";
 import PrimaryButton from "~/components/Button/PrimaryButton";
@@ -46,6 +52,7 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
 export default function EditProfile({ loaderData }: Route.ComponentProps) {
   console.log("render");
   const userInfo = loaderData;
+  console.log(userInfo);
 
   const [formInfos, setFormInfos] = useState<editProfileInfos>({
     fullName: "",
@@ -58,11 +65,22 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
     imageUrl: userInfo.json.imageUrl || "http://localhost:3000/public/ff.avif",
   });
   const fileInput = useRef<HTMLInputElement | null>(null);
+
+  const [updateEmailForm, setUpdateEmailForm] = useState<{
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }>({
+    email: userInfo.json.email,
+    password: "",
+    confirmPassword: "",
+  });
   // console.log(formInfos);
 
   const [newProfilePic, setNewProfilePic] = useState<string | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isEmailIsLoading, setIsEmailIsLoading] = useState<boolean>(false);
   const [responseBox, setResponseBox] = useState<{
     showBox: boolean;
     boxConfig: any;
@@ -367,17 +385,154 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
               />
             </div>
           </form>
-          <form className={styles.infosContainer} action={saveChanges}>
-            <div className={styles.inputsWrapper}>
+
+          {/* 00............................................................... */}
+          <form
+            className={styles.infosContainer}
+            action={() => {
+              const accessToken = getCookie(document.cookie, "token");
+              if (!accessToken) return;
+              setIsEmailIsLoading(true);
+              fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/auth/user/email_update`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                  },
+                  body: JSON.stringify({
+                    auth: {
+                      email: updateEmailForm.email,
+                      password: updateEmailForm.password,
+                      password_confirmation: updateEmailForm.confirmPassword,
+                    },
+                  }),
+                }
+              )
+                .then((res) => {
+                  console.log(res);
+                  setIsEmailIsLoading(false);
+                  if (res.status === 200) {
+                    setResponseBox((currentState) => {
+                      const newState = { ...currentState };
+                      newState.showBox = true;
+                      const newConfigBox = { ...newState.boxConfig };
+                      newConfigBox.title =
+                        langsContext?.data.data.editProfile.successTitle;
+                      newConfigBox.description =
+                        langsContext?.data.data.editProfile.successDescription;
+                      newConfigBox.icon = (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={30}
+                          height={30}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83z"
+                          ></path>
+                        </svg>
+                      );
+                      newConfigBox.color = "rgba(0, 128, 0, 0.307)";
+                      newState.boxConfig = newConfigBox;
+                      return newState;
+                    });
+                  } else {
+                    setResponseBox((currentState) => {
+                      const newState = { ...currentState };
+                      newState.showBox = true;
+                      const newConfigBox = { ...newState.boxConfig };
+                      newConfigBox.title =
+                        langsContext?.data.data.editProfile.errorTitle;
+                      newConfigBox.description =
+                        langsContext?.data.data.editProfile.errorDesc;
+                      newConfigBox.icon = (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={30}
+                          height={30}
+                          viewBox="0 0 1024 1024"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M1017.06 186.064L917.364 74.721a31.96 31.96 0 0 0-23.937-10.752H543.171V30.001c0-16.56-14.336-30-32-30s-32 13.44-32 30V63.97H223.363c-17.68 0-32 14.32-32 32v223.664c0 17.68 14.32 32 32 32h255.808v64.096H130.58a31.96 31.96 0 0 0-23.936 10.752L6.963 539.793c-10.752 12.128-10.752 30.368 0 42.496l99.68 112.288c6.112 6.847 14.784 9.744 23.936 9.744h348.592V994c0 16.56 14.336 30 32 30s32-13.44 32-30V704.32h256.464c17.68 0 32-14.32 32-32V447.713c0-17.68-14.32-32-32-32H543.171v-64.096h350.256a31.96 31.96 0 0 0 23.937-10.752l99.696-112.32c10.736-12.112 10.736-30.352 0-42.48zM767.647 640.321H144.959l-71.28-79.28l71.28-81.312h622.688zm111.392-352.688h-623.68V127.969h623.68l71.28 79.344z"
+                          ></path>
+                        </svg>
+                      );
+                      newConfigBox.color = "rgba(128, 0, 0, 0.303)";
+                      newState.boxConfig = newConfigBox;
+                      return newState;
+                    });
+                  }
+                })
+                .catch((err) => {
+                  console.log("Somethign went wrong");
+                  setIsEmailIsLoading(false);
+                  setResponseBox((currentState) => {
+                    const newState = { ...currentState };
+                    newState.showBox = true;
+                    const newConfigBox = { ...newState.boxConfig };
+                    newConfigBox.title =
+                      langsContext?.data.data.editProfile.errorTitle;
+                    newConfigBox.description =
+                      langsContext?.data.data.editProfile.errorDesc;
+                    newConfigBox.icon = (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={30}
+                        height={30}
+                        viewBox="0 0 1024 1024"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M1017.06 186.064L917.364 74.721a31.96 31.96 0 0 0-23.937-10.752H543.171V30.001c0-16.56-14.336-30-32-30s-32 13.44-32 30V63.97H223.363c-17.68 0-32 14.32-32 32v223.664c0 17.68 14.32 32 32 32h255.808v64.096H130.58a31.96 31.96 0 0 0-23.936 10.752L6.963 539.793c-10.752 12.128-10.752 30.368 0 42.496l99.68 112.288c6.112 6.847 14.784 9.744 23.936 9.744h348.592V994c0 16.56 14.336 30 32 30s32-13.44 32-30V704.32h256.464c17.68 0 32-14.32 32-32V447.713c0-17.68-14.32-32-32-32H543.171v-64.096h350.256a31.96 31.96 0 0 0 23.937-10.752l99.696-112.32c10.736-12.112 10.736-30.352 0-42.48zM767.647 640.321H144.959l-71.28-79.28l71.28-81.312h622.688zm111.392-352.688h-623.68V127.969h623.68l71.28 79.344z"
+                        ></path>
+                      </svg>
+                    );
+                    newConfigBox.color = "rgba(128, 0, 0, 0.303)";
+                    newState.boxConfig = newConfigBox;
+                    return newState;
+                  });
+                });
+            }}
+          >
+            <h2>
+              {/* <span> */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={30}
+                height={30}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M6 22q-.825 0-1.412-.587T4 20V10q0-.825.588-1.412T6 8h1V6q0-2.075 1.463-3.537T12 1t3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.587 1.413T18 22zm0-2h12V10H6zm7.413-3.588Q14 15.826 14 15t-.587-1.412T12 13t-1.412.588T10 15t.588 1.413T12 17t1.413-.587M9 8h6V6q0-1.25-.875-2.125T12 3t-2.125.875T9 6zM6 20V10z"
+                ></path>
+              </svg>
+              {/* </span>{" "} */}
+              {langsContext?.data.data.editProfile.editEmail}
+            </h2>
+            <div
+              className={styles.inputsWrapper}
+              style={{ gridTemplateColumns: "1fr" }}
+            >
               <div className={styles.inputHolder}>
                 <label htmlFor="">
-                  {langsContext?.data.data.editProfile.firstName}
+                  {langsContext?.data.data.editProfile.email}
                 </label>
                 <PrimaryInput
                   type="text"
-                  placeHolder="First name"
-                  value={formInfos.firstName}
-                  onChange={handleInputChange}
+                  placeHolder="New email"
+                  value={updateEmailForm.email}
+                  onChange={(e: ChangeEvent) => {
+                    const input = e.currentTarget as HTMLInputElement;
+                    setUpdateEmailForm({
+                      ...updateEmailForm,
+                      email: input.value,
+                    });
+                  }}
                   width="100%"
                   name="firstName"
                   leftIcon={
@@ -397,35 +552,47 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
                   }
                 />
               </div>
-              <div className={styles.inputHolder}>
-                <label htmlFor="">
-                  {langsContext?.data.data.editProfile.lastName}
-                </label>
-                <PrimaryInput
-                  type="text"
-                  placeHolder="Last name"
-                  value={formInfos.lastName}
-                  name="lastName"
-                  leftIcon={<span></span>}
-                  onChange={handleInputChange}
-                  width="100%"
-                />
-              </div>
             </div>
             <div
               className={styles.inputsWrapper}
-              style={{ gridTemplateColumns: "1fr" }}
+              // style={{ gridTemplateColumns: "1fr" }}
             >
               <div className={styles.inputHolder}>
                 <label htmlFor="">
-                  {langsContext?.data.data.editProfile.username}
+                  {langsContext?.data.data.editProfile.password}
                 </label>
                 <PrimaryInput
                   type="text"
-                  placeHolder="username"
-                  value={formInfos.username}
+                  placeHolder="Password"
+                  value={updateEmailForm.password}
+                  name="password"
+                  onChange={(e: ChangeEvent) => {
+                    const input = e.currentTarget as HTMLInputElement;
+                    setUpdateEmailForm({
+                      ...updateEmailForm,
+                      password: input.value,
+                    });
+                  }}
+                  width="100%"
+                  leftIcon={<span></span>}
+                />
+              </div>
+              <div className={styles.inputHolder}>
+                <label htmlFor="">
+                  {langsContext?.data.data.editProfile.confirmPassword}
+                </label>
+                <PrimaryInput
+                  type="text"
+                  placeHolder="Confirm password"
+                  value={updateEmailForm.confirmPassword}
                   name="username"
-                  onChange={handleInputChange}
+                  onChange={(e: ChangeEvent) => {
+                    const input = e.currentTarget as HTMLInputElement;
+                    setUpdateEmailForm({
+                      ...updateEmailForm,
+                      confirmPassword: input.value,
+                    });
+                  }}
                   width="100%"
                   leftIcon={<span></span>}
                 />
@@ -437,7 +604,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
                 text={`${langsContext?.data.data.editProfile.submit}`}
                 padding="10px 20px"
                 width="30%"
-                isLoading={isLoading}
+                isLoading={isEmailIsLoading}
               />
             </div>
           </form>
