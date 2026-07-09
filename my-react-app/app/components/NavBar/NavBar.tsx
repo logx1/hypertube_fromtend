@@ -129,7 +129,7 @@ const NavBar = ({
         <ul className={styles.navigationList}>
           <li>
             <Link to="/" className={"" + styles.selectedTab}>
-              {langContext?.data.homePage.browse}
+              {langContext?.data.data.homePage.browse}
             </Link>
           </li>
           {/* <li>
@@ -166,7 +166,7 @@ const NavBar = ({
               </svg>
             </span>
             <span className={styles.buttonTxt}>
-              {langContext?.data.homePage.searchBar}
+              {langContext?.data.data.homePage.searchBar}
             </span>
           </button>
         </div>

@@ -5,9 +5,15 @@ export interface LangProps {
   data: any;
 }
 
-const LanguagesContext = createContext<LangProps | null>({
-  lang: "en",
-  data: null,
+const LanguagesContext = createContext<{
+  data: LangProps;
+  change: ((lang: "en" | "fr") => void) | null;
+} | null>({
+  data: {
+    lang: "en",
+    data: null,
+  },
+  change: null,
 });
 
 export default LanguagesContext;

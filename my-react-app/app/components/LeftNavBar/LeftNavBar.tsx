@@ -61,7 +61,7 @@ export default function LeftNavBar({
               ></path>
             </svg>
           }
-          text={langContext?.data.homePage.home}
+          text={langContext?.data.data.homePage.home}
           link="/"
         />
 
@@ -82,7 +82,7 @@ export default function LeftNavBar({
               </g>
             </svg>
           }
-          text={langContext?.data.homePage.profile}
+          text={langContext?.data.data.homePage.profile}
           link="/profile"
         />
         <li>
@@ -103,7 +103,7 @@ export default function LeftNavBar({
               ></path>
             </svg>
             {/* Languages */}
-            {langContext?.data.homePage.languages}
+            {langContext?.data.data.homePage.languages}
           </button>
           {languagesVisibility && (
             <ul style={{ paddingTop: "0" }}>
@@ -188,7 +188,7 @@ export default function LeftNavBar({
                 d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z"
               ></path>
             </svg>{" "}
-            {langContext?.data.homePage.logout}
+            {langContext?.data.data.homePage.logout}
           </button>
         </li>
       </ul>

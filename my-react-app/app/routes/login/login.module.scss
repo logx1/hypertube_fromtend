@@ -84,9 +84,11 @@ $divider-color: rgba(255, 255, 255, 0.08);
   transform: translate(-50%, -50%);
   width: 700px;
   height: 600px;
-  background: radial-gradient(circle,
-      rgba(255, 255, 255, 0.04) 0%,
-      rgba(255, 255, 255, 0) 65%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0) 65%
+  );
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
@@ -127,6 +129,25 @@ $divider-color: rgba(255, 255, 255, 0.08);
   border: 1px solid $bg-card-border;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   z-index: 10;
+  .languagesContainer {
+    // border: 1px solid white;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    ul {
+      list-style: none;
+      display: flex;
+      column-gap: 20px;
+      li {
+        button {
+          color: white;
+          display: flex;
+          align-items: center;
+          column-gap: 10px;
+        }
+      }
+    }
+  }
 }
 
 .tabSwitcher {
@@ -184,7 +205,6 @@ $divider-color: rgba(255, 255, 255, 0.08);
   margin-bottom: 24px;
 }
 
-
 @keyframes rarityShimmer {
   0% {
     transform: translateX(-100%) rotate(25deg);
@@ -205,7 +225,10 @@ $divider-color: rgba(255, 255, 255, 0.08);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    background-color 0.3s;
   font-family: inherit;
   overflow: hidden;
 
@@ -273,7 +296,10 @@ $divider-color: rgba(255, 255, 255, 0.08);
   cursor: pointer;
   font-family: inherit;
   overflow: hidden;
-  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    background-color 0.3s;
 
   &:hover {
     border-color: rgba($accent-purple, 0.4);
@@ -435,7 +461,7 @@ $divider-color: rgba(255, 255, 255, 0.08);
   display: flex;
   gap: 12px;
 
-  >* {
+  > * {
     flex: 1;
   }
 }
@@ -553,40 +579,77 @@ $divider-color: rgba(255, 255, 255, 0.08);
 
 // ─── Success Overlay ─────────────────────────────────────
 @keyframes checkmarkCircleDraw {
-  0% { stroke-dashoffset: 151; }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: 151;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes checkmarkDraw {
-  0% { stroke-dashoffset: 36; }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: 36;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes successFadeUp {
-  0% { opacity: 0; transform: translateY(16px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes scaleBounce {
-  0% { transform: scale(0); opacity: 0; }
-  60% { transform: scale(1.15); opacity: 1; }
-  80% { transform: scale(0.95); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes ringRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes sparkle {
-  0% { transform: translate(0, 0) scale(0); opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes progressFill {
-  0% { width: 0%; }
-  100% { width: 100%; }
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .successOverlay {
@@ -616,14 +679,13 @@ $divider-color: rgba(255, 255, 255, 0.08);
   inset: -3px;
   border-radius: 50%;
   padding: 3px;
-  background: conic-gradient(
-    from 0deg,
-    #22c55e,
-    $accent-purple,
-    #22c55e
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  background: conic-gradient(from 0deg, #22c55e, $accent-purple, #22c55e);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   animation: ringRotate 3s linear infinite;
@@ -643,12 +705,42 @@ $divider-color: rgba(255, 255, 255, 0.08);
     top: 50%;
     left: 50%;
 
-    &:nth-child(1) { animation: sparkle 0.8s ease forwards 0.4s; --tx: -28px; --ty: -32px; }
-    &:nth-child(2) { animation: sparkle 0.8s ease forwards 0.5s; --tx: 30px; --ty: -26px; }
-    &:nth-child(3) { animation: sparkle 0.8s ease forwards 0.45s; --tx: -34px; --ty: 18px; }
-    &:nth-child(4) { animation: sparkle 0.8s ease forwards 0.55s; --tx: 28px; --ty: 24px; background: $accent-purple; }
-    &:nth-child(5) { animation: sparkle 0.8s ease forwards 0.5s; --tx: 0px; --ty: -38px; width: 4px; height: 4px; background: $accent-purple; }
-    &:nth-child(6) { animation: sparkle 0.8s ease forwards 0.6s; --tx: -8px; --ty: 36px; width: 4px; height: 4px; }
+    &:nth-child(1) {
+      animation: sparkle 0.8s ease forwards 0.4s;
+      --tx: -28px;
+      --ty: -32px;
+    }
+    &:nth-child(2) {
+      animation: sparkle 0.8s ease forwards 0.5s;
+      --tx: 30px;
+      --ty: -26px;
+    }
+    &:nth-child(3) {
+      animation: sparkle 0.8s ease forwards 0.45s;
+      --tx: -34px;
+      --ty: 18px;
+    }
+    &:nth-child(4) {
+      animation: sparkle 0.8s ease forwards 0.55s;
+      --tx: 28px;
+      --ty: 24px;
+      background: $accent-purple;
+    }
+    &:nth-child(5) {
+      animation: sparkle 0.8s ease forwards 0.5s;
+      --tx: 0px;
+      --ty: -38px;
+      width: 4px;
+      height: 4px;
+      background: $accent-purple;
+    }
+    &:nth-child(6) {
+      animation: sparkle 0.8s ease forwards 0.6s;
+      --tx: -8px;
+      --ty: 36px;
+      width: 4px;
+      height: 4px;
+    }
   }
 }
 
@@ -662,28 +754,64 @@ $divider-color: rgba(255, 255, 255, 0.08);
 }
 
 @keyframes sparkle-1 {
-  0% { transform: translate(0, 0) scale(0); opacity: 1; }
-  100% { transform: translate(-28px, -32px) scale(1); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-28px, -32px) scale(1);
+    opacity: 0;
+  }
 }
 @keyframes sparkle-2 {
-  0% { transform: translate(0, 0) scale(0); opacity: 1; }
-  100% { transform: translate(30px, -26px) scale(1); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(30px, -26px) scale(1);
+    opacity: 0;
+  }
 }
 @keyframes sparkle-3 {
-  0% { transform: translate(0, 0) scale(0); opacity: 1; }
-  100% { transform: translate(-34px, 18px) scale(1); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-34px, 18px) scale(1);
+    opacity: 0;
+  }
 }
 @keyframes sparkle-4 {
-  0% { transform: translate(0, 0) scale(0); opacity: 1; }
-  100% { transform: translate(28px, 24px) scale(1); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(28px, 24px) scale(1);
+    opacity: 0;
+  }
 }
 @keyframes sparkle-5 {
-  0% { transform: translate(0, 0) scale(0); opacity: 1; }
-  100% { transform: translate(0px, -38px) scale(1); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0px, -38px) scale(1);
+    opacity: 0;
+  }
 }
 @keyframes sparkle-6 {
-  0% { transform: translate(0, 0) scale(0); opacity: 1; }
-  100% { transform: translate(-8px, 36px) scale(1); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-8px, 36px) scale(1);
+    opacity: 0;
+  }
 }
 
 .checkmarkSvg {
@@ -753,7 +881,6 @@ $divider-color: rgba(255, 255, 255, 0.08);
   animation: successFadeUp 0.4s ease forwards 1s;
   opacity: 0;
 }
-
 
 @keyframes formSlideIn {
   from {

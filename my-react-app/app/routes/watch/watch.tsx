@@ -6,6 +6,7 @@ import PopupBox, { type PopupBoxConfig } from "~/components/PopupBox/PopupBox";
 import { useNavigate } from "react-router";
 import { memo } from "react";
 import CommentsSection from "~/components/Comments/Comments";
+import PrimaryButton from "~/components/Button/PrimaryButton";
 
 const VideoBox = memo(({ url }: { url: string }) => {
   console.log(url);
@@ -14,10 +15,12 @@ const VideoBox = memo(({ url }: { url: string }) => {
 
 const Watch = () => {
   console.log("Render");
-  let { identifier, name, year } = useParams();
+  let { identifier, name, year, identifier144, quality } = useParams();
   console.log(identifier, name);
   const [isMovieDownloaded, setIsMovieDownloaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [showStreamOptions, setShowStreamOptions] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const [responseBox, setResponseBox] = useState<{
@@ -98,9 +101,9 @@ const Watch = () => {
               }
               if (jres.completed === true || jres.progress > 3) {
                 // TODO show movie
+                // setShowStreamOptions(jres.completed);
                 console.log("fuck");
                 exit = true;
-                setIsMovieDownloaded(true);
                 return;
               } else {
                 // TODO check the progress
@@ -118,6 +121,34 @@ const Watch = () => {
     }, 3000);
 
     return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    const accessToken = getCookie(document.cookie, "token");
+    fetch(
+      `${import.meta.env.VITE_BACKEND_URL}//stream/download_status?identifier=${identifier144}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    )
+      .then((res) => {
+        console.log(res.status);
+        res
+          .json()
+          .then((jres) => {
+            console.log(jres);
+            setShowStreamOptions(jres.completed);
+          })
+          .catch((err) => {
+            console.log("Couldn't parse json response");
+          });
+      })
+      .catch((err) => {
+        console.log("something went wrong");
+      });
   }, []);
 
   return (
@@ -161,8 +192,42 @@ const Watch = () => {
               <h2>{name}</h2>
               <br />
               <VideoBox
-                url={`https://localhost/stream/watch?identifier=${identifier}`}
+                url={`https://localhost/stream/watch?identifier=${quality === "144" ? identifier144 : identifier}`}
               />
+              <br />
+              <br />
+              {showStreamOptions && (
+                <div
+                  className={styles.moviesOptionsContainer}
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    columnGap: "20px",
+                  }}
+                >
+                  <PrimaryButton
+                    text="Default"
+                    width="unset"
+                    padding="10px 10px"
+                    onClick={() => {
+                      navigate(
+                        `/watch/${identifier}/${identifier144}/${name}/${year}/default`
+                      );
+                    }}
+                  />
+                  <PrimaryButton
+                    text="144p"
+                    width="unset"
+                    padding="10px 10px"
+                    onClick={() => {
+                      navigate(
+                        `/watch/${identifier}/${identifier144}/${name}/${year}/144`
+                      );
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className={styles.commentsContainer}>

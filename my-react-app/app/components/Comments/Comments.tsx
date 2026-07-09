@@ -1,66 +1,17 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./comments.module.css";
 import { getCookie } from "~/tools/getCookie";
-import { v4 as uuidv4 } from "uuid";
 
-const MOCK_COMMENTS = [
-  {
-    id: 1,
-    user: "Omar Makran",
-    text: "Incredible cinematography, the director really outdid himself on this one. Every frame feels like a painting.",
-    time: "2 hours ago",
-    isOwn: true,
-  },
-  {
-    id: 2,
-    user: "Salah eddin",
-    text: "Watched it twice already and I keep noticing new details. The soundtrack is amazing too! 🎬",
-    time: "5 hours ago",
-    isOwn: false,
-  },
-  {
-    id: 3,
-    user: "Melmousa",
-    text: "The plot twist at the end completely caught me off guard. Brilliant writing.",
-    time: "1 day ago",
-    isOwn: false,
-  },
-  {
-    id: 4,
-    user: "Lucas Martin",
-    text: "Not my favorite from this director honestly, but the performances were solid. The lead actor deserved an award for this role.",
-    time: "2 days ago",
-    isOwn: false,
-  },
-  {
-    id: 5,
-    user: "Elena Voss",
-    text: "Can we talk about the ending? I need someone to explain what happened in the last 10 minutes 😅",
-    time: "3 days ago",
-    isOwn: false,
-  },
-  {
-    id: 6,
-    user: "James Wu",
-    text: "Top 5 movies of the year for me. The pacing was perfect.",
-    time: "4 days ago",
-    isOwn: false,
-  },
-  {
-    id: 7,
-    user: "Maria Gonzalez",
-    text: "The score during the chase scene gave me chills. Hans Zimmer vibes for sure.",
-    time: "5 days ago",
-    isOwn: false,
-  },
-  {
-    id: 8,
-    user: "Yuki Tanaka",
-    text: "Finally someone recommended this to me. No regrets at all, what a masterpiece!",
-    time: "1 week ago",
-    isOwn: false,
-  },
-];
+interface Comment {
+  id: string | number;
+  user_name: string;
+  comments: string;
+  created_at: string;
+}
+
+interface CommentsSectionProps {
+  identifier: string;
+}
 
 const EMOJI_SET = [
   "😀",
@@ -86,7 +37,7 @@ const EMOJI_SET = [
   "🎭",
 ];
 
-const INITIAL_SHOW = 3;
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 const getInitials = (name: string) => {
   const parts = name.trim().split(" ");
@@ -94,19 +45,107 @@ const getInitials = (name: string) => {
   return name.slice(0, 2).toUpperCase();
 };
 
-const CommentsSection = ({ identifier }: { identifier: string }) => {
-  const [comments, setComments] = useState<any>([]);
+const CommentsSection = ({ identifier }: CommentsSectionProps) => {
+  const [comments, setComments] = useState<Comment[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const [showAll, setShowAll] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const emojiRef = useRef<HTMLDivElement>(null);
 
-  const visibleComments = showAll ? comments : comments.slice(0, INITIAL_SHOW);
-  const hiddenCount = comments.length - INITIAL_SHOW;
-  const canSend = inputValue.trim().length > 0;
+  const canSend = inputValue.trim().length > 0 && !isSending;
 
+  const getCurrentUsername = useCallback((): string => {
+    const token = getCookie(document.cookie, "token");
+    if (!token) return "User";
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.username || payload.user_name || payload.name || "User";
+    } catch {
+      return "User";
+    }
+  }, []);
+
+  const normalizeComment = (c: any): Comment => ({
+    id: c.id || c.comment_id || c.uuid || String(Math.random()),
+    user_name: c.user_name || c.username || c.userName || "Unknown",
+    comments: c.comments || c.comment || c.text || c.body || "",
+    created_at: c.created_at || c.createdAt || c.timestamp || "",
+  });
+
+  const fetchComments = useCallback(
+    async (page: number = 1, append: boolean = false) => {
+      const accessToken = getCookie(document.cookie, "token");
+      if (!accessToken) {
+        setFetchError("Not authenticated");
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        setFetchError(null);
+        if (append) {
+          setIsLoadingMore(true);
+        } else {
+          setIsLoading(true);
+        }
+
+        const res = await fetch(
+          `${API_BASE}/stream/comments?identifier="${identifier}"&page=${page}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error(`Failed to load comments (${res.status})`);
+        }
+
+        const data = await res.json();
+        console.log("Comments API response (page " + page + "):", data);
+
+        const rawList: any[] =
+          data.results ||
+          data.comments ||
+          data.data ||
+          (Array.isArray(data) ? data : []);
+        const normalized = rawList.map(normalizeComment);
+
+        const total = data.total_items ?? normalized.length;
+        const pageSize = data.page_size ?? normalized.length;
+
+        setTotalItems(total);
+        setCurrentPage(page);
+        setHasMore(page * pageSize < total);
+
+        if (append) {
+          setComments((prev) => [...prev, ...normalized]);
+        } else {
+          setComments(normalized);
+        }
+      } catch (err: any) {
+        console.error("Failed to fetch comments:", err);
+        setFetchError(err.message || "Could not load comments");
+      } finally {
+        setIsLoading(false);
+        setIsLoadingMore(false);
+      }
+    },
+    [identifier]
+  );
+
+  useEffect(() => {
+    fetchComments(1, false);
+  }, [fetchComments]);
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (emojiRef.current && !emojiRef.current.contains(e.target as Node)) {
@@ -125,58 +164,47 @@ const CommentsSection = ({ identifier }: { identifier: string }) => {
     }
   };
 
-  const handleSend = () => {
-    const token = getCookie(document.cookie, "token");
-    if (!token) return;
+  const handleSend = async () => {
     if (!canSend) return;
-    // const newComment = {
-    //   id: Date.now(),
-    //   user: "Omar Makran",
-    //   text: inputValue.trim(),
-    //   time: "Just now",
-    //   isOwn: true,
-    // };
+    const accessToken = getCookie(document.cookie, "token");
+    if (!accessToken) return;
 
-    fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/stream/comments?identifier="${identifier}"&page=1`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          movie_id: identifier,
-          comments: inputValue,
-          user_name: "salah",
-        }),
-      }
-    ).then((res) => {
-      console.log(res);
-      setComments([
-        ...comments,
-        {
-          // user_name: "kljgladsjlfdklsj",
-          comments: inputValue,
-        },
-      ]);
-    });
+    const commentText = inputValue.trim();
+    const username = getCurrentUsername();
 
-    // setComments([...comments, {
-    //   comments: inputValue,
-
-    // }]);
     setInputValue("");
     if (textareaRef.current) textareaRef.current.style.height = "auto";
-  };
 
-  // const handleDelete = (id: number) => {
-  //   setDeletingId(id);
-  //   setTimeout(() => {
-  //     setComments((prev) => prev.filter((c) => c.id !== id));
-  //     setDeletingId(null);
-  //   }, 320);
-  // };
+    setIsSending(true);
+    try {
+      const res = await fetch(
+        `${API_BASE}/stream/comments?identifier="${identifier}"&page=1`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            movie_id: identifier,
+            comments: commentText,
+            user_name: username,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to post comment");
+      }
+
+      await fetchComments(1, false);
+    } catch (err) {
+      console.error("Failed to post comment:", err);
+      setInputValue(commentText);
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -191,43 +219,27 @@ const CommentsSection = ({ identifier }: { identifier: string }) => {
     textareaRef.current?.focus();
   };
 
-  useEffect(() => {
-    const token = getCookie(document.cookie, "token");
-    if (!token) return;
-    fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/stream/comments?identifier="${identifier}"&page=2`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((res) => {
-        console.log(res);
-        res.json().then((jres) => {
-          console.log(jres);
-          setComments(jres.results);
-        });
-      })
-      .catch((err) => {});
-  }, []);
+  const currentUsername = getCurrentUsername();
 
   return (
     <div className={styles.commentsSection}>
       <div className={styles.commentsHeader}>
         <div className={styles.headerTitleWrap}>
           <h3 className={styles.commentsTitle}>Comments</h3>
-          <span className={styles.commentCount}>{comments.length}</span>
+          <span className={styles.commentCount}>
+            {isLoading ? "..." : totalItems || comments.length}
+          </span>
         </div>
       </div>
 
       <div className={styles.composeContainer}>
         <div className={styles.composeHeader}>
           <div className={styles.userProfileGroup}>
-            <div className={styles.currentUserAvatar}>OM</div>
+            <div className={styles.currentUserAvatar}>
+              {getInitials(currentUsername)}
+            </div>
             <div className={styles.currentuserInfo}>
-              <span className={styles.currentUserName}>Omar Makran</span>
+              <span className={styles.currentUserName}>{currentUsername}</span>
               <span className={styles.currentUserBadge}>Public comment</span>
             </div>
           </div>
@@ -242,6 +254,7 @@ const CommentsSection = ({ identifier }: { identifier: string }) => {
             onChange={(e) => handleInput(e.target.value)}
             onKeyDown={handleKeyDown}
             rows={2}
+            disabled={isSending}
           />
 
           <div className={styles.composeToolbar}>
@@ -297,7 +310,7 @@ const CommentsSection = ({ identifier }: { identifier: string }) => {
                 aria-label="Send comment"
                 type="button"
               >
-                <span>Comment</span>
+                <span>{isSending ? "Posting..." : "Comment"}</span>
                 <svg
                   width="15"
                   height="15"
@@ -317,7 +330,34 @@ const CommentsSection = ({ identifier }: { identifier: string }) => {
         </div>
       </div>
 
-      {comments.length === 0 ? (
+      {isLoading && (
+        <div className={styles.loadingState}>
+          <div className={styles.loadingDots}>
+            <span />
+            <span />
+            <span />
+          </div>
+          <p>Loading comments...</p>
+        </div>
+      )}
+
+      {fetchError && !isLoading && (
+        <div className={styles.errorState}>
+          <p>{fetchError}</p>
+          <button
+            className={styles.retryBtn}
+            onClick={() => {
+              setIsLoading(true);
+              fetchComments(1, false);
+            }}
+            type="button"
+          >
+            Try again
+          </button>
+        </div>
+      )}
+
+      {!isLoading && !fetchError && comments.length === 0 && (
         <div className={styles.emptyState}>
           <div className={styles.emptyIcon}>💬</div>
           <p className={styles.emptyText}>No comments yet</p>
@@ -325,75 +365,49 @@ const CommentsSection = ({ identifier }: { identifier: string }) => {
             Be the first to share your thoughts
           </p>
         </div>
-      ) : (
-        <>
-          <div
-            className={styles.commentsList}
-            style={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
-          >
-            {visibleComments.map((c: any) => (
-              <div
-                key={uuidv4()}
-                style={{
-                  // animationDelay: `${idx * 0.04}s`,
-                  display: "flex",
-                  columnGap: "10px",
-                  alignItems: "center",
-                }}
-              >
-                {/* <div className={styles.commentAvatar}>
-                  
-                </div> */}
-                <div className={styles.commentContent}>
-                  <div className={styles.commentHeader}>
-                    <div className={styles.commentMeta}>
-                      <span className={styles.commentAuthor}>
-                        {c.user_name}
-                      </span>
-                      {/* {c.isOwn && <span className={styles.ownBadge}>You</span>} */}
-                      <span className={styles.commentDot}>·</span>
-                      {/* <span className={styles.commentTime}>{c.time}</span> */}
-                    </div>
+      )}
 
-                    {/* <button
-                      className={styles.deleteBtn}
-                      onClick={() => handleDelete(c.id)}
-                      aria-label="Delete comment"
-                      title="Delete comment"
-                      type="button"
-                    >
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="3 6 5 6 21 6" />
-                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                        <path d="M10 11v6" />
-                        <path d="M14 11v6" />
-                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-                      </svg>
-                    </button> */}
+      {!isLoading && !fetchError && comments.length > 0 && (
+        <>
+          <div className={styles.commentsList}>
+            {comments.map((c, idx) => {
+              const isOwn = c.user_name === currentUsername;
+              return (
+                <div
+                  key={c.id}
+                  className={styles.commentItem}
+                  style={{ animationDelay: `${idx * 0.04}s` }}
+                >
+                  <div className={styles.commentAvatar}>
+                    {getInitials(c.user_name)}
                   </div>
-                  <p className={styles.commentText}>{c.comments}</p>
+                  <div className={styles.commentContent}>
+                    <div className={styles.commentHeader}>
+                      <div className={styles.commentMeta}>
+                        <span className={styles.commentAuthor}>
+                          {c.user_name}
+                        </span>
+                        {isOwn && <span className={styles.ownBadge}>You</span>}
+                      </div>
+                    </div>
+                    <p className={styles.commentText}>{c.comments}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          {!showAll && hiddenCount > 0 && (
+          {hasMore && (
             <button
               className={styles.viewMoreBtn}
-              onClick={() => setShowAll(true)}
+              onClick={() => fetchComments(currentPage + 1, true)}
+              disabled={isLoadingMore}
               type="button"
             >
               <span>
-                View {hiddenCount} more comment{hiddenCount > 1 ? "s" : ""}
+                {isLoadingMore
+                  ? "Loading..."
+                  : `View ${Math.max(0, totalItems - comments.length)} more comment${Math.max(0, totalItems - comments.length) > 1 ? "s" : ""}`}
               </span>
               <svg
                 width="15"
@@ -406,28 +420,6 @@ const CommentsSection = ({ identifier }: { identifier: string }) => {
                 strokeLinejoin="round"
               >
                 <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
-          )}
-
-          {showAll && comments.length > INITIAL_SHOW && (
-            <button
-              className={styles.viewMoreBtn}
-              onClick={() => setShowAll(false)}
-              type="button"
-            >
-              <span>Show less</span>
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="18 15 12 9 6 15" />
               </svg>
             </button>
           )}

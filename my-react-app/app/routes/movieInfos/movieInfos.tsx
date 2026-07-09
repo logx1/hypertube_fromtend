@@ -137,7 +137,9 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
     })
       .then(async (res) => {
         console.log(await res.text());
-        navigate(`/watch/${identifier}/${title}/${year}`);
+        navigate(
+          `/watch/${identifier}/${identifier}144/${title}/${year}/default`
+        );
       })
       .catch((err) => {
         console.log("Couldn reach to server");
@@ -162,7 +164,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
       </div>
       <p>{data.overview}</p>
       <h2 className={styles.actorsTitle}>
-        {langsContext?.data.movieInfos.actors}
+        {langsContext?.data.data.movieInfos.actors}
       </h2>
       <div className={styles.actorsContainer}>
         {data.actors.map((ele: any) => {

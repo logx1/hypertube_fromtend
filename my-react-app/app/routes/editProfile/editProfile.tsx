@@ -139,8 +139,9 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             const newState = { ...currentState };
             newState.showBox = true;
             const newConfigBox = { ...newState.boxConfig };
-            newConfigBox.title = "Failed";
-            newConfigBox.description = "Couldn't Find the backend enpoint";
+            newConfigBox.title = langsContext?.data.data.editProfile.errorTitle;
+            newConfigBox.description =
+              langsContext?.data.data.editProfile.errorDesc;
             newConfigBox.icon = (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -165,8 +166,10 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             const newState = { ...currentState };
             newState.showBox = true;
             const newConfigBox = { ...newState.boxConfig };
-            newConfigBox.title = "Success";
-            newConfigBox.description = "Infos updated successfully";
+            newConfigBox.title =
+              langsContext?.data.data.editProfile.successTitle;
+            newConfigBox.description =
+              langsContext?.data.data.editProfile.successDescription;
             newConfigBox.icon = (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -196,8 +199,9 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
           const newState = { ...currentState };
           newState.showBox = true;
           const newConfigBox = { ...newState.boxConfig };
-          newConfigBox.title = "Failed";
-          newConfigBox.description = "Couldn't reach the backend server";
+          newConfigBox.title = langsContext?.data.data.editProfile.errorTitle;
+          newConfigBox.description =
+            langsContext?.data.data.editProfile.errorDesc;
           newConfigBox.icon = (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -216,15 +220,6 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
           return newState;
         });
       });
-    // addNotification(
-    //   notificationContext,
-    //   {
-    //     notificationId: uuidv4(),
-    //     notificationMessage: "Okay",
-    //     notificationType: "success",
-    //   },
-    //   4000
-    // );
   };
 
   return (
@@ -240,9 +235,9 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
       )}
 
       <div className={styles.pageHeader}>
-        <h1>{langsContext?.data.editProfile.title}</h1>
+        <h1>{langsContext?.data.data.editProfile.title}</h1>
 
-        <p>{langsContext?.data.editProfile.desc}</p>
+        <p>{langsContext?.data.data.editProfile.desc}</p>
       </div>
       <div className={styles.personalInformationsContainer}>
         <h2>
@@ -261,7 +256,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             />
           </svg>
           {/* </span>{" "} */}
-          {langsContext?.data.editProfile.boxTitle}
+          {langsContext?.data.data.editProfile.boxTitle}
         </h2>
 
         <div className={styles.personalInformationsEditor}>
@@ -302,7 +297,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             <div className={styles.inputsWrapper}>
               <div className={styles.inputHolder}>
                 <label htmlFor="">
-                  {langsContext?.data.editProfile.firstName}
+                  {langsContext?.data.data.editProfile.firstName}
                 </label>
                 <PrimaryInput
                   type="text"
@@ -330,7 +325,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
               </div>
               <div className={styles.inputHolder}>
                 <label htmlFor="">
-                  {langsContext?.data.editProfile.lastName}
+                  {langsContext?.data.data.editProfile.lastName}
                 </label>
                 <PrimaryInput
                   type="text"
@@ -349,7 +344,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             >
               <div className={styles.inputHolder}>
                 <label htmlFor="">
-                  {langsContext?.data.editProfile.username}
+                  {langsContext?.data.data.editProfile.username}
                 </label>
                 <PrimaryInput
                   type="text"
@@ -361,29 +356,30 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
                   leftIcon={<span></span>}
                 />
               </div>
-              {/* <div className={styles.inputHolder}>
-                <label htmlFor="">Email</label>
+            </div>
+
+            <div className={styles.submitContainer}>
+              <PrimaryButton
+                text={`${langsContext?.data.data.editProfile.submit}`}
+                padding="10px 20px"
+                width="30%"
+                isLoading={isLoading}
+              />
+            </div>
+          </form>
+          <form className={styles.infosContainer} action={saveChanges}>
+            <div className={styles.inputsWrapper}>
+              <div className={styles.inputHolder}>
+                <label htmlFor="">
+                  {langsContext?.data.data.editProfile.firstName}
+                </label>
                 <PrimaryInput
                   type="text"
-                  placeHolder="example@email.com"
-                  value={formInfos.emailAddress}
-                  name="emailAddress"
+                  placeHolder="First name"
+                  value={formInfos.firstName}
                   onChange={handleInputChange}
                   width="100%"
-                  leftIcon={<span></span>}
-                />
-              </div> */}
-            </div>
-            {/* <div className={styles.inputsWrapper}>
-              <div className={styles.inputHolder}>
-                <label htmlFor="">Current password</label>
-                <PrimaryInput
-                  type="password"
-                  placeHolder="My current password"
-                  value={formInfos.currentPassword}
-                  onChange={handleInputChange}
-                  width="100%"
-                  name="currentPassword"
+                  name="firstName"
                   leftIcon={
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -402,21 +398,43 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
                 />
               </div>
               <div className={styles.inputHolder}>
-                <label htmlFor="">New password</label>
+                <label htmlFor="">
+                  {langsContext?.data.data.editProfile.lastName}
+                </label>
                 <PrimaryInput
-                  type="password"
-                  placeHolder="My new password"
-                  value={formInfos.newPassword}
-                  name="newPassword"
+                  type="text"
+                  placeHolder="Last name"
+                  value={formInfos.lastName}
+                  name="lastName"
                   leftIcon={<span></span>}
                   onChange={handleInputChange}
                   width="100%"
                 />
               </div>
-            </div> */}
+            </div>
+            <div
+              className={styles.inputsWrapper}
+              style={{ gridTemplateColumns: "1fr" }}
+            >
+              <div className={styles.inputHolder}>
+                <label htmlFor="">
+                  {langsContext?.data.data.editProfile.username}
+                </label>
+                <PrimaryInput
+                  type="text"
+                  placeHolder="username"
+                  value={formInfos.username}
+                  name="username"
+                  onChange={handleInputChange}
+                  width="100%"
+                  leftIcon={<span></span>}
+                />
+              </div>
+            </div>
+
             <div className={styles.submitContainer}>
               <PrimaryButton
-                text={`${langsContext?.data.editProfile.submit}`}
+                text={`${langsContext?.data.data.editProfile.submit}`}
                 padding="10px 20px"
                 width="30%"
                 isLoading={isLoading}

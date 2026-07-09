@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
 import styles from "./login.module.css";
 import GradientButton from "~/components/Button/GradientButton";
 import Logo from "~/components/Button/Logo";
+import LanguagesContext from "~/context/Languages/Languages";
 
 export function meta() {
   return [
@@ -33,6 +34,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const langContext = useContext(LanguagesContext);
 
   const API_BASE = "https://localhost";
 
@@ -244,29 +246,96 @@ export default function Login() {
 
       <main className={styles.mainContent}>
         <div className={styles.loginBox}>
+          <div className={styles.languagesContainer}>
+            <ul>
+              <li>
+                <button
+                  onClick={() => {
+                    if (langContext && langContext.change)
+                      langContext?.change("fr");
+                  }}
+                >
+                  {" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={15}
+                    height={15}
+                    viewBox="0 0 36 36"
+                  >
+                    <path
+                      fill="#ed2939"
+                      d="M36 27a4 4 0 0 1-4 4h-8V5h8a4 4 0 0 1 4 4z"
+                    ></path>
+                    <path
+                      fill="#002495"
+                      d="M4 5a4 4 0 0 0-4 4v18a4 4 0 0 0 4 4h8V5z"
+                    ></path>
+                    <path fill="#eee" d="M12 5h12v26H12z"></path>
+                  </svg>
+                  French
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    if (langContext && langContext.change)
+                      langContext?.change("en");
+                  }}
+                >
+                  {" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={15}
+                    height={15}
+                    viewBox="0 0 36 36"
+                  >
+                    <path
+                      fill="#b22334"
+                      d="M35.445 7C34.752 5.809 33.477 5 32 5H18v2zM0 25h36v2H0zm18-8h18v2H18zm0-4h18v2H18zM0 21h36v2H0zm4 10h28c1.477 0 2.752-.809 3.445-2H.555c.693 1.191 1.968 2 3.445 2M18 9h18v2H18z"
+                    ></path>
+                    <path
+                      fill="#eee"
+                      d="M.068 27.679q.025.14.059.277q.04.15.092.296c.089.259.197.509.333.743L.555 29h34.89l.002-.004a4 4 0 0 0 .332-.741a4 4 0 0 0 .152-.576c.041-.22.069-.446.069-.679H0c0 .233.028.458.068.679M0 23h36v2H0zm0-4v2h36v-2H18zm18-4h18v2H18zm0-4h18v2H18zM.555 7l-.003.005zM.128 8.044c.025-.102.06-.199.092-.297a4 4 0 0 0-.092.297M18 9h18c0-.233-.028-.459-.069-.68a3.6 3.6 0 0 0-.153-.576A4 4 0 0 0 35.445 7H18z"
+                    ></path>
+                    <path
+                      fill="#3c3b6e"
+                      d="M18 5H4a4 4 0 0 0-4 4v10h18z"
+                    ></path>
+                    <path
+                      fill="#fff"
+                      d="m2.001 7.726l.618.449l-.236.725L3 8.452l.618.448l-.236-.725L4 7.726h-.764L3 7l-.235.726zm2 2l.618.449l-.236.725l.617-.448l.618.448l-.236-.725L6 9.726h-.764L5 9l-.235.726zm4 0l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L9 9l-.235.726zm4 0l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L13 9l-.235.726zm-8 4l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L5 13l-.235.726zm4 0l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L9 13l-.235.726zm4 0l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L13 13l-.235.726zm-6-6l.618.449l-.236.725L7 8.452l.618.448l-.236-.725L8 7.726h-.764L7 7l-.235.726zm4 0l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L11 7l-.235.726zm4 0l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L15 7l-.235.726zm-12 4l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L3 11l-.235.726zM6.383 12.9L7 12.452l.618.448l-.236-.725l.618-.449h-.764L7 11l-.235.726h-.764l.618.449zm3.618-1.174l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L11 11l-.235.726zm4 0l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L15 11l-.235.726zm-12 4l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L3 15l-.235.726zM6.383 16.9L7 16.452l.618.448l-.236-.725l.618-.449h-.764L7 15l-.235.726h-.764l.618.449zm3.618-1.174l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L11 15l-.235.726zm4 0l.618.449l-.236.725l.617-.448l.618.448l-.236-.725l.618-.449h-.764L15 15l-.235.726z"
+                    ></path>
+                  </svg>
+                  English
+                </button>
+              </li>
+            </ul>
+          </div>
           <div className={styles.tabSwitcher}>
             <button
               onClick={() => navigate("/login")}
               className={`${styles.tabButton} ${authMode === "signin" ? styles.activeTab : ""}`}
             >
-              Sign In
+              {langContext?.data.data.signIn.signInButton}
             </button>
             <button
               onClick={() => navigate("/signup")}
               className={`${styles.tabButton} ${authMode === "signup" ? styles.activeTab : ""}`}
             >
-              Sign Up
+              {langContext?.data.data.signIn.signUpButton}
             </button>
           </div>
 
           <div className={styles.textContainer}>
             <h1 className={styles.mainTitle}>
-              {authMode === "signin" ? "Welcome Back" : "Create Account"}
+              {authMode === "signin"
+                ? `${langContext?.data.data.signIn.signInTitle}`
+                : `${langContext?.data.data.signIn.createAccount}`}
             </h1>
             <p className={styles.subtitle}>
               {authMode === "signin"
-                ? "Enter your credentials to access your library"
-                : "Join HyperTube and start your journey"}
+                ? `${langContext?.data.data.signIn.signInDesc}`
+                : `${langContext?.data.data.signIn.join}`}
             </p>
           </div>
 
@@ -288,7 +357,7 @@ export default function Login() {
                   <polygon points="762.7,114.2 597.9,279.1 597.9,443.9 762.7,443.9 762.7,279.1 928,114.2 928,-51.1 762.7,-51.1" />
                   <polygon points="928,279.1 762.7,443.9 928,443.9" />
                 </svg>
-                Continue with Intra
+                {langContext?.data.data.signIn.continueWithIntra}
               </span>
             </button>
 
@@ -384,7 +453,7 @@ export default function Login() {
             <>
               <div className={styles.divider}>
                 <div className={styles.line}></div>
-                <span>OR EMAIL</span>
+                <span>{langContext?.data.data.signIn.orUsername}</span>
                 <div className={styles.line}></div>
               </div>
 
@@ -398,7 +467,9 @@ export default function Login() {
                     }}
                   >
                     <div className={styles.inputGroup}>
-                      <label className={styles.inputLabel}>USERNAME</label>
+                      <label className={styles.inputLabel}>
+                        {langContext?.data.data.signIn.username}
+                      </label>
                       <div className={styles.inputWrapper}>
                         <span className={styles.leftIcon}>{userIcon}</span>
                         <input
@@ -413,9 +484,11 @@ export default function Login() {
 
                     <div className={styles.inputGroup}>
                       <div className={styles.labelRow}>
-                        <label className={styles.inputLabel}>PASSWORD</label>
+                        <label className={styles.inputLabel}>
+                          {langContext?.data.data.signIn.password}
+                        </label>
                         <a href="/forgot" className={styles.forgotLink}>
-                          Forgot?
+                          {langContext?.data.data.signIn.forgot}
                         </a>
                       </div>
                       <div className={styles.inputWrapper}>
@@ -437,7 +510,7 @@ export default function Login() {
                     </div>
 
                     {apiError && authMode === "signin" && (
-                      <span className={styles.errorText}>{apiError}</span>
+                      <span className={styles.errorText}>{apiError}ff</span>
                     )}
 
                     <GradientButton
@@ -445,7 +518,9 @@ export default function Login() {
                       className="w-full mt-2"
                       disabled={isLoading}
                     >
-                      {isLoading ? "Signing In..." : "Sign In"}
+                      {isLoading
+                        ? `${langContext?.data.data.signIn.signInButton}...`
+                        : `${langContext?.data.data.signIn.signInButton}`}
                     </GradientButton>
                   </form>
                 </div>
@@ -462,7 +537,9 @@ export default function Login() {
                   >
                     <div className={styles.nameRow}>
                       <div className={styles.inputGroup}>
-                        <label className={styles.inputLabel}>FIRST NAME</label>
+                        <label className={styles.inputLabel}>
+                          {langContext?.data.data.signIn.firstName}
+                        </label>
                         <div className={styles.inputWrapper}>
                           <span className={styles.leftIcon}>{userIcon}</span>
                           <input
@@ -475,7 +552,9 @@ export default function Login() {
                         </div>
                       </div>
                       <div className={styles.inputGroup}>
-                        <label className={styles.inputLabel}>LAST NAME</label>
+                        <label className={styles.inputLabel}>
+                          {langContext?.data.data.signIn.lastName}
+                        </label>
                         <div className={styles.inputWrapper}>
                           <span className={styles.leftIcon}>{userIcon}</span>
                           <input
@@ -657,8 +736,7 @@ export default function Login() {
               )}
 
               <p className={styles.terms}>
-                By continuing, you agree to our <a href="#">Terms of Service</a>{" "}
-                and <a href="#">Privacy Policy</a>.
+                {langContext?.data.data.signIn.policyMsg}
               </p>
             </>
           )}
@@ -666,8 +744,7 @@ export default function Login() {
       </main>
 
       <footer className={styles.footer}>
-        © 2026 HyperTube Inc. All rights reserved. Cinematic Experience
-        Engineered.
+        {langContext?.data.data.signIn.rights}
       </footer>
     </div>
   );

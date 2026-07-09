@@ -40,7 +40,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
     "collaps"
   );
 
-  const [selectedLanguage, setSelectedLanguage] = useState<LangProps>({
+  const [selectedLanguage, setSelectedLanguage] = useState<{
+    lang: "en" | "fr";
+    data: any;
+  }>({
     lang: "en",
     data: langs.en,
   });
@@ -80,7 +83,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
             notificationsSetter: setNotifications,
           }}
         >
-          <LanguagesContext.Provider value={selectedLanguage}>
+          <LanguagesContext.Provider
+            value={{
+              data: selectedLanguage,
+              change: changeLang,
+            }}
+          >
             {showSearchBox && (
               <SearchBox searchBoxVisibility={searchBoxVisibility} />
             )}
