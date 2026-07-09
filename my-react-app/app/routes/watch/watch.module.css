@@ -1,54 +1,46 @@
 .watchPage {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  row-gap: 30px;
+  flex-direction: column;
+  row-gap: 0;
 }
 
 .watchPage .videoBox {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  height: calc(100svh - 145px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100svh - 145px);
+}
+
+.watchPage .videoBox .videoWrapper {
+  width: 100%;
+}
+
+.watchPage .videoBox .videoWrapper h2 {
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 12px;
+  padding: 0 4px;
 }
 
 .watchPage .videoBox video {
   width: 100%;
+  max-height: calc(100svh - 200px);
+  border-radius: 8px;
+  background: #000;
 }
 
 .watchPage .notAvailableBox {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   height: calc(100svh - 145px);
 }
 
 .watchPage .loading {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   height: calc(100svh - 145px);
 }
 
@@ -59,21 +51,18 @@
   border-top-color: transparent;
   border-bottom-color: transparent;
   border-radius: 50%;
-  -webkit-animation: load 500ms infinite linear;
-          animation: load 500ms infinite linear;
-}
-
-@-webkit-keyframes load {
-  to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+  animation: load 500ms infinite linear;
 }
 
 @keyframes load {
   to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
-/*# sourceMappingURL=watch.module.css.map */
+
+.watchPage .commentsContainer {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+}

@@ -166,7 +166,7 @@ const Watch = () => {
             </div>
           </div>
           <div className={styles.commentsContainer}>
-            <CommentsSection />
+            <CommentsSection identifier={identifier || ""} />
           </div>
         </>
       )}
