@@ -185,7 +185,7 @@ const Watch = () => {
       {!isMovieDownloaded && !isMovieNotAvailable && (
         <div className={styles.loading}>
           <div className={styles.loadingBox}></div>
-          <p>{progress}</p>
+          <p>{progress}%</p>
         </div>
       )}
 
