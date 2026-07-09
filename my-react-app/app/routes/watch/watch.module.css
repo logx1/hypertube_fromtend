@@ -76,4 +76,11 @@
             transform: rotate(360deg);
   }
 }
+
+.commentsContainer {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
 /*# sourceMappingURL=watch.module.css.map */

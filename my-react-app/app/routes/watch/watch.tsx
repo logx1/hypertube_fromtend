@@ -5,6 +5,7 @@ import { getCookie } from "~/tools/getCookie";
 import PopupBox, { type PopupBoxConfig } from "~/components/PopupBox/PopupBox";
 import { useNavigate } from "react-router";
 import { memo } from "react";
+import CommentsSection from "~/components/Comments/Comments";
 
 const VideoBox = memo(({ url }: { url: string }) => {
   console.log(url);
@@ -18,6 +19,7 @@ const Watch = () => {
   const [isMovieDownloaded, setIsMovieDownloaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
+
 
   const [responseBox, setResponseBox] = useState<{
     boxConfig: any;
@@ -155,15 +157,21 @@ const Watch = () => {
       )}
 
       {isMovieDownloaded && (
-        <div className={styles.videoBox}>
-          <div className={styles.videoWrapper}>
-            <h2>{name}</h2>
-            <br />
-            <VideoBox
-              url={`https://localhost/stream/watch?identifier=${identifier}`}
-            />
+        <>
+          <div className={styles.videoBox}>
+            <div className={styles.videoWrapper}>
+              <h2>{name}</h2>
+              <br />
+              <VideoBox
+                url={`https://localhost/stream/watch?identifier=${identifier}`}
+              />
+            </div>
+
           </div>
-        </div>
+          <div className={styles.commentsContainer}>
+            <CommentsSection />
+          </div>
+        </>
       )}
     </div>
   );
