@@ -1,6 +1,6 @@
 {
-  "homePage": {
-    "en": {
+  "en": {
+    "homePage": {
       "home": "Home",
       "profile": "Profile",
       "languages": "Languages",
@@ -9,19 +9,7 @@
       "alsoPopular": "Also Popular",
       "searchBar": "Search"
     },
-    "fr": {
-      "home": "Maison",
-      "profile": "Profil",
-      "languages": "Langues",
-      "logout": "Déconnexion",
-      "browse": "Explorer",
-      "alsoPopular": "Également populaire",
-      "searchBar": "Recherche"
-    }
-  },
-
-  "editProfile": {
-    "en": {
+    "editProfile": {
       "title": "Account settings",
       "desc": "Manage your profile information and security preference",
       "boxTitle": "Personal Informations",
@@ -30,7 +18,22 @@
       "username": "Username",
       "submit": "Submit Changes"
     },
-    "fr": {
+    "movieInfos": {
+      "actors": "Actors",
+      "torrentResult": "Torrent results"
+    }
+  },
+  "fr": {
+    "homePage": {
+      "home": "Maison",
+      "profile": "Profil",
+      "languages": "Langues",
+      "logout": "Déconnexion",
+      "browse": "Explorer",
+      "alsoPopular": "Également populaire",
+      "searchBar": "Recherche"
+    },
+    "editProfile": {
       "title": "Paramètres du compte",
       "desc": "Gérez les informations de votre profil et vos préférences de sécurité",
       "boxTitle": "Informations personnelles",
@@ -38,6 +41,10 @@
       "lastName": "Nom de famille",
       "username": "nom d'utilisateur",
       "submit": "Soumettre les modifications"
+    },
+    "movieInfos": {
+      "actors": "Acteurs",
+      "torrentResult": "Résultats Torrent"
     }
   }
 }

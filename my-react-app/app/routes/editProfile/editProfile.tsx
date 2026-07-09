@@ -44,8 +44,8 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
 }
 
 export default function EditProfile({ loaderData }: Route.ComponentProps) {
+  console.log("render");
   const userInfo = loaderData;
-  console.log(userInfo.imageUrl);
 
   const [formInfos, setFormInfos] = useState<editProfileInfos>({
     fullName: "",
@@ -58,7 +58,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
     imageUrl: userInfo.json.imageUrl || "http://localhost:3000/public/ff.avif",
   });
   const fileInput = useRef<HTMLInputElement | null>(null);
-  console.log(formInfos);
+  // console.log(formInfos);
 
   const [newProfilePic, setNewProfilePic] = useState<string | null>(null);
 
@@ -240,17 +240,9 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
       )}
 
       <div className={styles.pageHeader}>
-        <h1>
-          {langsContext === "en"
-            ? langs.editProfile.en.title
-            : langs.editProfile.fr.title}
-        </h1>
+        <h1>{langsContext?.data.editProfile.title}</h1>
 
-        <p>
-          {langsContext === "en"
-            ? langs.editProfile.en.desc
-            : langs.editProfile.fr.desc}
-        </p>
+        <p>{langsContext?.data.editProfile.desc}</p>
       </div>
       <div className={styles.personalInformationsContainer}>
         <h2>
@@ -269,9 +261,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             />
           </svg>
           {/* </span>{" "} */}
-          {langsContext === "en"
-            ? langs.editProfile.en.boxTitle
-            : langs.editProfile.fr.boxTitle}
+          {langsContext?.data.editProfile.boxTitle}
         </h2>
 
         <div className={styles.personalInformationsEditor}>
@@ -312,9 +302,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             <div className={styles.inputsWrapper}>
               <div className={styles.inputHolder}>
                 <label htmlFor="">
-                  {langsContext === "en"
-                    ? langs.editProfile.en.firstName
-                    : langs.editProfile.fr.lastName}
+                  {langsContext?.data.editProfile.firstName}
                 </label>
                 <PrimaryInput
                   type="text"
@@ -342,9 +330,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
               </div>
               <div className={styles.inputHolder}>
                 <label htmlFor="">
-                  {langsContext === "en"
-                    ? langs.editProfile.en.lastName
-                    : langs.editProfile.fr.lastName}
+                  {langsContext?.data.editProfile.lastName}
                 </label>
                 <PrimaryInput
                   type="text"
@@ -363,9 +349,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             >
               <div className={styles.inputHolder}>
                 <label htmlFor="">
-                  {langsContext === "en"
-                    ? langs.editProfile.en.username
-                    : langs.editProfile.fr.username}
+                  {langsContext?.data.editProfile.username}
                 </label>
                 <PrimaryInput
                   type="text"
@@ -432,11 +416,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             </div> */}
             <div className={styles.submitContainer}>
               <PrimaryButton
-                text={`${
-                  langsContext === "en"
-                    ? langs.editProfile.en.submit
-                    : langs.editProfile.fr.submit
-                }`}
+                text={`${langsContext?.data.editProfile.submit}`}
                 padding="10px 20px"
                 width="30%"
                 isLoading={isLoading}

@@ -129,9 +129,7 @@ const NavBar = ({
         <ul className={styles.navigationList}>
           <li>
             <Link to="/" className={"" + styles.selectedTab}>
-              {langContext === "en"
-                ? langs.homePage.en.browse
-                : langs.homePage.fr.browse}
+              {langContext?.data.homePage.browse}
             </Link>
           </li>
           {/* <li>
@@ -168,9 +166,7 @@ const NavBar = ({
               </svg>
             </span>
             <span className={styles.buttonTxt}>
-              {langContext === "en"
-                ? langs.homePage.en.searchBar
-                : langs.homePage.fr.searchBar}
+              {langContext?.data.homePage.searchBar}
             </span>
           </button>
         </div>

@@ -18,6 +18,8 @@ import LanguagesContext from "./context/Languages/Languages";
 import { useState } from "react";
 import { type Notifications } from "./components/NotificationBox/NotificationBox";
 import SearchBox from "./components/SearchBox/SearchBox";
+import { type LangProps } from "./context/Languages/Languages";
+import langs from "../lang.json";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -38,7 +40,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
     "collaps"
   );
 
-  const [selectedLanguage, setSelectedLanguage] = useState<"en" | "fr">("en");
+  const [selectedLanguage, setSelectedLanguage] = useState<LangProps>({
+    lang: "en",
+    data: langs.en,
+  });
 
   const location = useLocation();
   const isAuthPage =
@@ -51,7 +56,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   };
 
   const changeLang = (lang: "en" | "fr") => {
-    setSelectedLanguage(lang);
+    setSelectedLanguage((currentValue) => {
+      const newObj = { ...currentValue };
+      ((newObj.lang = lang),
+        (newObj.data = lang === "en" ? langs.en : langs.fr));
+
+      return newObj;
+    });
   };
 
   return (

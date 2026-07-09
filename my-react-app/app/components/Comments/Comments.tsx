@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./comments.module.css";
+import { getCookie } from "~/tools/getCookie";
+import { v4 as uuidv4 } from "uuid";
 
 const MOCK_COMMENTS = [
   {
@@ -61,13 +63,30 @@ const MOCK_COMMENTS = [
 ];
 
 const EMOJI_SET = [
-  "😀", "😂", "😍", "🔥", "👏", "💯", "🎬",
-  "❤️", "😢", "😮", "🤔", "👎", "💀", "🍿",
-  "⭐", "😱", "🥰", "👀", "🙌", "😤", "🎭",
+  "😀",
+  "😂",
+  "😍",
+  "🔥",
+  "👏",
+  "💯",
+  "🎬",
+  "❤️",
+  "😢",
+  "😮",
+  "🤔",
+  "👎",
+  "💀",
+  "🍿",
+  "⭐",
+  "😱",
+  "🥰",
+  "👀",
+  "🙌",
+  "😤",
+  "🎭",
 ];
 
 const INITIAL_SHOW = 3;
-
 
 const getInitials = (name: string) => {
   const parts = name.trim().split(" ");
@@ -75,9 +94,8 @@ const getInitials = (name: string) => {
   return name.slice(0, 2).toUpperCase();
 };
 
-
-const CommentsSection = () => {
-  const [comments, setComments] = useState(MOCK_COMMENTS);
+const CommentsSection = ({ identifier }: { identifier: string }) => {
+  const [comments, setComments] = useState<any>([]);
   const [inputValue, setInputValue] = useState("");
   const [showAll, setShowAll] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
@@ -108,26 +126,57 @@ const CommentsSection = () => {
   };
 
   const handleSend = () => {
+    const token = getCookie(document.cookie, "token");
+    if (!token) return;
     if (!canSend) return;
-    const newComment = {
-      id: Date.now(),
-      user: "Omar Makran",
-      text: inputValue.trim(),
-      time: "Just now",
-      isOwn: true,
-    };
-    setComments([newComment, ...comments]);
+    // const newComment = {
+    //   id: Date.now(),
+    //   user: "Omar Makran",
+    //   text: inputValue.trim(),
+    //   time: "Just now",
+    //   isOwn: true,
+    // };
+
+    fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/stream/comments?identifier="${identifier}"&page=1`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          movie_id: identifier,
+          comments: inputValue,
+          user_name: "salah",
+        }),
+      }
+    ).then((res) => {
+      console.log(res);
+      setComments([
+        ...comments,
+        {
+          // user_name: "kljgladsjlfdklsj",
+          comments: inputValue,
+        },
+      ]);
+    });
+
+    // setComments([...comments, {
+    //   comments: inputValue,
+
+    // }]);
     setInputValue("");
     if (textareaRef.current) textareaRef.current.style.height = "auto";
   };
 
-  const handleDelete = (id: number) => {
-    setDeletingId(id);
-    setTimeout(() => {
-      setComments((prev) => prev.filter((c) => c.id !== id));
-      setDeletingId(null);
-    }, 320);
-  };
+  // const handleDelete = (id: number) => {
+  //   setDeletingId(id);
+  //   setTimeout(() => {
+  //     setComments((prev) => prev.filter((c) => c.id !== id));
+  //     setDeletingId(null);
+  //   }, 320);
+  // };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -141,6 +190,28 @@ const CommentsSection = () => {
     setShowEmoji(false);
     textareaRef.current?.focus();
   };
+
+  useEffect(() => {
+    const token = getCookie(document.cookie, "token");
+    if (!token) return;
+    fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/stream/comments?identifier="${identifier}"&page=2`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        res.json().then((jres) => {
+          console.log(jres);
+          setComments(jres.results);
+        });
+      })
+      .catch((err) => {});
+  }, []);
 
   return (
     <div className={styles.commentsSection}>
@@ -183,7 +254,16 @@ const CommentsSection = () => {
                   aria-label="Add emoji"
                   title="Insert emoji"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <circle cx="12" cy="12" r="10" />
                     <path d="M8 14s1.5 2 4 2 4-2 4-2" />
                     <line x1="9" y1="9" x2="9.01" y2="9" />
@@ -218,7 +298,16 @@ const CommentsSection = () => {
                 type="button"
               >
                 <span>Comment</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <line x1="22" y1="2" x2="11" y2="13" />
                   <polygon points="22 2 15 22 11 13 2 9 22 2" />
                 </svg>
@@ -232,46 +321,66 @@ const CommentsSection = () => {
         <div className={styles.emptyState}>
           <div className={styles.emptyIcon}>💬</div>
           <p className={styles.emptyText}>No comments yet</p>
-          <p className={styles.emptySubtext}>Be the first to share your thoughts</p>
+          <p className={styles.emptySubtext}>
+            Be the first to share your thoughts
+          </p>
         </div>
       ) : (
         <>
-          <div className={styles.commentsList}>
-            {visibleComments.map((c, idx) => (
+          <div
+            className={styles.commentsList}
+            style={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+          >
+            {visibleComments.map((c: any) => (
               <div
-                key={c.id}
-                className={`${styles.commentItem} ${c.time === "Just now" ? styles.commentNew : ""} ${deletingId === c.id ? styles.commentDeleting : ""}`}
-                style={{ animationDelay: `${idx * 0.04}s` }}
+                key={uuidv4()}
+                style={{
+                  // animationDelay: `${idx * 0.04}s`,
+                  display: "flex",
+                  columnGap: "10px",
+                  alignItems: "center",
+                }}
               >
-                <div className={styles.commentAvatar}>
-                  {getInitials(c.user)}
-                </div>
+                {/* <div className={styles.commentAvatar}>
+                  
+                </div> */}
                 <div className={styles.commentContent}>
                   <div className={styles.commentHeader}>
                     <div className={styles.commentMeta}>
-                      <span className={styles.commentAuthor}>{c.user}</span>
-                      {c.isOwn && <span className={styles.ownBadge}>You</span>}
+                      <span className={styles.commentAuthor}>
+                        {c.user_name}
+                      </span>
+                      {/* {c.isOwn && <span className={styles.ownBadge}>You</span>} */}
                       <span className={styles.commentDot}>·</span>
-                      <span className={styles.commentTime}>{c.time}</span>
+                      {/* <span className={styles.commentTime}>{c.time}</span> */}
                     </div>
 
-                    <button
+                    {/* <button
                       className={styles.deleteBtn}
                       onClick={() => handleDelete(c.id)}
                       aria-label="Delete comment"
                       title="Delete comment"
                       type="button"
                     >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
                         <polyline points="3 6 5 6 21 6" />
                         <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
                         <path d="M10 11v6" />
                         <path d="M14 11v6" />
                         <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
                       </svg>
-                    </button>
+                    </button> */}
                   </div>
-                  <p className={styles.commentText}>{c.text}</p>
+                  <p className={styles.commentText}>{c.comments}</p>
                 </div>
               </div>
             ))}
@@ -283,8 +392,19 @@ const CommentsSection = () => {
               onClick={() => setShowAll(true)}
               type="button"
             >
-              <span>View {hiddenCount} more comment{hiddenCount > 1 ? "s" : ""}</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <span>
+                View {hiddenCount} more comment{hiddenCount > 1 ? "s" : ""}
+              </span>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="6 9 12 15 18 9" />
               </svg>
             </button>
@@ -297,7 +417,16 @@ const CommentsSection = () => {
               type="button"
             >
               <span>Show less</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="18 15 12 9 6 15" />
               </svg>
             </button>

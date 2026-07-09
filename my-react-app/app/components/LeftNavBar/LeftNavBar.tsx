@@ -61,11 +61,7 @@ export default function LeftNavBar({
               ></path>
             </svg>
           }
-          text={
-            langContext === "en"
-              ? langs.homePage.en.home
-              : langs.homePage.fr.home
-          }
+          text={langContext?.data.homePage.home}
           link="/"
         />
 
@@ -86,11 +82,7 @@ export default function LeftNavBar({
               </g>
             </svg>
           }
-          text={
-            langContext === "en"
-              ? langs.homePage.en.profile
-              : langs.homePage.fr.profile
-          }
+          text={langContext?.data.homePage.profile}
           link="/profile"
         />
         <li>
@@ -111,9 +103,7 @@ export default function LeftNavBar({
               ></path>
             </svg>
             {/* Languages */}
-            {langContext === "en"
-              ? langs.homePage.en.languages
-              : langs.homePage.fr.languages}
+            {langContext?.data.homePage.languages}
           </button>
           {languagesVisibility && (
             <ul style={{ paddingTop: "0" }}>
@@ -198,9 +188,7 @@ export default function LeftNavBar({
                 d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z"
               ></path>
             </svg>{" "}
-            {langContext === "en"
-              ? langs.homePage.en.logout
-              : langs.homePage.fr.logout}
+            {langContext?.data.homePage.logout}
           </button>
         </li>
       </ul>

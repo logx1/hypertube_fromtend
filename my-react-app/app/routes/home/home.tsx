@@ -112,11 +112,7 @@ export default function Home() {
           <Slider items={popularMovies} />
           <section className={styles.pageSection}>
             <div className={styles.sectionTitle}>
-              <h2>
-                {langContext === "en"
-                  ? langs.homePage.en.alsoPopular
-                  : langs.homePage.fr.alsoPopular}
-              </h2>
+              <h2>{langContext?.data.homePage.alsoPopular}</h2>
               <div className={`${styles.sectionButtons} `}></div>
             </div>
             <div className={styles.alsoPopularContainer}>

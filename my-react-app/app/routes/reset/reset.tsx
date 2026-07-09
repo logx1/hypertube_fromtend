@@ -25,18 +25,23 @@ const Reset = () => {
 
     console.log(token);
     console.log(password);
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/new_password`, {
+    // const fixToken = token?.split("--")[0];
+    // console.log(fixToken);
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/update_password`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        new_password: password.password,
-        new_password_confirmation: password.confirmPassword,
+        auth: {
+          new_password: password.password,
+          new_password_confirmation: password.confirmPassword,
+        },
       }),
     })
-      .then((res) => {
+      .then(async (res) => {
+        console.log(await res.text());
         console.log(res);
       })
       .catch((err) => {

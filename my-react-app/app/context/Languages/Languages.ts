@@ -1,5 +1,13 @@
 import { createContext } from "react";
 
-const LanguagesContext = createContext<"en" | "fr">("en");
+export interface LangProps {
+  lang: "en" | "fr";
+  data: any;
+}
+
+const LanguagesContext = createContext<LangProps | null>({
+  lang: "en",
+  data: null,
+});
 
 export default LanguagesContext;

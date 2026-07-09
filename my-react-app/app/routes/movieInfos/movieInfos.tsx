@@ -11,6 +11,7 @@ import { getCookie } from "~/tools/getCookie";
 import { redirect } from "react-router";
 import PopupBox from "~/components/PopupBox/PopupBox";
 import { Link, useNavigate } from "react-router";
+import LanguagesContext from "~/context/Languages/Languages";
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   const authToken: string | undefined = getCookie(document.cookie, "token");
@@ -50,7 +51,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
   const navigate = useNavigate();
 
   const [moviesList, setMoviesList] = useState<any>([]);
-
+  const langsContext = useContext(LanguagesContext);
   useEffect(() => {
     const accessToken = getCookie(document.cookie, "token");
     if (!accessToken) {
@@ -160,7 +161,9 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
       <p>{data.overview}</p>
-      <h2 className={styles.actorsTitle}>Actors</h2>
+      <h2 className={styles.actorsTitle}>
+        {langsContext?.data.movieInfos.actors}
+      </h2>
       <div className={styles.actorsContainer}>
         {data.actors.map((ele: any) => {
           return (
