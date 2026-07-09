@@ -49,7 +49,12 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: calc(100svh - 145px);
+  row-gap: 40px;
 }
 
 .watchPage .loading .loadingBox {

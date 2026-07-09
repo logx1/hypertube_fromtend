@@ -20,6 +20,8 @@ const Watch = () => {
   const [isMovieDownloaded, setIsMovieDownloaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const [progress, setProgress] = useState<number>(0);
+
   const [showStreamOptions, setShowStreamOptions] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -97,12 +99,13 @@ const Watch = () => {
               console.log(jres.progress);
               if (jres.progress != progress) {
                 progress = jres.progress;
+                setProgress(jres.progress);
                 count = 0;
               }
               if (jres.completed === true || jres.progress > 3) {
                 // TODO show movie
                 // setShowStreamOptions(jres.completed);
-                console.log("fuck");
+                setProgress(jres.progress);
                 exit = true;
                 return;
               } else {
@@ -182,6 +185,7 @@ const Watch = () => {
       {!isMovieDownloaded && !isMovieNotAvailable && (
         <div className={styles.loading}>
           <div className={styles.loadingBox}></div>
+          <p>{progress}</p>
         </div>
       )}
 
