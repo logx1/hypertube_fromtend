@@ -167,7 +167,11 @@ const NavBar = ({
                 ></path>
               </svg>
             </span>
-            <span className={styles.buttonTxt}>Search</span>
+            <span className={styles.buttonTxt}>
+              {langContext === "en"
+                ? langs.homePage.en.searchBar
+                : langs.homePage.fr.searchBar}
+            </span>
           </button>
         </div>
       )}

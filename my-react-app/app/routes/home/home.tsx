@@ -10,6 +10,8 @@ import Slider from "~/components/Slider/Slider";
 import { Link } from "react-router";
 import { getCookie } from "~/tools/getCookie";
 import { useNavigate } from "react-router";
+import LanguagesContext from "~/context/Languages/Languages";
+import langs from "../../../lang.json";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -33,6 +35,7 @@ export default function Home() {
     []
   );
   const notificationContext = useContext(NotificationContext);
+  const langContext = useContext(LanguagesContext);
   let navigate = useNavigate();
 
   const handle = () => {
@@ -109,7 +112,11 @@ export default function Home() {
           <Slider items={popularMovies} />
           <section className={styles.pageSection}>
             <div className={styles.sectionTitle}>
-              <h2>Also popular</h2>
+              <h2>
+                {langContext === "en"
+                  ? langs.homePage.en.alsoPopular
+                  : langs.homePage.fr.alsoPopular}
+              </h2>
               <div className={`${styles.sectionButtons} `}></div>
             </div>
             <div className={styles.alsoPopularContainer}>

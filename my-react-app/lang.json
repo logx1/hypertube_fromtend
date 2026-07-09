@@ -5,14 +5,18 @@
       "profile": "Profile",
       "languages": "Languages",
       "logout": "Log out",
-      "browse": "Browse"
+      "browse": "Browse",
+      "alsoPopular": "Also Popular",
+      "searchBar": "Search"
     },
     "fr": {
       "home": "Maison",
       "profile": "Profil",
       "languages": "Langues",
       "logout": "Déconnexion",
-      "browse": "Explorer"
+      "browse": "Explorer",
+      "alsoPopular": "Également populaire",
+      "searchBar": "Recherche"
     }
   },
 

@@ -8,6 +8,8 @@ import NotificationContext, {
 import { v4 as uuid } from "uuid";
 import { getCookie } from "~/tools/getCookie";
 import { useNavigate } from "react-router";
+import LanguagesContext from "~/context/Languages/Languages";
+import langs from "../../../lang.json";
 
 export default function SearchBox({
   searchBoxVisibility,
@@ -19,6 +21,7 @@ export default function SearchBox({
   const notificationContext = useContext(NotificationContext);
   const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);
   let navigate = useNavigate();
+  const langsContext = useContext(LanguagesContext);
 
   const pushNotification = (type: "error" | "success", msg: string) => {
     addNotification(
