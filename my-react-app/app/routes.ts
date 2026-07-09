@@ -3,11 +3,11 @@ import { type RouteConfig, index, route } from "@react-router/dev/routes";
 export default [
   index("routes/home/home.tsx"),
   route("components", "./routes/infos/infos.tsx"),
-  route("profile", "./routes/profile/Profile.tsx", { id: "editProfile" }),
-  route("editProfile", "./routes/editProfile/editProfile.tsx"),
+  route("user", "./routes/profile/Profile.tsx", { id: "editProfile" }),
+  route("profile", "./routes/editProfile/editProfile.tsx"),
   route("login", "./routes/login/Login.tsx"),
   route("movieInfos/:movieId/:movieName", "./routes/movieInfos/movieInfos.tsx"),
   route("signup", "./routes/signup/Signup.tsx"),
   route("forgot", "./routes/forgot/forgot.tsx"),
-  route("watch/:identifier/:name", "./routes/watch/watch.tsx"),
+  route("watch/:identifier/:name/:year", "./routes/watch/watch.tsx"),
 ] satisfies RouteConfig;

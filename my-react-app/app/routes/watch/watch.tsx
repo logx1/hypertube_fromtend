@@ -7,12 +7,14 @@ import { useNavigate } from "react-router";
 import { memo } from "react";
 
 const VideoBox = memo(({ url }: { url: string }) => {
+  console.log(url);
   return <video src={url} controls></video>;
 });
 
 const Watch = () => {
   console.log("Render");
-  let { identifier, name } = useParams();
+  let { identifier, name, year } = useParams();
+  console.log(identifier, name);
   const [isMovieDownloaded, setIsMovieDownloaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
@@ -31,6 +33,28 @@ const Watch = () => {
   const [isMovieNotAvailable, setIsMovieNotAvailable] =
     useState<boolean>(false);
 
+  const setToWatched = () => {
+    const accessToken = getCookie(document.cookie, "token");
+    if (!accessToken) return;
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/save_watched`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        title: name,
+        year: year,
+      }),
+    })
+      .then((res) => {
+        console.log(res.status);
+      })
+      .catch((err) => {
+        console.log("Couldn't serve it");
+      });
+  };
+
   useEffect(() => {
     let count = 0;
     let exit = false;
@@ -38,10 +62,13 @@ const Watch = () => {
     const intervalId = setInterval(() => {
       if (count === 5) {
         setIsMovieNotAvailable(true);
+        clearInterval(intervalId);
         return;
       }
       if (exit == true) {
         setIsMovieDownloaded(true);
+        setToWatched();
+        clearInterval(intervalId);
         return;
       }
       const accessToken = getCookie(document.cookie, "token");

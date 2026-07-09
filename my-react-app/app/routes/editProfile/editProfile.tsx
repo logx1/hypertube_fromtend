@@ -1,4 +1,4 @@
-import { useState, useContext, useCallback } from "react";
+import { useState, useContext, useCallback, useRef } from "react";
 import styles from "./editProfile.module.css";
 import PrimaryInput from "~/components/Input/PrimaryInput";
 import PrimaryButton from "~/components/Button/PrimaryButton";
@@ -19,6 +19,7 @@ interface editProfileInfos {
   emailAddress: string;
   currentPassword: string;
   newPassword: string;
+  imageUrl: string;
 }
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
@@ -42,7 +43,7 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
 
 export default function EditProfile({ loaderData }: Route.ComponentProps) {
   const userInfo = loaderData;
-  console.log(userInfo);
+  console.log(userInfo.imageUrl);
 
   const [formInfos, setFormInfos] = useState<editProfileInfos>({
     fullName: "",
@@ -52,7 +53,12 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
     emailAddress: userInfo?.json.email || "",
     currentPassword: "",
     newPassword: "",
+    imageUrl: userInfo.json.imageUrl || "http://localhost:3000/public/ff.avif",
   });
+  const fileInput = useRef<HTMLInputElement | null>(null);
+  console.log(formInfos);
+
+  const [newProfilePic, setNewProfilePic] = useState<string | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [responseBox, setResponseBox] = useState<{
@@ -69,7 +75,6 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
   });
 
   const closeBox = useCallback(() => {
-    console.log("hiii");
     setResponseBox({ ...responseBox, showBox: false });
   }, []);
 
@@ -80,6 +85,17 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
   const handleInputChange = (e: any) => {
     setFormInfos({ ...formInfos, [e.target.name]: e.target.value });
   };
+
+  function fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result); // includes data:URL prefix
+      reader.onerror = () => {
+        resolve(null);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
   const saveChanges = () => {
     if (isLoading) return;
@@ -92,6 +108,15 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
 
     // console.log(userInfo);
 
+    const reqBody: any = {
+      username: formInfos.username,
+      first_name: formInfos.firstName,
+      last_name: formInfos.lastName,
+      email: formInfos.emailAddress,
+    };
+
+    if (newProfilePic) reqBody.imageUrl = newProfilePic;
+
     fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/update`, {
       method: "PATCH",
       headers: {
@@ -99,13 +124,7 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        auth: {
-          username: formInfos.username,
-          first_name: formInfos.firstName,
-          last_name: formInfos.lastName,
-          email: formInfos.emailAddress,
-          imageUrl: "kk",
-        },
+        auth: reqBody,
       }),
     })
       .then(async (res) => {
@@ -216,18 +235,6 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
         />
       )}
 
-      <button
-        style={{ color: "White" }}
-        onClick={() => {
-          // console.log(userInfo)
-          const date = new Date();
-          const tomorrow = new Date(date);
-          tomorrow.setDate(date.getDate() + 1);
-          console.log(tomorrow);
-        }}
-      >
-        check
-      </button>
       <div className={styles.pageHeader}>
         <h1>Account settings</h1>
         <p>Manage your profile information and security preference</p>
@@ -254,8 +261,37 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
 
         <div className={styles.personalInformationsEditor}>
           <div className={styles.avatarContainer}>
-            <img src="http://localhost:3000/public/ff.avif" alt="" />
+            <button
+              style={{ borderRadius: "50%" }}
+              onClick={() => {
+                if (fileInput.current === null) return;
+                fileInput.current.click();
+              }}
+            >
+              <img
+                src={newProfilePic || formInfos.imageUrl}
+                alt="profile picture"
+                onError={(e) => {
+                  console.log(e);
+                }}
+              />
+            </button>
             <p>JPG or PNG. Max 2 MB</p>
+            <input
+              ref={fileInput}
+              type="file"
+              accept="image/*"
+              max={1}
+              onChange={async (e) => {
+                const input = e.target as HTMLInputElement;
+                if (!input || !input.files || input.files.length === 0) return;
+                const file = input.files[0];
+                // const imgUrl = URL.createObjectURL(file);
+                const image64: any = await fileToBase64(file);
+                setNewProfilePic(image64);
+              }}
+              style={{ display: "none" }}
+            />
           </div>
           <form className={styles.infosContainer} action={saveChanges}>
             <div className={styles.inputsWrapper}>

@@ -44,6 +44,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
   let { movieId, movieName } = useParams();
   const [movieInfos, setMovieInfos] = useState<any>({});
   const notificationContext = useContext(NotificationContext);
+  const [isWatched, setIsWatched] = useState(false);
   const data = loaderData;
   const navigate = useNavigate();
 
@@ -78,12 +79,31 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
           .catch((err) => {});
       })
       .catch((err) => {});
+
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/check_watched`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        title: movieName,
+        year: "2000",
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("Something went wrong");
+      });
   }, [window.location.href]);
 
   const selectToWatch = (
     identifier: string,
     torrentUrl: string,
-    title: string
+    title: string,
+    year: string
   ) => {
     console.log(identifier, torrentUrl);
     const accessToken = getCookie(document.cookie, "token");
@@ -104,7 +124,7 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
     })
       .then(async (res) => {
         console.log(await res.text());
-        navigate(`/watch/${identifier}/${title}`);
+        navigate(`/watch/${identifier}/${title}/${year}`);
       })
       .catch((err) => {
         console.log("Couldn reach to server");
@@ -147,7 +167,12 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
               key={uuid()}
               className={styles.movieHolder}
               onClick={() => {
-                selectToWatch(ele.identifier, ele.torrent_url, ele.title);
+                selectToWatch(
+                  ele.identifier,
+                  ele.torrent_url,
+                  ele.title,
+                  ele.year
+                );
               }}
             >
               <img src={ele.verification_image} alt={ele.title} />
