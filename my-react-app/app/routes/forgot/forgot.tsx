@@ -4,13 +4,34 @@ import PrimaryInput from "~/components/Input/PrimaryInput";
 import PrimaryButton from "~/components/Button/PrimaryButton";
 import React, { useState } from "react";
 import { Link } from "react-router";
+import PopupBox from "~/components/PopupBox/PopupBox";
+import { useContext } from "react";
+import LanguagesContext from "~/context/Languages/Languages";
 
 export default function Forgot() {
   const [emailInput, setEmailInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const langsContext = useContext(LanguagesContext);
+
+  const [responseBox, setResponseBox] = useState<{
+    showBox: boolean;
+    boxConfig: any;
+  }>({
+    showBox: false,
+    boxConfig: {
+      title: "",
+      description: "",
+      icon: null,
+      color: "",
+    },
+  });
 
   const submit = (e: React.SubmitEvent) => {
     e.preventDefault();
     console.log(emailInput);
+    if (isLoading) return;
+
+    setIsLoading(true);
 
     fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/forgot_password`, {
       method: "POST",
@@ -24,24 +45,138 @@ export default function Forgot() {
       .then((res) => {
         if (res.status != 200) {
           console.log("Somthing wehnt wong");
+          setIsLoading(false);
+          setResponseBox((currentState) => {
+            const newState = { ...currentState };
+            newState.showBox = true;
+            const newConfigBox = { ...newState.boxConfig };
+            newConfigBox.title = langsContext?.data.data.editProfile.errorTitle;
+            newConfigBox.description =
+              langsContext?.data.data.editProfile.errorDesc;
+            newConfigBox.icon = (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={30}
+                height={30}
+                viewBox="0 0 1024 1024"
+              >
+                <path
+                  fill="currentColor"
+                  d="M1017.06 186.064L917.364 74.721a31.96 31.96 0 0 0-23.937-10.752H543.171V30.001c0-16.56-14.336-30-32-30s-32 13.44-32 30V63.97H223.363c-17.68 0-32 14.32-32 32v223.664c0 17.68 14.32 32 32 32h255.808v64.096H130.58a31.96 31.96 0 0 0-23.936 10.752L6.963 539.793c-10.752 12.128-10.752 30.368 0 42.496l99.68 112.288c6.112 6.847 14.784 9.744 23.936 9.744h348.592V994c0 16.56 14.336 30 32 30s32-13.44 32-30V704.32h256.464c17.68 0 32-14.32 32-32V447.713c0-17.68-14.32-32-32-32H543.171v-64.096h350.256a31.96 31.96 0 0 0 23.937-10.752l99.696-112.32c10.736-12.112 10.736-30.352 0-42.48zM767.647 640.321H144.959l-71.28-79.28l71.28-81.312h622.688zm111.392-352.688h-623.68V127.969h623.68l71.28 79.344z"
+                ></path>
+              </svg>
+            );
+            newConfigBox.color = "rgba(128, 0, 0, 0.303)";
+            newState.boxConfig = newConfigBox;
+            return newState;
+          });
           return;
         }
         res
           .json()
           .then((jres) => {
             console.log(jres);
+            setIsLoading(false);
+            setResponseBox((currentState) => {
+              const newState = { ...currentState };
+              newState.showBox = true;
+              const newConfigBox = { ...newState.boxConfig };
+              newConfigBox.title =
+                langsContext?.data.data.editProfile.successTitle;
+              newConfigBox.description =
+                langsContext?.data.data.editProfile.successDescription;
+              newConfigBox.icon = (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={30}
+                  height={30}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="m9 20.42l-6.21-6.21l2.83-2.83L9 14.77l9.88-9.89l2.83 2.83z"
+                  ></path>
+                </svg>
+              );
+              newConfigBox.color = "rgba(0, 128, 0, 0.307)";
+              newState.boxConfig = newConfigBox;
+              return newState;
+            });
           })
           .catch((err) => {
             console.log("Unexpected response format");
+            setIsLoading(false);
+            setResponseBox((currentState) => {
+              const newState = { ...currentState };
+              newState.showBox = true;
+              const newConfigBox = { ...newState.boxConfig };
+              newConfigBox.title =
+                langsContext?.data.data.editProfile.errorTitle;
+              newConfigBox.description =
+                langsContext?.data.data.editProfile.errorDesc;
+              newConfigBox.icon = (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={30}
+                  height={30}
+                  viewBox="0 0 1024 1024"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M1017.06 186.064L917.364 74.721a31.96 31.96 0 0 0-23.937-10.752H543.171V30.001c0-16.56-14.336-30-32-30s-32 13.44-32 30V63.97H223.363c-17.68 0-32 14.32-32 32v223.664c0 17.68 14.32 32 32 32h255.808v64.096H130.58a31.96 31.96 0 0 0-23.936 10.752L6.963 539.793c-10.752 12.128-10.752 30.368 0 42.496l99.68 112.288c6.112 6.847 14.784 9.744 23.936 9.744h348.592V994c0 16.56 14.336 30 32 30s32-13.44 32-30V704.32h256.464c17.68 0 32-14.32 32-32V447.713c0-17.68-14.32-32-32-32H543.171v-64.096h350.256a31.96 31.96 0 0 0 23.937-10.752l99.696-112.32c10.736-12.112 10.736-30.352 0-42.48zM767.647 640.321H144.959l-71.28-79.28l71.28-81.312h622.688zm111.392-352.688h-623.68V127.969h623.68l71.28 79.344z"
+                  ></path>
+                </svg>
+              );
+              newConfigBox.color = "rgba(128, 0, 0, 0.303)";
+              newState.boxConfig = newConfigBox;
+              return newState;
+            });
           });
       })
       .catch((err) => {
         console.log("Couldn't reach server");
+        setIsLoading(false);
+        setResponseBox((currentState) => {
+          const newState = { ...currentState };
+          newState.showBox = true;
+          const newConfigBox = { ...newState.boxConfig };
+          newConfigBox.title = langsContext?.data.data.editProfile.errorTitle;
+          newConfigBox.description =
+            langsContext?.data.data.editProfile.errorDesc;
+          newConfigBox.icon = (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={30}
+              height={30}
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                fill="currentColor"
+                d="M1017.06 186.064L917.364 74.721a31.96 31.96 0 0 0-23.937-10.752H543.171V30.001c0-16.56-14.336-30-32-30s-32 13.44-32 30V63.97H223.363c-17.68 0-32 14.32-32 32v223.664c0 17.68 14.32 32 32 32h255.808v64.096H130.58a31.96 31.96 0 0 0-23.936 10.752L6.963 539.793c-10.752 12.128-10.752 30.368 0 42.496l99.68 112.288c6.112 6.847 14.784 9.744 23.936 9.744h348.592V994c0 16.56 14.336 30 32 30s32-13.44 32-30V704.32h256.464c17.68 0 32-14.32 32-32V447.713c0-17.68-14.32-32-32-32H543.171v-64.096h350.256a31.96 31.96 0 0 0 23.937-10.752l99.696-112.32c10.736-12.112 10.736-30.352 0-42.48zM767.647 640.321H144.959l-71.28-79.28l71.28-81.312h622.688zm111.392-352.688h-623.68V127.969h623.68l71.28 79.344z"
+              ></path>
+            </svg>
+          );
+          newConfigBox.color = "rgba(128, 0, 0, 0.303)";
+          newState.boxConfig = newConfigBox;
+          return newState;
+        });
       });
   };
 
   return (
     <div className={styles.forgotContainer}>
+      {responseBox.showBox && (
+        <PopupBox
+          title={responseBox.boxConfig.title}
+          description={responseBox.boxConfig.description}
+          icon={responseBox.boxConfig.icon}
+          color={responseBox.boxConfig.color}
+          closeBox={() => {
+            setResponseBox({ ...responseBox, showBox: false });
+          }}
+        />
+      )}
+
       <div className={styles.forgotHolder}>
         <div className={styles.header}>
           <div className={styles.iconBox}>
@@ -100,7 +235,7 @@ export default function Forgot() {
             }
             name="email"
           />
-          <PrimaryButton text="Send reset link" />
+          <PrimaryButton text="Send reset link" isLoading={isLoading} />
           <Link to="/login">Back to sign in</Link>
         </form>
       </div>

@@ -81,6 +81,10 @@ body {
   }
 }
 
+button {
+  // background: none;
+}
+
 ::-webkit-scrollbar {
   width: 12px; /* For vertical scrollbars */
   height: 12px; /* For horizontal scrollbars */
@@ -88,20 +92,20 @@ body {
 
 /* 2. The track (background) of the scrollbar */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
   border-radius: 6px; /* Optional: rounds the track */
 }
 
 /* 3. The thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-  background: var(--primaryColor); 
+  background: var(--primaryColor);
   border-radius: 6px; /* Optional: rounds the thumb */
   border: 3px solid #f1f1f1; /* Creates a padding effect inside the track */
 }
 
 /* 4. The thumb when you hover over it */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primaryColor); 
+  background: var(--primaryColor);
 }
 
 button {
