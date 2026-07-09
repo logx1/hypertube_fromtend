@@ -6,7 +6,10 @@ export default [
   route("user", "./routes/profile/Profile.tsx", { id: "editProfile" }),
   route("profile", "./routes/editProfile/editProfile.tsx"),
   route("login", "./routes/login/Login.tsx"),
-  route("movieInfos/:movieId/:movieName", "./routes/movieInfos/movieInfos.tsx"),
+  route(
+    "movieInfos/:movieId/:movieName/:year",
+    "./routes/movieInfos/movieInfos.tsx"
+  ),
   route("signup", "./routes/signup/Signup.tsx"),
   route("forgot", "./routes/forgot/forgot.tsx"),
   route("watch/:identifier/:name/:year", "./routes/watch/watch.tsx"),

@@ -41,14 +41,44 @@ export function HydrateFallback() {
 }
 
 export default function movieInfos({ loaderData }: Route.ComponentProps) {
-  let { movieId, movieName } = useParams();
+  let { movieId, movieName, year } = useParams();
   const [movieInfos, setMovieInfos] = useState<any>({});
+  const [isMovieWatched, setIsMovieWatched] = useState<boolean>(false);
   const notificationContext = useContext(NotificationContext);
   const [isWatched, setIsWatched] = useState(false);
   const data = loaderData;
   const navigate = useNavigate();
 
   const [moviesList, setMoviesList] = useState<any>([]);
+
+  useEffect(() => {
+    const accessToken = getCookie(document.cookie, "token");
+    if (!accessToken) {
+      alert("No token");
+      return;
+    }
+
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/check_watched`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        title: movieName,
+        year: year,
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setIsMovieWatched(true);
+        }
+      })
+      .catch((err) => {
+        console.log("Something went wrong");
+      });
+  }, []);
 
   useEffect(() => {
     const accessToken = getCookie(document.cookie, "token");
@@ -79,24 +109,6 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
           .catch((err) => {});
       })
       .catch((err) => {});
-
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/check_watched`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({
-        title: movieName,
-        year: "2000",
-      }),
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log("Something went wrong");
-      });
   }, [window.location.href]);
 
   const selectToWatch = (
@@ -136,6 +148,8 @@ export default function movieInfos({ loaderData }: Route.ComponentProps) {
       <div className={styles.movieCover}>
         <img src={data.backdrop_image || data.cover_image} alt="" />
       </div>
+      {isMovieWatched && <span className={styles.watchedInfo}>Watched</span>}
+
       <div className={styles.titleContainer}>
         <h1>{data.name}</h1>
         <div className={styles.genresContainer}>

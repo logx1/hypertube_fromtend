@@ -20,7 +20,6 @@ const Watch = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
-
   const [responseBox, setResponseBox] = useState<{
     boxConfig: any;
   }>({
@@ -35,7 +34,7 @@ const Watch = () => {
   const [isMovieNotAvailable, setIsMovieNotAvailable] =
     useState<boolean>(false);
 
-  const setToWatched = () => {
+  useEffect(() => {
     const accessToken = getCookie(document.cookie, "token");
     if (!accessToken) return;
     fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/user/save_watched`, {
@@ -55,7 +54,7 @@ const Watch = () => {
       .catch((err) => {
         console.log("Couldn't serve it");
       });
-  };
+  }, []);
 
   useEffect(() => {
     let count = 0;
@@ -69,7 +68,6 @@ const Watch = () => {
       }
       if (exit == true) {
         setIsMovieDownloaded(true);
-        setToWatched();
         clearInterval(intervalId);
         return;
       }
@@ -166,7 +164,6 @@ const Watch = () => {
                 url={`https://localhost/stream/watch?identifier=${identifier}`}
               />
             </div>
-
           </div>
           <div className={styles.commentsContainer}>
             <CommentsSection />

@@ -22,12 +22,18 @@
     }
   }
 
+  .watchedInfo {
+    color: var(--primaryColor);
+    font-weight: bold;
+  }
   .titleContainer {
     display: flex;
     justify-content: space-between;
+    // flex-direction: column;
     h1 {
       font-size: 40px;
       font-weight: 800;
+
       .releaseDate {
         font-size: 15px;
         color: var(--primaryColor);

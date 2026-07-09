@@ -26,6 +26,11 @@
      object-position: center;
 }
 
+.moviesInfoContainer .watchedInfo {
+  color: var(--primaryColor);
+  font-weight: bold;
+}
+
 .moviesInfoContainer .titleContainer {
   display: -webkit-box;
   display: -ms-flexbox;

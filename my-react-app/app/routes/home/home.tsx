@@ -65,19 +65,17 @@ export default function Home() {
     // console.log(import.meta.env.VITE_BACKEND_URL);
     const authToken: string | undefined = getCookie(document.cookie, "token");
     if (!authToken) {
-      
       navigate("/login");
       return;
     }
-  
-    
+
     fetch(`${import.meta.env.VITE_BACKEND_URL}/search/popular`, {
       method: "GET",
       headers: {
-        'Authorization': `Bearer ${authToken}`
-      }
+        Authorization: `Bearer ${authToken}`,
+      },
     })
-      .then(async(res) => {
+      .then(async (res) => {
         if (res.status !== 200) {
           pushNotification(
             "error",
@@ -165,7 +163,7 @@ export default function Home() {
                 return (
                   <Link
                     className={styles.movieHolder}
-                    to={`/movieInfos/${ele.movie_id}/${ele.name}`}
+                    to={`/movieInfos/${ele.movie_id}/${ele.name}/${ele.production_year}`}
                     // onMouseMove={mouseEnter}
                     key={uuidv4()}
                   >
