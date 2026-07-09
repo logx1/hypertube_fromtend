@@ -1,0 +1,39 @@
+{
+  "homePage": {
+    "en": {
+      "home": "Home",
+      "profile": "Profile",
+      "languages": "Languages",
+      "logout": "Log out",
+      "browse": "Browse"
+    },
+    "fr": {
+      "home": "Maison",
+      "profile": "Profil",
+      "languages": "Langues",
+      "logout": "Déconnexion",
+      "browse": "Explorer"
+    }
+  },
+
+  "editProfile": {
+    "en": {
+      "title": "Account settings",
+      "desc": "Manage your profile information and security preference",
+      "boxTitle": "Personal Informations",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "username": "Username",
+      "submit": "Submit Changes"
+    },
+    "fr": {
+      "title": "Paramètres du compte",
+      "desc": "Gérez les informations de votre profil et vos préférences de sécurité",
+      "boxTitle": "Informations personnelles",
+      "firstName": "Prénom",
+      "lastName": "Nom de famille",
+      "username": "nom d'utilisateur",
+      "submit": "Soumettre les modifications"
+    }
+  }
+}

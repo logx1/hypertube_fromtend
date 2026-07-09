@@ -414,7 +414,7 @@ export default function Login() {
                     <div className={styles.inputGroup}>
                       <div className={styles.labelRow}>
                         <label className={styles.inputLabel}>PASSWORD</label>
-                        <a href="#" className={styles.forgotLink}>
+                        <a href="/forgot" className={styles.forgotLink}>
                           Forgot?
                         </a>
                       </div>

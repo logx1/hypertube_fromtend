@@ -13,4 +13,5 @@ export default [
   route("signup", "./routes/signup/Signup.tsx"),
   route("forgot", "./routes/forgot/forgot.tsx"),
   route("watch/:identifier/:name/:year", "./routes/watch/watch.tsx"),
+  route("reset/:token", "./routes/reset/reset.tsx"),
 ] satisfies RouteConfig;

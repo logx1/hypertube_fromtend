@@ -17,7 +17,8 @@ export default function SearchBox({
   const [userInput, setUserInput] = useState<string>("");
   const [searchResult, setSearchResult] = useState<any>([]);
   const notificationContext = useContext(NotificationContext);
-  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);  let navigate = useNavigate();
+  const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false);
+  let navigate = useNavigate();
 
   const pushNotification = (type: "error" | "success", msg: string) => {
     addNotification(
@@ -32,27 +33,25 @@ export default function SearchBox({
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const authToken = getCookie(document.cookie, "token")
+    const authToken = getCookie(document.cookie, "token");
 
-    console.log(authToken)
-    
+    console.log(authToken);
+
     setUserInput(e.currentTarget.value);
     if (!authToken) {
-      
-      navigate("/login")
-      searchBoxVisibility(false)
-      return
+      navigate("/login");
+      searchBoxVisibility(false);
+      return;
     }
     setSearchResult([]);
     setIsSearchLoading(true);
     fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/search/?q="${e.currentTarget.value}"`
-      ,
-    {
-      headers:{
-        "Authorization": `Bearer ${authToken}`
+      `${import.meta.env.VITE_BACKEND_URL}/search/?q="${e.currentTarget.value}"`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
       }
-    }
     )
       .then((res) => {
         if (res.status != 200) {
@@ -75,13 +74,15 @@ export default function SearchBox({
       });
   };
   return (
-    <div className={styles.searchBoxContainer} onClick={(e)=>{
-      const target = e.target as HTMLDivElement
-      if (target.className === styles.searchBoxContainer) {
-        searchBoxVisibility(false)
-      }
-      
-    }}>
+    <div
+      className={styles.searchBoxContainer}
+      onClick={(e) => {
+        const target = e.target as HTMLDivElement;
+        if (target.className === styles.searchBoxContainer) {
+          searchBoxVisibility(false);
+        }
+      }}
+    >
       <div className={styles.searchBoxHolder}>
         <div className={styles.inputContainer}>
           <PrimaryInput
@@ -121,7 +122,7 @@ export default function SearchBox({
           {searchResult.map((ele: any) => {
             return (
               <Link
-                to={`/movieInfos/${ele.movie_id}/${ele.name}`}
+                to={`/movieInfos/${ele.movie_id}/${ele.name}/${ele.production_year}`}
                 className={styles.searchBoxItemContainer}
                 key={uuid()}
                 onClick={() => {
@@ -130,7 +131,7 @@ export default function SearchBox({
               >
                 <img className={styles.searchBoxImg} src={ele.cover_image} />
                 <p className={styles.movieName}>{ele.name}</p>
-                <p className={styles.productionYear}>2022</p>
+                <p className={styles.productionYear}>{ele.production_year}</p>
               </Link>
             );
           })}

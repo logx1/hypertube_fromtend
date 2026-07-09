@@ -14,6 +14,9 @@ export default function Forgot() {
 
     fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/forgot_password`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         email: emailInput,
       }),

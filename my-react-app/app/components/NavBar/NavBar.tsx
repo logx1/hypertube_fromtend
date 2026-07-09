@@ -6,6 +6,8 @@ import NotificationContext, {
 } from "~/context/Notification/NotificationContext";
 import { useMatches, Link } from "react-router";
 import { v4 as uuidv4 } from "uuid";
+import LanguagesContext from "~/context/Languages/Languages";
+import langs from "../../../lang.json";
 
 const NavBar = ({
   navBarStyle,
@@ -21,6 +23,7 @@ const NavBar = ({
   const [searchResult, setSearchResult] = useState<any>([]);
   const searchResultRef = useRef<any>([]);
   const notificationContext = useContext(NotificationContext);
+  const langContext = useContext(LanguagesContext);
 
   const pushNotification = (type: "error" | "success", msg: string) => {
     addNotification(
@@ -125,16 +128,18 @@ const NavBar = ({
         <p>HyperTube</p>
         <ul className={styles.navigationList}>
           <li>
-            <a href="" className={"" + styles.selectedTab}>
-              Browse
-            </a>
+            <Link to="/" className={"" + styles.selectedTab}>
+              {langContext === "en"
+                ? langs.homePage.en.browse
+                : langs.homePage.fr.browse}
+            </Link>
           </li>
-          <li>
+          {/* <li>
             <a href="">Live</a>
           </li>
           <li>
             <a href="">Following</a>
-          </li>
+          </li> */}
         </ul>
       </div>
       {!isInsideEditProfile && (

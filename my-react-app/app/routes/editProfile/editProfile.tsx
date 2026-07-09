@@ -10,6 +10,8 @@ import { getCookie } from "~/tools/getCookie";
 import type { Route } from "./+types/editProfile";
 import { redirect } from "react-router";
 import PopupBox, { type PopupBoxConfig } from "~/components/PopupBox/PopupBox";
+import LanguagesContext from "~/context/Languages/Languages";
+import langs from "../../../lang.json";
 
 interface editProfileInfos {
   fullName: string;
@@ -73,6 +75,8 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
       color: "",
     },
   });
+
+  const langsContext = useContext(LanguagesContext);
 
   const closeBox = useCallback(() => {
     setResponseBox({ ...responseBox, showBox: false });
@@ -236,8 +240,17 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
       )}
 
       <div className={styles.pageHeader}>
-        <h1>Account settings</h1>
-        <p>Manage your profile information and security preference</p>
+        <h1>
+          {langsContext === "en"
+            ? langs.editProfile.en.title
+            : langs.editProfile.fr.title}
+        </h1>
+
+        <p>
+          {langsContext === "en"
+            ? langs.editProfile.en.desc
+            : langs.editProfile.fr.desc}
+        </p>
       </div>
       <div className={styles.personalInformationsContainer}>
         <h2>
@@ -256,7 +269,9 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             />
           </svg>
           {/* </span>{" "} */}
-          Personal Informations
+          {langsContext === "en"
+            ? langs.editProfile.en.boxTitle
+            : langs.editProfile.fr.boxTitle}
         </h2>
 
         <div className={styles.personalInformationsEditor}>
@@ -296,7 +311,11 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
           <form className={styles.infosContainer} action={saveChanges}>
             <div className={styles.inputsWrapper}>
               <div className={styles.inputHolder}>
-                <label htmlFor="">First name</label>
+                <label htmlFor="">
+                  {langsContext === "en"
+                    ? langs.editProfile.en.firstName
+                    : langs.editProfile.fr.lastName}
+                </label>
                 <PrimaryInput
                   type="text"
                   placeHolder="First name"
@@ -322,7 +341,11 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
                 />
               </div>
               <div className={styles.inputHolder}>
-                <label htmlFor="">Last name</label>
+                <label htmlFor="">
+                  {langsContext === "en"
+                    ? langs.editProfile.en.lastName
+                    : langs.editProfile.fr.lastName}
+                </label>
                 <PrimaryInput
                   type="text"
                   placeHolder="Last name"
@@ -339,7 +362,11 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
               style={{ gridTemplateColumns: "1fr" }}
             >
               <div className={styles.inputHolder}>
-                <label htmlFor="">username</label>
+                <label htmlFor="">
+                  {langsContext === "en"
+                    ? langs.editProfile.en.username
+                    : langs.editProfile.fr.username}
+                </label>
                 <PrimaryInput
                   type="text"
                   placeHolder="username"
@@ -405,7 +432,11 @@ export default function EditProfile({ loaderData }: Route.ComponentProps) {
             </div> */}
             <div className={styles.submitContainer}>
               <PrimaryButton
-                text="Submit changes"
+                text={`${
+                  langsContext === "en"
+                    ? langs.editProfile.en.submit
+                    : langs.editProfile.fr.submit
+                }`}
                 padding="10px 20px"
                 width="30%"
                 isLoading={isLoading}

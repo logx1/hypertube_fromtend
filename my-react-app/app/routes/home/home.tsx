@@ -99,51 +99,6 @@ export default function Home() {
       });
   }, []);
 
-  // const scrollNext = () => {
-  //   scrollBox.current.scrollBy({ left: 50 });
-  // };
-  // const scrollPrev = () => {
-  //   scrollBox.current.scrollBy({ left: -50 });
-  // };
-
-  // const scrollTo = (to: number) => {
-  //   scrollBox.current.scrollBy({ left: to });
-  // };
-
-  // function map(
-  //   val: number,
-  //   minA: number,
-  //   maxA: number,
-  //   minB: number,
-  //   maxB: number
-  // ) {
-  //   return minB + ((val - minA) * (maxB - minB)) / (maxA - minA);
-  // }
-
-  // const mouseEnter = (e: any) => {
-  //   // const rect = e.currentTarget.getBoundingClientRect();
-  //   // const x = e.clientX - rect.left;
-  //   // const y = e.clientY - rect.top;
-  //   // let rotateY = map(x, 0, 180, -25, 25);
-  //   // let rotateX = map(y, 0, 250, 25, -25);
-  //   // // console.log(`Relative position: X=${x}, Y=${y}`);
-  //   // console.log(testRef.current);
-  //   // testRef.current.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-  //   // console.log(`Relative position: X=${rotateY}, Y=${rotateX}`);
-  // };
-
-  // useEffect(() => {
-  //   fetch("http://localhost:8000/search/popular", { method: "GET" }).then(
-  //     (res: any) => {
-  //       if (res.status === 200) {
-  //         res.json().then((jres: any) => {
-  //           console.log(jres);
-  //         });
-  //       }
-  //     }
-  //   );
-  // }, []);
-
   return (
     <div className={`${styles.homeContainer}`}>
       {popularMovies.length === 0 && (

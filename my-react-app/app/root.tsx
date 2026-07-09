@@ -14,6 +14,7 @@ import NavBar from "./components/NavBar/NavBar";
 import LeftNavBar from "./components/LeftNavBar/LeftNavBar";
 import NotificationBox from "./components/NotificationBox/NotificationBox";
 import NotificationContext from "./context/Notification/NotificationContext";
+import LanguagesContext from "./context/Languages/Languages";
 import { useState } from "react";
 import { type Notifications } from "./components/NotificationBox/NotificationBox";
 import SearchBox from "./components/SearchBox/SearchBox";
@@ -36,6 +37,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [sideNavBarStyle, setSideNavBarStyle] = useState<"full" | "collaps">(
     "collaps"
   );
+
+  const [selectedLanguage, setSelectedLanguage] = useState<"en" | "fr">("en");
+
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/signup";
@@ -44,6 +48,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const searchBoxVisibility = (visibility: boolean) => {
     setShowSearchBox(visibility);
+  };
+
+  const changeLang = (lang: "en" | "fr") => {
+    setSelectedLanguage(lang);
   };
 
   return (
@@ -61,34 +69,39 @@ export function Layout({ children }: { children: React.ReactNode }) {
             notificationsSetter: setNotifications,
           }}
         >
-          {showSearchBox && (
-            <SearchBox searchBoxVisibility={searchBoxVisibility} />
-          )}
-          <NotificationBox />
+          <LanguagesContext.Provider value={selectedLanguage}>
+            {showSearchBox && (
+              <SearchBox searchBoxVisibility={searchBoxVisibility} />
+            )}
+            <NotificationBox />
 
-          {!isAuthPage && (
-            <NavBar
-              navBarStyle={sideNavBarStyle}
-              setSideNavBarStyle={setSideNavBarStyle}
-              openSearchBox={searchBoxVisibility}
-            />
-          )}
+            {!isAuthPage && (
+              <NavBar
+                navBarStyle={sideNavBarStyle}
+                setSideNavBarStyle={setSideNavBarStyle}
+                openSearchBox={searchBoxVisibility}
+              />
+            )}
 
-          {!isAuthPage ? (
-            <div className={`appContainer`}>
-              <LeftNavBar navBarStyle={sideNavBarStyle} />
-              <div
-                className={`toHide ${sideNavBarStyle === "full" ? "hideToHide" : ""}`}
-              ></div>
-              <div
-                className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
-              >
-                <div className="contentWrapper">{children}</div>
+            {!isAuthPage ? (
+              <div className={`appContainer`}>
+                <LeftNavBar
+                  navBarStyle={sideNavBarStyle}
+                  changeLang={changeLang}
+                />
+                <div
+                  className={`toHide ${sideNavBarStyle === "full" ? "hideToHide" : ""}`}
+                ></div>
+                <div
+                  className={`contentContainer ${sideNavBarStyle === "full" ? "contentContainerFull" : ""}`}
+                >
+                  <div className="contentWrapper">{children}</div>
+                </div>
               </div>
-            </div>
-          ) : (
-            children
-          )}
+            ) : (
+              children
+            )}
+          </LanguagesContext.Provider>
         </NotificationContext.Provider>
         <ScrollRestoration />
         <Scripts />
